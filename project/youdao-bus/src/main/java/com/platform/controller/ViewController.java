@@ -148,9 +148,9 @@ public class ViewController {
      * 我的消息
      * @return
      */
-    @RequestMapping(value = "/api/messages", method = {RequestMethod.GET})
+    @RequestMapping(value = "/api/mymessage", method = {RequestMethod.GET})
     public String messages() {
-        return "api/messages";
+        return "api/mymessage";
     }
 
 	/**

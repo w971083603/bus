@@ -6,7 +6,7 @@
     <div class="apiHeader">
         <div class="apiLogoDiv">
             <div class="index_title_one">
-                <img src="../../../api/img/web/log.png" class="index_logimage">
+                <img src="../../../api/img/web/logo.png" class="index_logimage">
             </div>
             <div class="index_title_two">
                 <a href="company.jsp" class="apiTitle">首页</a>

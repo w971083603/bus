@@ -7,7 +7,6 @@
         <div class="apiLogoDiv">
             <div class="index_title_one">
                 <img src="../../../api/img/web/logo.png" class="index_logimage">
-                <span>有道巴士</span>
             </div>
             <div class="index_title_two">
                 <a href="company.jsp" class="apiTitle">首页</a>
@@ -37,10 +36,10 @@
                 <ul>
                     <li class="lib">我的订单</li>
                     <li class="lib">个人资料</li>
-                    <li class="lib" onclick="tz('http://localhost:8081/cms/api/zhsz')">账号设置</li>
+                    <li class="lib" onclick="tz('api/zhsz',this)">账号设置</li>
                     <li class="lib">常用信息</li>
                     <li class="lib">帮助中心</li>
-                    <li class="lib">我的消息</li>
+                    <li class="lib" onclick="tz('api/mymessage',this)">我的消息</li>
                     <li class="lib">问题反馈</li>
                 </ul>
             </div>
@@ -53,10 +52,13 @@
 </body>
 <%@ include file="../../../currency/js.jsp" %>
 <script>
-        function tz(url) {
+        function tz(url,obj) {
             $(".content_right").empty();
+            url = platform.CONSTS.URL_BASE_CMS + url;
             var str = "<iframe id='myFrameId' src='"+url+"' name='myFrameName' scrolling='no' frameborder='0' style='width: 100%;height: 100%;'> </iframe>"
             $(".content_right").append(str);
+            $(".lib").css("background-color","#fcfffb");
+            $(obj).css("background-color","#00B83F");
         }
 </script>
 </html>

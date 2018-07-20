@@ -3,26 +3,52 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-    <div  class="zhsz_div" style="width: 100%">
-         <ul>
-             <li class="ready ready_tel">
-                 <input type="text" placeholder="请输入手机号" id="tel">
-             </li>
-             <li class="ready ready_tel">
-                 <input type="password" placeholder="请输入密码" id="password">
-             </li>
-             <li class="ready ready_code">
-                 <input type="text" placeholder="请输入验证码" id="code">
-
-                 <button   id="send">发送验证码</button>
-             </li>
-
-             <li class="ready">
-                 <input type="hidden" id="type" value="1"/>
-                 <button   id="ok">注册</button>
-             </li>
-         </ul>
+<div class="apiHeader">
+    <div class="apiLogoDiv">
+        <div class="index_title_one">
+            <img src="../../../api/img/web/logo.png" class="index_logimage">
+        </div>
+        <div class="index_title_two">
+            <a href="company.jsp" class="apiTitle">首页</a>
+            <a href="company.jsp" class="apiTitle">发布行程</a>
+            <a href="company.jsp" class="apiTitle">车队入住</a>
+            <a href="company.jsp" class="apiTitle">关于我们</a>
+            <a href="company.jsp" class="apiTitle">在线客服</a>
+        </div>
+        <div class="index_title_three">
+            <img src="../../../api/img/web/header.png" class="user_head">
+            <div class="index_login">
+                <a href="company.jsp" class="indexcolor">13616524441</a>
+                <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                <a href="company.jsp" class="indexcolor">退出</a>
+            </div>
+        </div>
     </div>
+</div>
+<div  class="zc_div" >
+    <div class="zc_div_title" ></div>
+    <div style="width: 50%;height: 100%;margin:0 auto;">
+        <ul>
+            <li>
+                <input type="text" placeholder="请输入手机号" id="tel">
+            </li>
+            <li>
+                <input type="text" placeholder="请输入验证码" id="code">
+
+                <button   id="send">发送验证码</button>
+            </li>
+            <li>
+                <input type="password" placeholder="请输入密码" id="password">
+            </li>
+            <li>
+                <button id="ok" style="width: 100%;height: 100%;background-color:#80c369">注册</button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="apiLogoImage">
+    <img src="../../../api/img/web/zcbj.png" style="width:100%;height:100%;">
+</div>
 </body>
 </html>
 <!-- jQuery 2.2.3 -->
