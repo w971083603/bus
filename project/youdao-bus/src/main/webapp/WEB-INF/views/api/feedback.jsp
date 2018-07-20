@@ -3,23 +3,25 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-    <div  class="zhsz_div" style="width: 100%">
+    <div  class="feedbackDiv" style="width: 100%">
          <ul>
              <li>
-                 <p>用车类型</p>
+                 <p class="title">用车类型</p>
+             </li>
+             <hr class="hr" align="left"/>
+             <li>
+                 <div class="change updateType" onclick="changediv(this,'1')">包车</div>
+                 <div class="change updateType" onclick="changediv(this,'2')">单接送</div>
+             </li>
+             <li >
+                 <p class="titleTwo">反馈详情</p>
+             </li>
+             <hr class="hr" align="left"/>
+             <li>
+                 <textarea id="remarks"  placeholder="我有话说..." class="area" ></textarea>
              </li>
              <li>
-                 <div class="change change_phone" onclick="changediv(this,'1')">包车</div>
-                 <div class="change change_password" onclick="changediv(this,'2')">单接送</div>
-             </li>
-             <li>
-                 <p>反馈详情</p>
-             </li>
-             <li>
-                 <textarea id="remarks"  placeholder="我有话说..." style="margin: 0px; width: 100%; height: 60px;" ></textarea>
-             </li>
-             <li>
-                 <button id="ok">立即反馈</button>
+                 <button id="ok" class="feedbackButton">立即反馈</button>
              </li>
          </ul>
     </div>
