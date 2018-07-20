@@ -6,8 +6,7 @@
     <div class="apiHeader">
         <div class="apiLogoDiv">
             <div class="index_title_one">
-                <img src="../../../api/img/web/logo.png" class="index_logimage">
-                <span>有道巴士</span>
+                <img src="../../../api/img/web/log.png" class="index_logimage">
             </div>
             <div class="index_title_two">
                 <a href="company.jsp" class="apiTitle">首页</a>
@@ -42,8 +41,11 @@
         </div>
     </div>
     <div class="footer">
-
+        <img src="../../../api/img/web/buttom.png" width="100%" height="100%">
     </div>
 </body>
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script>
+
+</script>
 </html>
-<%@ include file="../../../currency/js.jsp" %>
