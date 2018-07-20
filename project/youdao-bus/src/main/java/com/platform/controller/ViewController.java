@@ -133,6 +133,15 @@ public class ViewController {
 		return "api/register";
 	}
 
+    /**
+     * 忘记密码
+     * @return
+     */
+    @RequestMapping(value = "/api/forgetpassword", method = {RequestMethod.GET})
+    public String forgetpassword() {
+        return "api/forgetpassword";
+    }
+
 	/**
 	 * login
 	 * @return
