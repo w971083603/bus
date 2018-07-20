@@ -169,7 +169,14 @@ public class ViewController {
 		return "api/grzl";
 	}
 
-
+	/**
+	 * 发布行程
+	 * @return
+	 */
+	@RequestMapping(value = "/api/fbxc", method = {RequestMethod.GET})
+	public String fbxc() {
+		return "api/fbxc";
+	}
 
 
 

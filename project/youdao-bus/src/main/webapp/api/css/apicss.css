@@ -494,3 +494,30 @@ api {
     letter-spacing: 0px;
     color: #333333;
 }
+
+
+/*发布行程*/
+.fbxc_div{
+    margin: 20px auto;width: 50%;
+}
+.fbxc_div li{
+    display: block;margin-bottom: 18px;width: 100%;clear: both;
+}
+.fbxc_div li span:first-child{
+    display: inline-block;width: 12%;
+}
+
+.fbxc_div_content{
+    border: 1px solid #f0f6e4;width: 100%;
+}
+.fbxc_div_content_content{
+    width: 100%;padding-top: 8%;padding-left: 10%;
+}
+.fbxc_div_title{
+    width: 100%;padding: 4px;background-color:#80c369;
+}
+
+.fbxc_div_next{
+    background-color:#80c369;margin: 10px auto;padding:  10px 0;text-align: center;width: 100px;
+}
+
