@@ -166,26 +166,76 @@ api {
     padding: 10px
 }
 
+.zhszInput {
+    width: 304px;
+    height: 52px;
+    background-color: #ffffff;
+    border: solid 1px #b5b5b5;
+}
+
+.zhszInputYzm {
+    width: 187px;
+    height: 52px;
+    background-color: #ffffff;
+    border: solid 1px #b5b5b5;
+}
+
+.zhszType {
+    width: 116px;
+    height: 39px;
+    border: solid 1px #80c369;
+}
+
 .zhsz_div .change:hover {
     cursor: pointer;
 }
 
 .zhsz_div li {
     display: block;
-    width: 300px;
+    width: 600px;
     height: 70px;
     text-align: left;
 }
 
-.zhsz_div li input {
+.zhszTitel{
+    width: 72px;
+    height: 18px;
+    font-family: MicrosoftYaHei;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 87px;
+    letter-spacing: 0px;
+    color: #333333;
+}
+
+/*.zhsz_div li input {
     height: 30px;
 }
 
 .zhsz_div li button {
     width: 105px;
     height: 50px;
-    background-color: #06dc00;
     padding: 5px
+}*/
+
+.zhszSend {
+    width: 105px;
+    height: 47px;
+    background-color: #80c369;
+    box-shadow: 3px 0px 4px 0px
+    rgba(3, 0, 1, 0.31);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.zhszOk {
+    width: 118px;
+    height: 47px;
+    background-color: #80c369;
+    box-shadow: 3px 0px 4px 0px
+    rgba(3, 0, 1, 0.31);
+    border-radius: 10px;
 }
 
 .zhsz_div button:hover {

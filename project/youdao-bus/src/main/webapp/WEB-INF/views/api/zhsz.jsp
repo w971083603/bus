@@ -6,36 +6,39 @@
     <div  class="zhsz_div" style="width: 100%">
          <ul>
              <li>
-                 <p>操作类型</p>
+                 <p class="zhszTitel">操作类型</p>
              </li>
+             <hr class="hr" align="left"/>
              <li>
-                 <div class="change change_phone" onclick="changediv(this,'1')">更换手机</div>
-                 <div class="change change_password" onclick="changediv(this,'2')">修改密码</div>
+                 <div class="change change_phone zhszType" onclick="changediv(this,'1')">更换手机</div>
+                 <div class="change change_password zhszType" onclick="changediv(this,'2')">修改密码</div>
              </li>
              <li class="ready ready_tel">
-                 <input type="text" placeholder="请输入手机号" id="tel">
+                 <input type="text" class="zhszInput" placeholder="请输入手机号" id="tel">
              </li>
              <li class="ready ready_code">
-                 <input type="text" placeholder="请输入验证码" id="code">
+                 <div>
+                     <input type="text" class="zhszInputYzm" placeholder="请输入验证码" id="code">
+                     <button class="zhszSend" id="send">发送验证码</button>
+                 </div>
 
-                 <button  id="send">发送验证码</button>
              </li>
 
 
              <li class="ready ready_oldPassword">
-                 <input type="password" placeholder="请输入旧密码" id="oldPassword">
+                 <input type="password" class="zhszInput" placeholder="请输入旧密码" id="oldPassword">
              </li>
              <li class="ready">
-                 <input type="password" placeholder="请输入新密码" id="password">
+                 <input type="password" class="zhszInput" placeholder="请输入新密码" id="password">
              </li>
 
              <li class="ready ready_newPassword">
-                 <input type="password" placeholder="确认密码" id="newPassword">
+                 <input type="password" class="zhszInput" placeholder="确认密码" id="newPassword">
              </li>
 
              <li class="ready">
                  <input type="hidden" class="_type" />
-                 <button   id="ok">确认</button>
+                 <button  class="zhszOk" id="ok">确认</button>
              </li>
          </ul>
     </div>
