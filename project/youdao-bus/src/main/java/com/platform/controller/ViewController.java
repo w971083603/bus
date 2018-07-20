@@ -185,12 +185,4 @@ public class ViewController {
 		return "api/orders";
 	}
 
-	/**
-	 * 账号设置
-	 * @return
-	 */
-	@RequestMapping(value = "/api/accountSet", method = {RequestMethod.GET})
-	public String accountSet() {
-		return "api/accountSet";
-	}
 }

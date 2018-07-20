@@ -35,7 +35,7 @@
             <div style="width:100%;height: 500px">
                 <ul>
                     <li class="lib">我的订单</li>
-                    <li class="lib">个人资料</li>
+                    <li class="lib" onclick="tz('api/grzl',this)">个人资料</li>
                     <li class="lib" onclick="tz('api/zhsz',this)">账号设置</li>
                     <li class="lib">常用信息</li>
                     <li class="lib">帮助中心</li>

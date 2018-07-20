@@ -33,7 +33,7 @@
 </body>
 </html>
 <!-- jQuery 2.2.3 -->
-<script src="../../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
 
 
