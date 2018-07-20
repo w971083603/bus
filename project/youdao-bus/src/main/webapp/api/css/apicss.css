@@ -27,7 +27,7 @@ api {
 /*首页*/
 .apiLogoDiv {
     background: url("../img/web/one.png");
-    height: 100px;
+    height: 150px;
     color: white;
     padding-top: 2%;
 }
@@ -231,21 +231,52 @@ api {
 
 /*注册*/
 .zc_div{
-     width: 17%;position: absolute;float: right;margin-top: 10%;margin-right: 10%;
-    background:transparent;color:#fff;background-color:rgba(255,255,255,0.15);
-}
-.zc_div_title{
-    width: 100%;height: 67px;background-color:#80c369;
+    width: 17%;
+    position: absolute;
+    float: right;
+    margin-top: 10%;
+    margin-left: 70%;
+    background:transparent;
+    color:#0c0c0c;
+    background-color:rgba(255,255,255,0.15);
     border-top-left-radius:2em;
     border-top-right-radius:2em;
+
+}
+.zc_div_title{
+    width: 100%;height: 67px;
+    background-color:#80c369;
+    border-top-left-radius:2em;
+    border-top-right-radius:2em;
+    color: black;
+    font-size: 25px;
+    padding-top: 20px;
+    padding-left: 30px;
 }
 .zc_div li{
     display: block;
     width: 100%;
-    margin-bottom: 2%;
+    margin-top: 15%;
+    margin-bottom: 20%;
 }
 
-.zc_div li input{
+.zc_div li input[type=text]{
     width: 100%;
     height:50px;
+    padding-left: 1%;
+}
+.zc_div li input[type=password]{
+    width: 100%;
+    height:50px;
+    padding-left: 1%;
+}
+
+.zc_div li span{
+    display: block;
+    height:50px;
+    width: 40%;background-color:#80c369;float: right;text-align: center;padding-top:18px ;
+}
+
+.zc_div li div{
+    width: 100%;height:50px;background-color:#80c369;text-align: center;padding-top:18px ;
 }

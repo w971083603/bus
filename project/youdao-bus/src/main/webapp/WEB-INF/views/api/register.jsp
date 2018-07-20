@@ -26,22 +26,25 @@
     </div>
 </div>
 <div  class="zc_div" >
-    <div class="zc_div_title" ></div>
-    <div style="width: 50%;height: 100%;margin:0 auto;">
+    <div class="zc_div_title" >账号注册</div>
+    <div style="width: 60%;height: 100%;margin:0 auto;">
         <ul>
             <li>
                 <input type="text" placeholder="请输入手机号" id="tel">
             </li>
             <li>
-                <input type="text" placeholder="请输入验证码" id="code">
+                <input type="text" placeholder="请输入验证码" id="code" style="width: 54%;">
 
-                <button   id="send">发送验证码</button>
+                <span   id="send">发送验证码</span>
             </li>
             <li>
                 <input type="password" placeholder="请输入密码" id="password">
             </li>
             <li>
-                <button id="ok" style="width: 100%;height: 100%;background-color:#80c369">注册</button>
+                <input type="checkbox"> 我已同意
+            </li>
+            <li>
+                <div id="ok">注册</div>
             </li>
         </ul>
     </div>
