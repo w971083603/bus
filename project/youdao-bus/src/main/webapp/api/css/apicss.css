@@ -345,3 +345,56 @@ api {
     height: 39px;
     border: solid 1px #80c369;
 }
+/**
+个人资料
+ */
+.grzlDiv {
+    padding-top: 3%;
+    padding-left: 6%;
+}
+
+.grzlBtn {
+    width: 118px;
+    height: 47px;
+    background-color: #80c369;
+    box-shadow: 3px 0px 4px 0px
+    rgba(3, 0, 1, 0.31);
+    border-radius: 10px;
+}
+
+.grzlInput {
+    width: 304px;
+    height: 52px;
+    border: solid 1px #b5b5b5;
+}
+
+.grzlLabel {
+    width: 75px;
+    height: 17px;
+    font-family: MicrosoftYaHei;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 87px;
+    letter-spacing: 0px;
+    color: #333333;
+}
+
+.grzlRadio{
+    width: 16px;
+    height: 16px;
+    background-color: #b5b5b5;
+    border: solid 2px #a0a0a0;
+}
+
+.grzlSpan {
+    width: 36px;
+    height: 18px;
+    font-family: MicrosoftYaHei;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 87px;
+    letter-spacing: 0px;
+    color: #333333;
+}

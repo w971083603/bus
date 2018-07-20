@@ -3,30 +3,52 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-    <div  class="zhsz_div" style="width: 100%">
+    <div  class="grzlDiv" style="width: 100%">
          <ul>
-             <div id="headerUrl" onclick="changeImage('headerUrl')">
-                 <img class="headerUrl img-thumbnail"  style="height: 80px;"
-                      layer-src="../../apiresources/img/add.png" src="../../apiresources/img/add.png"/>
-             </div>
-             <input type="hidden" class="form-control QheaderUrl" name="headerUrl"/>
-             <li class="ready ready_tel">
-                 <input type="text" placeholder="请输入昵称" id="nickname">
+             <li>
+                 <div>
+                     <label class="grzlLabel">头像:</label>
+                     <div id="headerUrl" onclick="changeImage('headerUrl')">
+                         <img class="headerUrl img-thumbnail"  style="height: 80px;"
+                              layer-src="../../apiresources/img/add.png" src="../../apiresources/img/add.png"/>
+                     </div>
+                     <input type="hidden" class="form-control QheaderUrl" name="headerUrl"/>
+                 </div>
              </li>
-             <li class="ready ready_tel">
-                 <input type="email" placeholder="请输入邮箱" id="email">
+             <li>
+                 <div>
+                     <label class="grzlLabel">昵称:</label>
+                     <input type="text" class="grzlInput" placeholder="请输入昵称" id="nickname">
+                 </div>
+
              </li>
-             <li class="ready ready_tel">
-                 <input type="radio" name="radio" value="先生" />先生
-                 <input type="radio" name="radio" value="女士" />女士
-                 <input type="radio" name="radio" value="保密" />保密
+             <li>
+                 <div>
+                     <label class="grzlLabel">邮箱:</label>
+                     <input type="email" class="grzlInput" placeholder="请输入邮箱" id="email">
+                 </div>
              </li>
-             <li class="ready ready_code">
-                 <input type="text" placeholder="请输入生日" id="birthday" >
+             <li>
+
+                 <div>
+                     <label class="grzlLabel">性别:</label>
+                     <input type="radio" class="grzlRadio" name="radio" value="先生" /><span class="grzlSpan">先生</span>
+                     <input type="radio" class="grzlRadio" name="radio" value="女士" /><span class="grzlSpan">女士</span>
+                     <input type="radio" class="grzlRadio" name="radio" value="保密" /><span class="grzlSpan">保密</span>
+                 </div>
+             </li>
+             <li>
+                 <div>
+                     <label class="grzlLabel">生日:</label>
+                     <input type="text" class="grzlInput"  placeholder="请输入生日" id="birthday" >
+                 </div>
+
              </li>
 
-             <li class="ready">
-                 <button   id="ok">确认</button>
+             <li>
+                 <div>
+                     <button  class="grzlBtn" id="ok">确认</button>
+                 </div>
              </li>
          </ul>
     </div>
