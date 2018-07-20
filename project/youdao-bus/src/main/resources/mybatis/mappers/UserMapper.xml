@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.UserMapper">
+
+    <!--查询系统账号的分页查询-->
+    <select id="selectList" parameterType="java.util.Map"   resultType="com.platform.commons.utils.PageData">
+        SELECT
+            a.id as userId,
+            a.code,
+            a.login_number as loginName,
+            a.image_url as imageUrl,
+            a.name as nickName,
+            a.phone,
+            a.remarks,
+            a.create_time as createDate,
+            a.last_time as lastTime,
+            a.user_status as userStatus,
+            b.role_id as roleId,
+            c.role_name as roleName
+        FROM
+            m_sys_user a,m_role_user b,m_roles c
+        WHERE
+            a.id = b.user_id
+            and b.role_id  = c.id
+            <if test=" loginName != null and loginName != '' ">
+                and   a.login_number LIKE CONCAT('%',CONCAT(#{loginName},'%') )
+            </if>
+            <choose>
+                <when test="roleId == '2'.toString()"> and b.role_id = 2 </when>
+                <otherwise>  and b.role_id != 2 </otherwise>
+            </choose>
+        order by a.id desc
+    </select>
+
+    <insert id="saveUser" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO `m_sys_user`
+        (`login_number`, `code`, image_url, `name`, `phone`, `password`, `user_status`, `create_time`, `create_by`, `last_time`, `last_by`,remarks)
+        VALUES
+        (#{loginNumber}, #{code}, #{imageUrl}, #{name}, #{phone}, #{password}, '0', now(),#{createBy}, now(), #{createBy}, #{remarks})
+    </insert>
+
+
+    <insert id="saveClient" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO  `t_user`
+        ( `type`, `uuid`, `tel`, `nickname`, `password`, `locked`, `create_by`, `create_time`, `login_time`)
+        VALUES
+        ( #{type}, #{uuid}, #{tel}, #{nickname}, #{password}, 0, #{createBy}, now(),now())
+    </insert>
+
+
+    <update id="updateUser" parameterType="com.platform.commons.utils.PageData" >
+        update m_sys_user
+        set
+        <if test="updateBy != null and updateBy != ''">
+            last_by = #{updateBy},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="userStatus != null and userStatus != ''">
+            user_status = #{userStatus},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="imageUrl != null and imageUrl != ''">
+            image_url = #{imageUrl},
+        </if>
+        <if test="remarks != null and remarks != ''">
+            remarks = #{remarks},
+        </if>
+        id = id
+        where
+        id =#{userId}
+    </update>
+
+
+
+</mapper>

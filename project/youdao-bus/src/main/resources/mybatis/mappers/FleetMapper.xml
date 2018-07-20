@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.FleetMapper">
+
+
+    <insert id="save" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO t_fleet( name, tel,remarks,status, create_time) VALUES (#{name}, #{tel},#{remarks},#{status}, now())
+    </insert>
+
+    <select id="selectList" parameterType="java.util.Map"   resultType="com.platform.commons.utils.PageData">
+        select
+        id,
+        ifnull(a.name,'') AS name,
+        ifnull(a.tel,'') as tel,
+        ifnull(a.name,'')remarks,
+        a.create_time as createTime,
+        ifnull(a.aduit_by,'') as aduitBy,
+        ifnull(a.aduit_time,'') as aduitTime,
+        ifnull(a.aduit_remarks,'') as aduitRemarks,
+        status
+        FROM
+        t_fleet a
+        WHERE 1 = 1
+        <if test="name != null and name != ''">
+            and  a.name LIKE CONCAT('%',CONCAT(#{name},'%') )
+        </if>
+        <if test="tel != null and tel != ''">
+            and  a.tel LIKE CONCAT('%',CONCAT(#{tel},'%') )
+        </if>
+        <if test="status != null and status != ''">
+            and  a.status = #{status}
+        </if>
+        order by a.id desc
+    </select>
+
+    <update id="updateById"  parameterType="com.platform.commons.utils.PageData">
+        update t_fleet set
+        aduit_remarks = #{auditRemarks},
+        aduit_by = #{auditBy},
+        status = #{status},
+        aduit_time = now()
+        where id = #{id}
+    </update>
+
+</mapper>

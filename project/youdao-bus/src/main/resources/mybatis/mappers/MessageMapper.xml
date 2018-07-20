@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.MessageMapper">
+
+
+    <insert id="save" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO t_massage( user_uuid, massage,is_yorn,is_delete, create_time) VALUES (#{uuid}, #{message},0,0, now())
+    </insert>
+
+
+</mapper>

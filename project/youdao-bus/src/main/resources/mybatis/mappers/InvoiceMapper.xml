@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.InvoiceMapper">
+
+
+    <insert id="insert" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO t_invoice(user_uuid, invoice_header, invoice_contact, invoice_phone, invoice_address, invoice_duty, create_time)
+         VALUES (#{uuid},#{invoiceHeader}, #{invoiceContact},#{invoicePhone},#{invoiceAddress},#{invoiceDuty}, now())
+    </insert>
+
+
+</mapper>

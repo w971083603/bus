@@ -1,0 +1,173 @@
+div, body ,ul,li,image{
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+.indexcolor{
+    color: #80c269;letter-spacing:2px
+}
+api {
+    width: 1920px;
+}
+
+.apiLogoDiv {
+    background:url("../img/web/one.png") ;
+    height: 100px;
+    color: white;
+    padding-top: 2%;
+}
+
+.apiLogoDiv .index_title_one {
+    width: 9%;
+    height: 50%;
+    float: left;
+    margin-left: 10%;
+}
+
+.apiLogoDiv .index_title_two {
+    width: 40%;
+    height: 50%;
+    float: left;
+    margin-left: 5%;
+}
+
+.apiLogoDiv .index_title_three {
+    width: 20%;
+    height: 50%;
+    float: right;
+    margin-right: 5%;
+}
+.index_logimage{
+    width: 30%;
+    float: left;
+}
+
+.apiLogoDiv .index_title_one span {
+    display: block;
+    font-family: Benmo-Wuyu;
+    font-size: 25px;
+    color: #80c269;
+    float: right;
+    margin-top: 5%;
+}
+.apiLogoDiv .index_title_two a {
+    display: block;
+    float: left;
+    margin-top: 2%;
+    margin-right: 10%;
+    font-size: 16px;
+    color: white;
+}
+.user_head{
+    width: 15%;
+    float: left;
+}
+.index_login{
+    text-align: center;
+    float: left;
+    margin-top: 5%;
+    margin-left: 3%;
+}
+
+.apiLogoImage {
+    height: 500px;
+}
+
+.contentDiv{
+    margin-top: 80px;
+    width: 100%;
+    background:url("../img/web/two.png") ;
+    padding-bottom: 20px;
+}
+.contentDiv_one{
+    width: 100%;
+    text-align: center;
+    padding-top: 4%;
+}
+.contentDiv_one span{
+    font-size: 20px;
+}
+.contentDiv_two{
+    width: 100%;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.footer{
+    margin-top: 80px;
+    width: 100%;
+    background:url("../img/web/one.png") ;
+    height: 300px;
+}
+
+.content{
+    margin-top: 200px;
+    margin-left: 200px;
+    border: 1px solid #000;
+    width: 80%;
+    height: 600px;
+}
+.content_left{
+    width: 20%;
+    height: 600px;
+    border-right:1px solid #000;
+    float: left;
+}
+.content_left li{
+    display: block;
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    line-height: 60px;
+}
+.content_left li:hover{
+    background-color: #00B83F;
+}
+
+.content_right{
+    width: 78%;
+    height: 600px;
+    float: left;
+}
+
+
+.zhsz_div{
+    padding-top:10px;
+    padding-left:10px;
+}
+
+.zhsz_div .change{
+    width: 91px;
+    margin-right: 45px;
+    float: left;
+    padding: 7px
+}
+.zhsz_div .change:hover{
+    cursor: pointer;
+}
+
+.zhsz_div li{
+    display: block;
+    width: 300px;
+    height: 70px;
+    text-align: left;
+}
+.zhsz_div li input{
+    height: 30px;
+}
+.zhsz_div li button{
+    width: 105px;
+    background-color: #06dc00;
+    height: 30px;
+    padding: 5px
+}
+.zhsz_div button:hover{
+    cursor: pointer;
+}
+
+.ready{
+    display: none;
+}

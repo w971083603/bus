@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.RoleMapper">
+
+
+    <select id="selectModulesListByRoleId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+       SELECT
+            ifnull(CONCAT(c.pid,c.description),0) as modulstr
+        FROM
+            m_roles a , m_role_modules b ,m_modules c
+        WHERE a.id=b.role_id
+            AND b.module_id=c.id
+            AND a.id=#{id}
+    </select>
+
+
+    <insert id="saveRoleUser" parameterType="com.platform.commons.utils.PageData">
+       INSERT INTO  `m_role_user`
+       (`user_id`, `role_id`, `create_by`, `create_time`, `write_by`, `write_time`)
+        VALUES
+        (#{userId}, #{roleId}, #{createBy}, now(), #{createBy}, now());
+    </insert>
+
+    <insert id="saveRole" parameterType="com.platform.commons.utils.PageData">
+       INSERT INTO  `m_roles`
+       (`role_name`, `create_date`,is_delete)
+        VALUES
+        (#{roleName}, now(),0);
+    </insert>
+    <insert id="saveRoleModuleId" parameterType="com.platform.commons.utils.PageData">
+       INSERT INTO  m_role_modules
+       (role_id, module_id)
+        VALUES
+        (#{roleId},#{moduleId})
+    </insert>
+
+    <!--查询会员的分页查询-->
+    <select id="selectListVoPage" parameterType="java.util.Map" resultType="com.platform.commons.utils.PageData">
+        SELECT
+        id as roleId,
+        create_date as createDate,
+        role_name as roleName
+        FROM
+        m_roles
+        where
+        is_delete = 0
+        <if test=" roleId != null and roleId != '' ">
+            and id LIKE CONCAT('%',CONCAT(#{roleId},'%') )
+        </if>
+        <if test=" roleName != null and roleName != '' ">
+            and role_name LIKE CONCAT('%',CONCAT(#{roleName},'%') )
+        </if>
+    </select>
+
+</mapper>

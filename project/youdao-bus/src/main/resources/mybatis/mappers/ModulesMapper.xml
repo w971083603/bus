@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.mapper.ModulesMapper">
+
+    <!--根据多个roles字符串查询角色对应的菜单以及子菜单-->
+    <select id="selectModulesListByRoleId" resultType="com.platform.commons.utils.PageData" parameterType="java.lang.String">
+        SELECT
+            c.id,
+            c.name,
+            c.url,
+            c.pid,
+            c.module_type as moduleType,
+            c.open_mode as openMode,
+            c.icon,
+            c.seq,
+            c.opened,
+            c.status
+         FROM
+            m_roles a,
+            m_role_modules b,
+            m_modules c
+        WHERE
+          a.id=#{role_id}
+          and c.module_type = '1'
+          and c.status='0'
+          and a.id=b.role_id
+          and b.module_id=c.id
+        ORDER BY c.seq
+    </select>
+
+    <!--根据条件对应的菜单以及子菜单-->
+    <select id="selectList" resultType="com.platform.commons.utils.PageData" parameterType="com.platform.commons.utils.PageData">
+        SELECT
+            c.id,
+            c.name,
+            c.pid as parentId
+         FROM
+            m_modules c
+        WHERE
+              c.status='0'
+              and c.pid = #{pid}
+        ORDER BY c.seq
+    </select>
+
+
+
+</mapper>
