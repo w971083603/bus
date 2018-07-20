@@ -168,7 +168,7 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
             }
             String md5Password = StringUtils.getMD5Str(password);
-            int n = userMapper.update(userPd.getString("id"), md5Password);
+            int n = userMapper.update(userPd.getLong("id"), md5Password);
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "密码修改失败"));
             }
@@ -225,7 +225,7 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
             }
             String md5Password = StringUtils.getMD5Str(password);
-            int n = userMapper.updateTelAndPassword(userUuidPd.getString("id"), md5Password, tel);
+            int n = userMapper.updateTelAndPassword(userUuidPd.getLong("id"), md5Password, tel);
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "更换手机号失败"));
             }
@@ -271,7 +271,7 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
             }
             String md5Password = StringUtils.getMD5Str(password);
-            int n = userMapper.update(userPd.getString("id"), md5Password);
+            int n = userMapper.update(userPd.getLong("id"), md5Password);
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "密码修改失败"));
             }
@@ -890,6 +890,29 @@ public class ApiController extends BaseController {
     }
 
     /**
+     * 个人资料
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/detailUser", method = RequestMethod.POST)
+    public ResponseEntity detailUser(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            String uuid = (String) session.getAttribute("uuid");
+            PageData userPd = userMapper.selectByUuid(uuid);
+            if (StringUtils.isEmpty(userPd)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
+            }
+            result = ResponseWrapper.succeed(userPd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(ResponseWrapper.failed(-1, "获取个人资料失败"));
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    /**
      * 修改个人资料
      *
      * @return
@@ -910,7 +933,7 @@ public class ApiController extends BaseController {
             if (StringUtils.isEmpty(userPd)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
             }
-            int n = userMapper.updateUserData(userPd.getString("id"), nickname, birthday, email, sex, headerUrl);
+            int n = userMapper.updateUserData(uuid, nickname, birthday, email, sex, headerUrl);
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "个人资料更新失败"));
             }

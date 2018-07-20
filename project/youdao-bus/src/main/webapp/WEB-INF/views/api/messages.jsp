@@ -14,8 +14,8 @@
                          <input type="checkbox" id="check">
                      </td>
                      <td>
-                         <div class="change change_phone" onclick="">标记所选为已读</div>
-                         <div class="change change_password" onclick="">删除所选</div>
+                         <div class="change change_phone" id="updateOne">标记所选为已读</div>
+                         <div class="change change_password" id="delete">删除所选</div>
                      </td>
                      <td>未读/全部</td>
                  </tr>
@@ -93,22 +93,26 @@
         $(".change_phone").click();
     });
 
-    function changediv(obj,type) {
-        $(".change").css("background-color","#fcfffb");
-        $(obj).css("background-color","#06dc00");
-        $(".ready").show();
-        if(type == "1"){
-            $(".ready_tel").show();
-            $(".ready_code").show();
-            $(".ready_oldPassword").hide();
-            $(".ready_password").hide();
-            $(".ready_password").hide();
-        }else{
-            $(".ready_tel").hide();
-            $(".ready_code").hide();
-            $(".ready_oldPassword").show();
-            $(".ready_password").show()
-        }
+    function selectList() {
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/updateTel",
+            data: {
+                "tel": tel,
+                "code": code,
+                "password":password
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    layer.msg('手机号更换成功！');
+                    window.location.href = platform.CONSTS.URL_BASE_API;
+                } else {
+                    layer.msg("手机号更换失败", {icon: 2});
+                    return;
+                }
+            }
+        });
 
     }
 

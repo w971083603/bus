@@ -153,7 +153,14 @@ public class ViewController {
         return "api/messages";
     }
 
-
+	/**
+	 * 个人资料
+	 * @return
+	 */
+	@RequestMapping(value = "/api/grzl", method = {RequestMethod.GET})
+	public String grzl() {
+		return "api/grzl";
+	}
 
 
 

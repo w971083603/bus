@@ -107,4 +107,45 @@ public class OrderController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * 上传图片
+     *
+     * @param files 文件
+     * @return
+     */
+    @RequestMapping(value = "/saveImage", method = RequestMethod.POST)
+    public ResponseEntity saveImage(
+            @RequestParam(value = "upLoadImage", required = false) MultipartFile[] files
+    ) {
+        String imageUrl = "";
+        ResponseWrapper result;
+        try {
+            if (files != null && files.length > 0) {
+                //循环获取file数组中得文件
+                int n = files.length;
+                for (int i = 0; i < n; i++) {
+                    MultipartFile file = files[i];
+                    //保存文件
+                    String filePath = SystemConfig.getInstance().getABSOLUTELY_URL();                    //头像上传路径相对地址
+                    System.out.println("下载路径" + filePath);
+                    String fileName = FileUpload.fileUp(file, filePath, StringUtils.getUUId());                    //执行上传
+                    System.out.println("地址" + fileName);
+                    String newUrl = SystemConfig.getInstance().getURL_BASE_IMG() + fileName;    //设置头像路径（域名+名称）
+                    System.out.println("上传后的路径:" + newUrl);
+                    if (n > 1) {
+                        imageUrl = imageUrl + "," + newUrl;
+                    } else {
+                        imageUrl = newUrl;
+                    }
+                }
+                result = ResponseWrapper.succeed(imageUrl);
+            } else {
+                result = ResponseWrapper.failed(-1, "上传失败");
+            }
+        } catch (Exception e) {
+            result = ResponseWrapper.failed(-1, "上传失败");
+        }
+        return ResponseEntity.ok(result);
+    }
+
 }

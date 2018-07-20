@@ -2,6 +2,8 @@
 <!-- jQuery 2.2.3 -->
 <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../../plugins/daterangepicker/moment.js"></script>
+<script src="../../plugins/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="../../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <%--<script src="../../dist/js/app.min.js"></script>--%>
 <script src="../../layer/2.1/layer.js"></script>
 <script src="../../layer/2.1/extend/layer.ext.js"></script>

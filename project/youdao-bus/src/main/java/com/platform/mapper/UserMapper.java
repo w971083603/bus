@@ -44,16 +44,17 @@ public interface UserMapper {
     @Select("SELECT * from t_user WHERE tel=#{tel} and type = #{type}")
     PageData selectByTelAndType(@Param("tel") String tel,@Param("type") String type);
 
-    @Select("SELECT * from t_user WHERE uuid=#{uuid}")
+    @Select("SELECT id,nickname,type,tel,password,ifnull(birthday,'') as birthday,ifnull(email,'') as email," +
+            "ifnull(sex,'') as sex,ifnull(header_url,'') as headerUrl from t_user WHERE uuid=#{uuid}")
     PageData selectByUuid(@Param("uuid") String uuid);
 
     @Update("update t_user set password = #{password} where id = #{id}")
-    int update(@Param("id") String id,@Param("password") String password);
+    int update(@Param("id") long id,@Param("password") String password);
 
     @Update("update t_user set password = #{password},tel = #{tel} where id = #{id}")
-    int updateTelAndPassword(@Param("id") String id,@Param("password") String password,@Param("tel") String tel);
+    int updateTelAndPassword(@Param("id") long id,@Param("password") String password,@Param("tel") String tel);
 
-    @Update("update t_user set nickname = #{nickname},birthday = #{birthday},email = #{email},sex = #{sex},header_url=#{headerUrl} where id = #{id}")
-    int updateUserData(@Param("id") String id,@Param("nickname") String nickname,@Param("birthday") String birthday,
+    @Update("update t_user set nickname = #{nickname},birthday = #{birthday},email = #{email},sex = #{sex},header_url=#{headerUrl} where uuid = #{uuid}")
+    int updateUserData(@Param("uuid") String uuid,@Param("nickname") String nickname,@Param("birthday") String birthday,
                        @Param("email") String email,@Param("sex") String sex,@Param("headerUrl") String headerUrl);
 }
