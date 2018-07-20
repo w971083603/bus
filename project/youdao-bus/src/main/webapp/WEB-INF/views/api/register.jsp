@@ -40,11 +40,14 @@
             <li>
                 <input type="password" placeholder="请输入密码" id="password">
             </li>
-            <li>
-                <input type="checkbox"> 我已同意
+            <li style="font-size: 12px;">
+                <input type="checkbox"> 我已同意<a  href="#" style="color: red;">《就道巴士服务协议》</a>
             </li>
             <li>
                 <div id="ok">注册</div>
+            </li>
+            <li style="font-size: 12px;">
+                已有账号？<a  href="#" style="color: red;">立即登录</a>
             </li>
         </ul>
     </div>
