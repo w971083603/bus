@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface MessageMapper {
 
-    @Select("SELECT user_uuid as uuid,id,massage, is_yorn as isYorn," +
-            " is_delete as isDelete,create_time as createTime from t_massage WHERE is_delete = 0 and user_uuid = #{uuid}")
+    @Select("SELECT user_uuid as uuid,id,massage, case when is_yorn = 0 then '未读' else '已读' end as isYorn," +
+            " is_delete as isDelete,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as createTime from t_massage WHERE is_delete = 0 and user_uuid = #{uuid}")
     List<PageData> selectByUuid(@Param("uuid") String uuid);
 
     @Select("select ifnull(sum(case when is_yorn = 0 then 1 else 0 end),0) as noRead, count(*) as allRead from t_massage WHERE is_delete = 0 and user_uuid = #{uuid}")

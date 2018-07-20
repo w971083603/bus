@@ -115,9 +115,14 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "密码不能为空"));
             }
             String md5Password = StringUtils.getMD5Str(password);
-            PageData userPd = userMapper.selectByLoginNameAndPassword(tel, md5Password, type);
+            PageData userPd = userMapper.selectByTypeAndTel(type,tel);
             if (StringUtils.isEmpty(userPd)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
+            }
+            String oldPassword = userPd.getString("password");
+//            PageData userPd = userMapper.selectByLoginNameAndPassword(tel, md5Password, type);
+            if (!oldPassword.equals(md5Password)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "用户名或密码错误"));
             }
             session.setAttribute("uuid", userPd.getString("uuid"));
             result = ResponseWrapper.succeed(true);

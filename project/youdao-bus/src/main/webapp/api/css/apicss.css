@@ -254,30 +254,68 @@ api {
 }
 
 .message_div table {
-    width: 60%;
+    width: 80%;
 }
 
 .message_div tr {
-    width: 60%;
+    width: 80%;
 }
 
-.message_div td {
+/*.message_div td {
     text-align: center;
     width: 25%;
     border: 1px solid #d2d6de;
     padding: 2px
+}*/
+
+.messageTdContent {
+     width: 45%;
+     text-align: center;
+     /*background-color: #eeeeee;*/
+     border: solid 1px #b5b5b5;
+ }
+
+.messageTdCheckbox {
+    width: 15%;
+    text-align: center;
+    /*background-color: #eeeeee;*/
+    border: solid 1px #b5b5b5;
 }
+
+.messageTdYorn {
+    width: 15%;
+    text-align: center;
+    /*background-color: #eeeeee;*/
+    border: solid 1px #b5b5b5;
+}
+.messageTdTime {
+    width: 25%;
+    text-align: center;
+    /*background-color: #eeeeee;*/
+    border: solid 1px #b5b5b5;
+}
+
 
 .message_div input[type=checkbox] {
-    width: 10px;
-    height: 10px;
+    width: 28px;
+    height: 28px;
+    background-color: #ffffff;
+    border: solid 1px #b5b5b5;
 }
 
-.message_div button {
+.messageBtn {
+    width: 137px;
+    height: 32px;
+    background-color: #80c369;
+    border-radius: 5px;
+    border: solid 1px #626262;
+}
+
+/*.message_div button {
     width: 105px;
     background-color: #06dc00;
     padding: 5px
-}
+}*/
 
 /*注册*/
 .zc_div{
