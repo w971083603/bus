@@ -10,7 +10,7 @@
                      <label class="grzlLabel">头像:</label>
                      <div id="headerUrl" onclick="changeImage('headerUrl')">
                          <img class="headerUrl img-thumbnail"  style="height: 80px;"
-                              layer-src="../../apiresources/img/add.png" src="../../apiresources/img/add.png"/>
+                              layer-src="../../../api/img/web/header.png" src="../../../api/img/web/header.png"/>
                      </div>
                      <input type="hidden" class="form-control QheaderUrl" name="headerUrl"/>
                  </div>
@@ -127,7 +127,7 @@
     //订单详情循环展示图片
     function showImageS(classId,backurl) {
         if(backurl == null || backurl == ""){
-            backurl = "../../apiresources/img/add.png";
+            backurl = "../../../api/img/web/header.png";
         }
         $("#" + classId).empty();
         var imgs = backurl.split(",");
