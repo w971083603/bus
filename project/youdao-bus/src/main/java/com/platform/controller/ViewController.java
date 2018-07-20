@@ -185,4 +185,13 @@ public class ViewController {
 		return "api/orders";
 	}
 
+
+	/**
+	 * 反馈建议
+	 * @return
+	 */
+	@RequestMapping(value = "/api/feedback", method = {RequestMethod.GET})
+	public String feedback() {
+		return "api/feedback";
+	}
 }

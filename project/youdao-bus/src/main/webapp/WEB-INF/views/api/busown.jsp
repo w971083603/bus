@@ -40,7 +40,7 @@
                     <li class="lib">常用信息</li>
                     <li class="lib">帮助中心</li>
                     <li class="lib" onclick="tz('api/mymessage',this)">我的消息</li>
-                    <li class="lib">问题反馈</li>
+                    <li class="lib" onclick="tz('api/feedback',this)">问题反馈</li>
                 </ul>
             </div>
         </div>
