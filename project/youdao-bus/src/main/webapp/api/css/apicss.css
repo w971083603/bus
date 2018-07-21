@@ -163,7 +163,7 @@ api {
 .zhsz_div .change {
     margin-right: 50px;
     float: left;
-    padding: 10px
+    padding: 10px;
 }
 
 .zhszInput {
@@ -521,3 +521,33 @@ api {
     background-color:#80c369;margin: 10px auto;padding:  10px 0;text-align: center;width: 100px;
 }
 
+/*常用信息*/
+.cyxx_div .change{
+    margin-right: 50px;
+    float: left;
+    padding: 10px
+}
+
+.cyxx_div .change:hover {
+    cursor: pointer;
+    background-color: #fcfffb;
+}
+
+.cyxx_div li{
+    display: block;
+    width: 100%;
+    clear: both;
+    height: 73px;
+}
+.cyxx_div li label{
+    display: inline-block;width: 5%;text-align: left;
+}
+.cyxx_div li input[type=text]{
+    width: 13%;
+    height: 45px;
+    padding-left: 1%;
+}
+.cyxx_div table td{
+    width: 10%;
+    text-align: center;
+}

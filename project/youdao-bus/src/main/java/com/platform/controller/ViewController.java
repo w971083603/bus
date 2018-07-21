@@ -208,4 +208,15 @@ public class ViewController {
 	public String feedback() {
 		return "api/feedback";
 	}
+
+
+
+	/**
+	 * 常用信息
+	 * @return
+	 */
+	@RequestMapping(value = "/api/cyxx", method = {RequestMethod.GET})
+	public String cyxx() {
+		return "api/cyxx";
+	}
 }
