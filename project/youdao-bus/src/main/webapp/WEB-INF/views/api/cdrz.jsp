@@ -26,7 +26,8 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <img src="${sessionScope.headerUrl}" class="user_head">
+                    <img onclick="tzUrl('/api/busown')" src="${empty sessionScope.headerUrl || sessionScope.headerUrl eq ''?'../../../api/img/web/header.png':sessionScope.headerUrl}" class="user_head">
+
                     <div class="index_login">
                         <a onclick="tzUrl('/api/busown')" class="indexcolor">${sessionScope.nickname}</a>
                         <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>

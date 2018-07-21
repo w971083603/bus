@@ -3684,12 +3684,12 @@ input.labelauty + label > span.labelauty-checked
 .demand_step .step:after {
 	content: "";
 	display: inline-block;
-	width: 260px;
+	width: 193px;
 	height: 2px;
-	background-color:#c9c9c9;
+	background-color: #c9c9c9;
 	position: absolute;
-	top:50%;
-	left:-270px;
+	top: 50%;
+	left: -204px;
 }
 
 .demand_step li.on .step {

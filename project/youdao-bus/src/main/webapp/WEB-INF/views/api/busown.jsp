@@ -26,7 +26,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <img src="${sessionScope.headerUrl}" class="user_head">
+                        <img onclick="tzUrl('/api/busown')" src="${empty sessionScope.headerUrl || sessionScope.headerUrl eq ''?'../../../api/img/web/header.png':sessionScope.headerUrl}" class="user_head">
                         <div class="index_login">
                             <a onclick="tzUrl('/api/busown')" class="indexcolor">${sessionScope.nickname}</a>
                             <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
@@ -39,8 +39,8 @@
     </div>
     <div class="content">
         <div class="content_left">
-            <div style="width: 100%;height: 100px;text-align: center;line-height: 144px;">
-                <img src="${sessionScope.headerUrl}">
+            <div style="width: 100%;height: 100px;text-align: center;line-height: 111px;">
+                <img src="${empty sessionScope.headerUrl || sessionScope.headerUrl eq ''?'../../../api/img/web/header.png':sessionScope.headerUrl}" width="70px" height="70px">
                 <span><span></span>${sessionScope.nickname}</span>
             </div>
             <div style="width:100%;height: 500px">

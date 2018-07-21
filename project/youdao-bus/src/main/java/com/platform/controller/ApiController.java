@@ -799,6 +799,17 @@ public class ApiController extends BaseController {
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "确认发布失败"));
             }
+//            PageData userPd = userMapper.selectByUuid(pd.getString("uuid"));
+//            String tel = userPd.getString("tel");
+//            String msg = msgHeader + "平台已对订单号【" + pd.getString("orderUuid") +"】进行报价，报价金额为" + pd.getString("auditMoney") + ",请前往网站进行查看。";
+//            JSONObject sms = SendSmsUtil.sendSms(msg, tel);
+//            if (sms.getString("code").equals("0")) {
+//                pd.put("message",msg);
+//                messageMapper.save(pd);
+////                smsCodeMapper.insert(tel, messageCode, type);
+//            } else {
+//                return ResponseEntity.ok(ResponseWrapper.failed(-1, "短信发送失败"));
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
