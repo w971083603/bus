@@ -259,7 +259,7 @@
      */
     platform.post = function (url,formData,fnSuccessCallback,fnErrorCallback,contentType) {
         $.ajax({
-            url: platform.CONSTS.URL_BASE_API + url,
+            url: platform.CONSTS.URL_BASE_CMS + url,
             type: 'post',
             data: formData,
             processData:false,
