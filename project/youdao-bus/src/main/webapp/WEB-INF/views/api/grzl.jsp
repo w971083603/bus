@@ -93,7 +93,7 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('个人资料修改成功！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        window.location.reload();
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;

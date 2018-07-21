@@ -37,8 +37,8 @@
     <div class="content">
         <div class="content_left">
             <div style="width: 100%;height: 100px;text-align: center;line-height: 144px;">
-                <img src="../../../api/img/web/header.png">
-                <span><span>个人</span>：No.2222222222</span>
+                <img src="${sessionScope.headerUrl}">
+                <span><span></span>${sessionScope.nickname}</span>
             </div>
             <div style="width:100%;height: 500px">
                 <ul>
