@@ -190,6 +190,26 @@ public class ViewController {
     }
 
 
+
+	/**
+	 * 关于我们
+	 * @return
+	 */
+	@RequestMapping(value = "/api/gywm", method = {RequestMethod.GET})
+	public String gywm() {
+		return "api/gywm";
+	}
+
+
+	/**
+	 * 在线客服
+	 * @return
+	 */
+	@RequestMapping(value = "/api/zxkf", method = {RequestMethod.GET})
+	public String zxkf() {
+		return "api/zxkf";
+	}
+
 	/**
 	 * 个人中心页
 	 * @return

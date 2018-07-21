@@ -151,6 +151,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">二维码</label>
+                        <div class="col-sm-6 qrcode">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">备注</label>
                         <div class="col-sm-6">
                             <textarea type="text" name="remarks" class="form-control updateremarks"></textarea>
@@ -302,6 +308,12 @@
             var data = tables.api().row($(this).parents("tr")).data();
             $(".updateloginName").val(data.loginName);
             $(".updatephone").val(data.phone);
+            $("#qrcode").qrcode({
+                render: "table",
+                width: 200,
+                height:200,
+                text: data.phone
+            });
             $(".updatenickName").val(data.nickName);
             $(".updateroleId").val(data.roleId);
             $(".userId").val(data.userId);

@@ -9,7 +9,7 @@
                 <img src="../../../api/img/web/logo.png" class="index_logimage">
             </div>
             <div class="index_title_two">
-                <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
+                <a onclick="tzUrl('/api/busindex')" class="apiTitle" style=" color: #00B83F;">首页</a>
                 <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
                 <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队入住</a>
                 <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
