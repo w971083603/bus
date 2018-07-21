@@ -1,6 +1,6 @@
-div, body, ul, li, image, td, tr {
-    padding: 0;
+html, body, h1, h2, h3, h4, h5, h6, header, footer, menu, div, p, ul, ol, blockquote, dl, dt, dd {
     margin: 0;
+    padding: 0;
 }
 
 .button {
@@ -127,8 +127,7 @@ api {
 
 /*个人中心*/
 .content {
-    margin-top: 100px;
-    margin-left: 200px;
+    margin: 0 auto;
     border: 2px solid #b7b7b7;
     width: 80%;
     height: 600px;
