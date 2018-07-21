@@ -17,6 +17,7 @@
     <!--[if lt IE9]-->
     <link rel="stylesheet" href="../../plugins/datetimepicker/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="../../api/css/apicss.css">
+    <link rel="stylesheet" href="../../api/css/style.css">
 </head>
 
 
