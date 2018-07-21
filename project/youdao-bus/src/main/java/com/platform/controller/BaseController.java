@@ -8,6 +8,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -46,45 +47,10 @@ public abstract class BaseController {
 	}
 
 	/**
-	 * 获取当前登录用户id
-	 *
-	 * @return {Long}
+	 * 得到ModelAndView
 	 */
-	public Long getUserId() {
-		return this.getShiroUser().getId();
-	}
-
-	/**
-	 * 获取当前登录用户名
-	 *
-	 * @return {String}
-	 */
-	public String getStaffName() {
-		return this.getShiroUser().getName();
-	}
-
-	protected Map getRequestMap(HttpServletRequest request) {
-		Map map = new HashMap();
-		Map<String, String[]> tmp = request.getParameterMap();
-		if (tmp != null) {
-			for (String key : tmp.keySet())
-			{
-				String[] values = (String[])tmp.get(key);
-				if (values.length == 1)
-				{
-					String val = values[0].trim();
-					if (("null".equals(val)) || ("undefined".equals(val))) {
-						val = "";
-					}
-					map.put(key, val);
-				}
-				else
-				{
-					map.put(key, values);
-				}
-			}
-		}
-		return map;
+	public ModelAndView getModelAndView(){
+		return new ModelAndView();
 	}
 
 }

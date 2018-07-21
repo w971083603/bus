@@ -1,8 +1,10 @@
 package com.platform.controller;
 
+import com.platform.commons.utils.PageData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 @Controller
-public class ViewController {
+public class ViewController extends  BaseController {
 
 	/**
 	 * 登录页面
@@ -225,14 +227,18 @@ public class ViewController {
 		return "redirect:busindex";
 	}
 
-	/**
-	 * 个人中心页
-	 * @return
-	 */
-	@RequestMapping(value = "/api/busown", method = {RequestMethod.GET})
-	public String busown() {
-		return "api/busown";
-	}
+    /**
+     * 个人中心页
+     */
+    @RequestMapping(value="/api/busown")
+    public ModelAndView busown(HttpSession httpSession){
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        mv.setViewName("/api/busown");
+        mv.addObject("pd",pd);
+        return mv;
+    }
 
 	/**
 	 * 个人订单
@@ -252,7 +258,6 @@ public class ViewController {
 	public String feedback() {
 		return "api/feedback";
 	}
-
 
 
 	/**
