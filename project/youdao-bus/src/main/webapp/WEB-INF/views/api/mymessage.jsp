@@ -44,7 +44,12 @@
         getMessage();
         $("#yornOk").click(function () {
             //TODO 获取选中的数据
-            var ids = $("#ids").val();
+            var ids = "";
+            $(".one_checked").each(function (n,obj) {
+                if($(obj).is(":checked")){
+                    ids += $(obj).val() + ",";
+                }
+            });
             if (ids == '' || ids == null) {
                 layer.msg("未选择需要标记为已读的消息", {icon: 2});
                 return;
@@ -59,7 +64,7 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('标记已读成功！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        getMessage();
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
@@ -69,7 +74,12 @@
         });
         $("#deleteOk").click(function () {
             //TODO 获取选中的数据
-            var ids = $("#ids").val();
+            var ids = "";
+            $(".one_checked").each(function (n,obj) {
+                if($(obj).is(":checked")){
+                    ids += $(obj).val() + ",";
+                }
+            });
             if (ids == '' || ids == null) {
                 layer.msg("未选择需要删除的消息", {icon: 2});
                 return;
@@ -84,7 +94,7 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('删除消息成功！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        getMessage();
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
@@ -95,6 +105,7 @@
     });
 
     function getMessage() {
+        $(".all_checked").prop("checked",false);
         $.ajax({
             type: "POST",
             url: platform.CONSTS.URL_BASE_CMS + "api/messageList",
@@ -104,6 +115,7 @@
             success: function (data) {
                 if (data.success == true) {
                     var result = data.data;
+                    $("#selectMessage").empty();
                     $(".message_number").html(result.allRead);
                     if (result.list.length > 0) {
                         for(var i = 0; i < result.list.length;i++ ) {
@@ -120,6 +132,15 @@
                 }
             }
         });
+    }
+    
+    //选中
+    function change(obj) {
+        if($(obj).is(":checked")){
+             $(".one_checked").prop("checked",true);
+        }else{
+            $(".one_checked").prop("checked",false);
+        }
     }
 
 </script>
