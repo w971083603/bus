@@ -3,7 +3,7 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-    <div  class="cyxx_div" style="width: 100%;padding: 40px">
+    <div  class="cyxx_div" style="width: 100%;padding: 40px;overflow-y: scroll;height: 590px;">
          <ul>
              <li>
                  <div class="change change_lxr zhszType" onclick="changediv(this,'1')">联系人</div>
@@ -20,8 +20,8 @@
              <li class="ready ready_one">
                  <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveLxr()">保存</div>
              </li>
-             <li class="ready ready_one">
-                 <table>
+             <li class="ready ready_one" style="width: 100%;display: block;">
+                 <table style="width: 100%;">
                      <tr>
                          <td>小红</td>
                          <td>15260325468</td>
@@ -30,6 +30,8 @@
                              <button style="background-color:red;padding:  10px 0;text-align: center;width: 100px;">删除</button>
                          </td>
                      </tr>
+
+
                  </table>
              </li>
 

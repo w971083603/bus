@@ -652,11 +652,11 @@ api {
 /*个人订单*/
 .wddd_div{
     padding: 40px;
-    width: 60%;
+    width: 100%;
 }
 .wddd_div_li{
     display: block;
-    width: 18%;
+    width: 9%;
     float: left;
     text-align: center;
     padding: 4px 0;
@@ -668,11 +668,11 @@ api {
 }
 
 .wddd_div_title{
-    width: 70%;border-bottom: 1px solid #d2d6de;height: 60px;    float: left;
+    width: 100%;border-bottom: 1px solid #d2d6de;height: 60px;    float: left;
 }
 
 .wddd_div_table{
-    margin-top: 100px;width: 70%;
+    margin-top: 100px;
 }
 .wddd_div_table table{
    width: 100%;
