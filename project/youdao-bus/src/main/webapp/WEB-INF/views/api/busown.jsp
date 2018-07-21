@@ -37,7 +37,7 @@
                     <li class="lib" onclick="tz('api/grzl',this)">个人资料</li>
                     <li class="lib" onclick="tz('api/zhsz',this)">账号设置</li>
                     <li class="lib" onclick="tz('api/cyxx',this)">常用信息</li>
-                    <li class="lib" onclick="tz('api/bzxx',this)">帮助中心</li>
+                    <li class="lib" onclick="tz('api/gywm',this)">帮助中心</li>
                     <li class="lib" onclick="tz('api/mymessage',this)">我的消息</li>
                     <li class="lib" onclick="tz('api/feedback',this)">问题反馈</li>
                 </ul>
@@ -49,7 +49,7 @@
     </div>
 
 </body>
-<%@ include file="../../../currency/js.jsp" %>
+<%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
         function tz(url,obj) {
             $(".content_right").empty();

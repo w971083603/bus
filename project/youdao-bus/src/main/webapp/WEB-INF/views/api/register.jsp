@@ -72,7 +72,7 @@
                 url: platform.CONSTS.URL_BASE_CMS + "api/getCode",
                 data: {
                     "tel": tel,
-                    "type":$("#type").val(),
+                    "type":"1",
                     "smsType": "1"
                 },
                 async: false,
@@ -110,14 +110,16 @@
                 data: {
                     "tel": tel,
                     "code": code,
-                    "type":$("#type").val(),
+                    "type":"1",
                     "password":password
                 },
                 async: false,
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('注册成功！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        setTimeout(function () {
+                            window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/login';
+                        }, 3000);
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;

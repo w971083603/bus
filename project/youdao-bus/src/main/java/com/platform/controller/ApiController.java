@@ -71,9 +71,12 @@ public class ApiController extends BaseController {
             if (!RegUtil.IsMobile(tel)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "手机不能为空"));
             }
-            PageData userPd = userMapper.selectByTypeAndTel(pd.getString("type"),tel);
-            if(!StringUtils.isEmpty(userPd)){
-                return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号已注册，请前往登录"));
+            String smsType = pd.getString("smsType");
+            if (!smsType.equals("2")) {
+                PageData userPd = userMapper.selectByTypeAndTel(pd.getString("type"),tel);
+                if(!StringUtils.isEmpty(userPd)){
+                    return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号已注册，请前往登录"));
+                }
             }
             //验证码
             String messageCode = StringUtils.get4NUmber();
@@ -81,7 +84,7 @@ public class ApiController extends BaseController {
             //发送验证码;
             JSONObject sms = SendSmsUtil.sendSms(msg, tel);
             if (sms.getString("code").equals("0")) {
-                smsCodeMapper.insert(tel, messageCode, pd.getString("smsType"));
+                smsCodeMapper.insert(tel, messageCode, smsType);
             } else {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "验证码发送失败"));
             }
@@ -127,7 +130,7 @@ public class ApiController extends BaseController {
             session.setAttribute("uuid", userPd.getString("uuid"));
             session.setAttribute("tel", userPd.getString("tel"));
             session.setAttribute("nickname", userPd.getString("nickname"));
-            session.setAttribute("header_url", userPd.getString("headerUrl"));
+            session.setAttribute("headerUrl", userPd.getString("headerUrl"));
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -238,6 +241,9 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "更换手机号失败"));
             }
             session.removeAttribute("uuid");
+            session.removeAttribute("tel");
+            session.removeAttribute("nickname");
+            session.removeAttribute("headerUrl");
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -283,6 +289,10 @@ public class ApiController extends BaseController {
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "密码修改失败"));
             }
+            session.removeAttribute("uuid");
+            session.removeAttribute("tel");
+            session.removeAttribute("nickname");
+            session.removeAttribute("headerUrl");
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public interface UserMapper {
     @Select("SELECT * from t_user WHERE id=#{id}")
     PageData selectById(@Param("id") int id);
     //注册去重======通过类型和电话和楼盘
-    @Select("SELECT * from t_user WHERE type=#{type} and tel = #{tel}")
+    @Select("SELECT id,nickname,type,tel,password,ifnull(birthday,'') as birthday,ifnull(email,'') as email,ifnull(sex,'') as sex,ifnull(header_url,'') as headerUrl from t_user WHERE type=#{type} and tel = #{tel}")
     PageData selectByTypeAndTel(@Param("type") String type, @Param("tel") String tel);
 
     //新增会员

@@ -69,8 +69,8 @@
                 url: platform.CONSTS.URL_BASE_CMS + "api/getCode",
                 data: {
                     "tel": tel,
-                    "type":$("#type").val(),
-                    "smsType": "1"
+                    "type":"1",
+                    "smsType": "2"
                 },
                 async: false,
                 success: function (data) {
@@ -102,19 +102,21 @@
                 return;
             }
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: platform.CONSTS.URL_BASE_CMS + "api/forgetPassword",
                 data: {
                     "tel": tel,
                     "code": code,
-                    "type":$("#type").val(),
+                    "type":"1",
                     "password":password
                 },
                 async: false,
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('修改成功！');
-//                         window.location.href = platform.CONSTS.URL_BASE_API;
+                        setTimeout(function () {
+                            window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/login';
+                        }, 3000);
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
