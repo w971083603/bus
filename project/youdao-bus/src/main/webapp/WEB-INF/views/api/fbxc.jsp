@@ -26,6 +26,7 @@
     </div>
 </div>
 <form  id="saveForm" method="post">
+    <input type="hidden" name="type" value="1">
     <div class="fbxc_div">
         <div class="fbxc_div_one fbxc_div_all">
             <div class="demand_step">
@@ -50,14 +51,12 @@
             </div>
             <div class="demand_list">
                 <ul style="width: 1260px;padding: 0px 15px;">
-                    <li id="dancheng" style="text-indent: 10px"><a onclick="nexttwo('1')">单程用车</a></li>
-                    <li id="duori"><a onclick="nexttwo('2')">多日用车</a></li>
+                    <li id="dancheng" style="text-indent: 10px"><a onclick="next('fbxc_div_two','1')">单程用车</a></li>
+                    <li id="duori"><a onclick="next('fbxc_div_two','2')">多日用车</a></li>
                     <div style="clear: both;"></div>
                 </ul>
             </div>
         </div>
-
-        <input type="hidden" name="type" value="1">
         <div class="fbxc_div_two fbxc_div_all">
             <div class="demand_step">
                 <ul>

@@ -3689,7 +3689,7 @@ input.labelauty + label > span.labelauty-checked
 	background-color:#c9c9c9;
 	position: absolute;
 	top:50%;
-	left:-280px;
+	left:-270px;
 }
 
 .demand_step li.on .step {
@@ -3712,10 +3712,10 @@ input.labelauty + label > span.labelauty-checked
 
 
 .demand_list li {
-	width: 24%;
+	width: 40%;
 	float: left;
 	text-align: center;
-	margin-right: 1%;
+	margin-left: 6%;
 	/*border: 1px solid #454545;*/
 }
 
