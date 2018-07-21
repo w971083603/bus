@@ -35,6 +35,8 @@ public class ApiController extends BaseController {
     private SmsCodeMapper smsCodeMapper;
     @Resource
     private FeedBackMapper feedBackMapper;
+    @Resource
+    private AddressMapper addressMapper;
 
     @Resource
     private MessageMapper messageMapper;
@@ -73,8 +75,8 @@ public class ApiController extends BaseController {
             }
             String smsType = pd.getString("smsType");
             if (!smsType.equals("2")) {
-                PageData userPd = userMapper.selectByTypeAndTel(pd.getString("type"),tel);
-                if(!StringUtils.isEmpty(userPd)){
+                PageData userPd = userMapper.selectByTypeAndTel(pd.getString("type"), tel);
+                if (!StringUtils.isEmpty(userPd)) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号已注册，请前往登录"));
                 }
             }
@@ -118,7 +120,7 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "密码不能为空"));
             }
             String md5Password = StringUtils.getMD5Str(password);
-            PageData userPd = userMapper.selectByTypeAndTel(type,tel);
+            PageData userPd = userMapper.selectByTypeAndTel(type, tel);
             if (StringUtils.isEmpty(userPd)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "该手机号未注册，请前往注册"));
             }
@@ -310,7 +312,7 @@ public class ApiController extends BaseController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity create(HttpSession session) {
-        ResponseWrapper result = ResponseWrapper.succeed(true);
+        ResponseWrapper result;
         try {
             PageData pd = this.getPageData();
             String type = pd.getString("type");
@@ -323,6 +325,8 @@ public class ApiController extends BaseController {
                 if (Strings.isNullOrEmpty(toTime)) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "结束时间不能为空"));
                 }
+            }else{
+                pd.put("toTime",null);
             }
             String fromProvince = pd.getString("fromProvince");
             if (Strings.isNullOrEmpty(fromProvince)) {
@@ -394,12 +398,12 @@ public class ApiController extends BaseController {
             if (Strings.isNullOrEmpty(busNumber) || Integer.valueOf(busNumber) == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车数量不能为空"));
             }
-            int busNumber1 = StringUtils.isEmpty(pd.getString("busNumber1")) == true ? 0 : Integer.valueOf(pd.getString("busNumber1")) ;
-            int busNumber2 = StringUtils.isEmpty(pd.getString("busNumber2")) == true ? 0 : Integer.valueOf(pd.getString("busNumber2")) ;
-            int busNumber3 = StringUtils.isEmpty(pd.getString("busNumber3")) == true ? 0 : Integer.valueOf(pd.getString("busNumber3")) ;
-            pd.put("busNumber1",busNumber1);
-            pd.put("busNumber2",busNumber2);
-            pd.put("busNumber3",busNumber3);
+            int busNumber1 = StringUtils.isEmpty(pd.getString("busNumber1")) == true ? 0 : Integer.valueOf(pd.getString("busNumber1"));
+            int busNumber2 = StringUtils.isEmpty(pd.getString("busNumber2")) == true ? 0 : Integer.valueOf(pd.getString("busNumber2"));
+            int busNumber3 = StringUtils.isEmpty(pd.getString("busNumber3")) == true ? 0 : Integer.valueOf(pd.getString("busNumber3"));
+            pd.put("busNumber1", busNumber1);
+            pd.put("busNumber2", busNumber2);
+            pd.put("busNumber3", busNumber3);
             if (Integer.valueOf(busNumber1) == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
             }
@@ -408,7 +412,7 @@ public class ApiController extends BaseController {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
                 }
             }
-            if(busNumber.equals("3")) {
+            if (busNumber.equals("3")) {
                 if (Integer.valueOf(busNumber3) == 0) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
                 }
@@ -435,6 +439,13 @@ public class ApiController extends BaseController {
                     }
                 }
             }
+            PageData orderPdPara = new PageData();
+            orderPdPara.put("uuid", uuid);
+            orderPdPara.put("orderUuid", orderUuid);
+            PageData orderPd = orderMapper.selectByOrderUuid(orderPdPara);
+            List<PageData> list = addressMapper.selectByOrderUuid(orderUuid);
+            orderPd.put("roadList", list);
+            result = ResponseWrapper.succeed(orderPd);
             // TODO 添加短信发送，添加websocket推送后台
         } catch (Exception e) {
             e.printStackTrace();
@@ -895,7 +906,7 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "验证码错误"));
             }
             String sendTime = smsCodePd.getString("sendTime");
-            Date sendDate = DateUtil.string2date(sendTime,"yyyy-MM-dd HH:mm:ss");
+            Date sendDate = DateUtil.string2date(sendTime, "yyyy-MM-dd HH:mm:ss");
             DateTime date = (new DateTime(sendDate)).plusSeconds(300);
             if (date.isBeforeNow()) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "验证码已过期"));
@@ -911,8 +922,8 @@ public class ApiController extends BaseController {
             }
             PageData newUserPd = userMapper.selectByTypeAndTel(type, tel);
             PageData messagePd = new PageData();
-            messagePd.put("uuid",newUserPd.getString("uuid"));
-            messagePd.put("message","恭喜您注册成功，请尽快完善个人信息");
+            messagePd.put("uuid", newUserPd.getString("uuid"));
+            messagePd.put("message", "恭喜您注册成功，请尽快完善个人信息");
             messageMapper.save(messagePd);
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {

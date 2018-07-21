@@ -38,7 +38,7 @@
     </div>
 </div>
 <form  id="saveForm" method="post">
-    <input type="hidden" name="type" value="1">
+    <input type="hidden" name="type" id="type" value="1">
     <div class="fbxc_div">
         <div class="fbxc_div_one fbxc_div_all">
             <div class="demand_step">
@@ -62,9 +62,9 @@
                 </ul>
             </div>
             <div class="demand_list">
-                <ul style="width: 1260px;padding: 0px 15px;">
-                    <li id="dancheng" style="text-indent: 10px"><a onclick="next('fbxc_div_two','1')">单程用车</a></li>
-                    <li id="duori"><a onclick="next('fbxc_div_two','2')">多日用车</a></li>
+                <ul>
+                    <li id="dancheng" style="text-indent: 10px"><a onclick="next('fbxc_div_two','1')">包车服务</a></li>
+                    <li id="duori"><a onclick="next('fbxc_div_two','2')">单接送服务</a></li>
                     <div style="clear: both;"></div>
                 </ul>
             </div>
@@ -98,7 +98,7 @@
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">出发时间</span></span>
                             <input type="text" class="fbxcInputTime" id="fromTime" name="fromTime"/>
                         </li>
-                        <li style="">
+                        <li style="" class="toTimeForDjs">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">结束时间</span></span>
                             <input type="text" class="fbxcInputTime" id="toTime" name="toTime" />
                         </li>
@@ -123,8 +123,9 @@
                             <input type="text" name="toAddress" class="fbxcInputTime"/>
                         </li>
                         <li id="wayid">
-                            <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">途&nbsp;&nbsp;&nbsp;径地</span></span>
+                            <span class="fbxcSpanName">途&nbsp;&nbsp;&nbsp;径地</span>
                             <button id="tjOk" class="fbxcTjBtn" onclick="addmidway()" type="button">新增途径地</button>
+                            <input type="hidden" name="road" id="road">
                             <div id="tjaddress">
 
                             </div>
@@ -278,48 +279,65 @@
                 <div class="fbxc_div_content_content">
                     <ul>
                         <li style="">
-                            你的用车类型：<span></span>
+                            你的用车类型：<span class="type"></span>
                         </li>
                         <li style="padding-left: 20px;">
-                            出发时间：<span></span>
+                            出发时间：<span class="fromTime"></span>
+                        </li>
+                        <li style="padding-left: 20px;" class="toTimeTitel">
+                            结束时间：<span class="toTime"></span>
                         </li>
                         <li style="padding-left: 20px;">
-                            出发地：<span></span>
+                            出发地：<span class="fromAddress"></span>
                         </li>
                         <li style="padding-left: 20px;">
-                            目的地：<span></span>
+                            目的地：<span class="toAddress"></span>
+                        </li>
+                        <li style="padding-left: 20px;" class="roadTitel">
+                            途径地：<span class="road"></span>
                         </li>
                         <li style="padding-left: 20px;">
+                            联系人：<span class="contactName"></span>
+                        </li>
+                        <li style="padding-left: 20px;">
+                            手机号码：<span class="contactTel"></span>
+                        </li>
+                        <li style="padding-left: 20px;">
+                            用车人数：<span class="useNumber"></span>
+                        </li>
+                        <li style="padding-left: 20px;">
+                            用车数量：<span class="busNumber"></span>
+                        </li>
+                        <div class="invoiceTitel">
+                            <li style="padding-left: 20px;">
+                                发票抬头：<span class="invoiceHeader"></span>
+                            </li>
+                            <li style="padding-left: 20px;">
+                                收件人：<span class="invoiceContact"></span>
+                            </li>
+                            <li style="padding-left: 20px;">
+                                收件人联系方式：<span class="invoicePhone"></span>
+                            </li>
+                            <li style="padding-left: 20px;">
+                                收件人地址：<span class="invoiceAddress"></span>
+                            </li>
+                            <li style="padding-left: 20px;">
+                                税号：<span class="invoiceDuty"></span>
+                            </li>
+                        </div>
 
-                        </li>
-                        <li style="padding-left: 20px;">
-                            联系人：<span></span>
-                        </li>
-                        <li style="padding-left: 20px;">
-                            手机号码：<span></span>
-                        </li>
-                        <li style="padding-left: 20px;">
-                            用车人数：<span></span>
-                        </li>
-                        <li style="padding-left: 20px;">
-                            用车数量：<span></span>
-                        </li>
-                        <li style="padding-left: 20px;">
-                            车辆座位：<span></span>
-                        </li>
-                        <li style="padding-left: 20px;">
-
-                        </li>
                         <li style="">
                             <input type="checkbox"> 我已同意<a  href="#" style="color: red;">《就道巴士服务协议》</a>
                         </li>
-                        <li style="">
-                            <div style="background-color:#80c369;width: 80px;margin: 10px auto;padding:10px;float: left;" onclick="next('4')">确认发布</div>
-                        </li>
+
                     </ul>
+                    <div align="center">
+                        <button id="isOk" type="button" class="fbxcBtn">确认发布</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <input type="hidden" name="orderUuid" id="orderUuid">
         <div class="fbxc_div_four fbxc_div_all">
             <div class="demand_step">
                 <ul>
@@ -342,11 +360,13 @@
                 </ul>
             </div>
             <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
-                <img src="../../../api/img/web/header.png">
+                <img src="../../../api/img/web/cdbj.png">
                 <p>发布成功，等待报价</p>
                 <span>我们正将你的需求发送给车队，一大群车队正在纷纷赶来报价</span>
             </div>
-            <div style="background-color:#80c369;width: 80px;margin: 10px auto;padding:  10px;" onclick="next('5')">等待报价</div>
+            <div align="center">
+                <button type="button" class="fbxcBtn" onclick="tzUrl('/api/busown?type=1')">查看我的行程</button>
+            </div>
         </div>
     </div>
 
@@ -392,7 +412,29 @@
             var option = "<option value=" + key + ">" + key + "</option>";
             $("[name='toProvince']").append(option);
         });
+        $("#isOk").click(function () {
+            $("#saveForm").ajaxSubmit({
+                url: platform.CONSTS.URL_BASE_CMS + 'api/updateOrder',
+                type: "POST",//提交类型
+                dataType: "json",
+                cache: false,
+                ifModified: true,
+                success: function (data) {
+                    if (data.success == true) {
+                        next('fbxc_div_four', $(".type").val());
+                    } else {
+                        layer.msg(data.message, {icon: 2});
+                        return;
+                    }
+                }
+            });
+        });
         $("#ok").click(function () {
+            var road = "";
+            $('.tjaddress').each(function(){
+                road += "," + $(this).val();
+            });
+            $("#road").val(road);
             $("#saveForm").ajaxSubmit({
                 url: platform.CONSTS.URL_BASE_CMS + 'api/create',
                 type: "POST",//提交类型
@@ -401,8 +443,51 @@
                 ifModified: true,
                 success: function (data) {
                     if (data.success == true) {
-                        alert(1111);
-                        // window.location.href = platform.CONSTS.URL_BASE_CMS + "api/owntwo";
+                        next('fbxc_div_three',$(".type").val());
+                        var result = data.data;
+                        $("#orderUuid").val(result.orderUuid);
+                        $(".fromTime").html(result.fromTime);
+                        $(".toTime").html(result.toTime);
+                        $(".fromAddress").html(result.fromProvince +result.fromCity + result.fromAddress);
+                        $(".toAddress").html(result.toProvince +result.toCity + result.toAddress);
+                        $(".contactTel").html(result.contactTel);
+                        $(".contactName").html(result.contactName);
+                        $(".invoiceHeader").html(result.invoiceHeader);
+                        $(".invoiceContact").html(result.invoiceContact);
+                        $(".invoicePhone").html(result.invoicePhone);
+                        $(".invoiceAddress").html(result.invoiceAddress);
+                        $(".invoiceDuty").html(result.invoiceDuty);
+                        $(".useNumber").html(result.useNumber);
+                        var busNumber = Number(result.busNumber1) + Number(result.busNumber2) + Number(result.busNumber3) + '座*' + result.busNumber  + "辆";
+                        $(".busNumber").html(busNumber);
+                        var typeName = result.typeName;
+                        if(typeName == '包车服务') {
+                            $(".toTimeTitel").show();
+                            var roadList = result.roadList;
+                            if (roadList != '' && roadList.length > 0) {
+                                var road = "";
+                                for(var i = 0;i <roadList.length;i++) {
+                                    if (road == '') {
+                                        road = roadList[i].address;
+                                    }else {
+                                        road += "，" + roadList[i].address;
+                                    }
+                                }
+                                $(".road").html(road);
+                                $(".roadTitel").show();
+                            }else {
+                                $(".roadTitel").hide();
+                            }
+                        } else {
+                            $(".toTimeTitel").hide();
+                            $(".roadTitel").hide();
+                        }
+                        var isInvoice = result.isInvoice;
+                        if (isInvoice == '是') {
+                            $(".invoiceTitel").show();
+                        }else {
+                            $(".invoiceTitel").hide();
+                        }
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
@@ -474,8 +559,12 @@
      * @param value
      */
     function next(id,value) {
-        $(".type").val(value);
+        $("#type").val(value);
         $(".fbxc_div_all").hide();
+        if(value == "2") {
+            $(".toTimeForDjs").hide();
+            $("#wayid").hide();
+        }
         $("." + id).show();
     }
 
@@ -484,7 +573,8 @@
      * @type {number}
      */
     function addmidway(){
-        midwayhtml="<input type=\"text\" class=\"tjaddress \" placeholder=\"请输入途径地\"  style=\"margin-left: 84px;margin-right: 4px;margin-top: 5px;height: 33px;\" autocomplete=\"off\"><button type='button' class='btn btn-default btn-sm' onclick='removemidway(this);' >删除</button><br><div id=\"automidway"+count+"\" style=\"display:none;\" class=\"automidways\"></div>";
+        // var html = "<li><span class=\"fbxcSpanName\">途&nbsp;&nbsp;&nbsp;径地</span><input type=\"text\" class=\"fbxcInputTime\" id=\"toTime\" name=\"toTime\" /></li>";
+        midwayhtml="<input type=\"text\" class=\"tjaddress\" placeholder=\"请输入途径地\"  style=\"margin-left: 84px;margin-right: 4px;margin-top: 5px;width: 403px;height: 33px;\" autocomplete=\"off\"><button type='button' class='fbxcDelBtn' onclick='removemidway(this);' >删除</button><br><div id=\"automidway\" style=\"display:none;\" class=\"automidways\"></div>";
         midwayheight=$("#wayid").height()+35;
         $("#tjaddress").append(midwayhtml);
         $("#wayid").css("height", midwayheight+"px");
