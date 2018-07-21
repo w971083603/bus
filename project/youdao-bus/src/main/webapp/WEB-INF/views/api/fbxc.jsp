@@ -36,6 +36,7 @@
             </c:choose>
         </div>
     </div>
+    <input id="uuid" type="hidden" value="${sessionScope.uuid}">
 </div>
 <form  id="saveForm" method="post">
     <input type="hidden" name="type" id="type" value="1">
@@ -559,6 +560,9 @@
      * @param value
      */
     function next(id,value) {
+        if($("#uuid").val() == ""){
+            tzUrl('/api/login');
+        }
         $("#type").val(value);
         $(".fbxc_div_all").hide();
         if(value == "2") {

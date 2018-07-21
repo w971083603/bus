@@ -1,5 +1,6 @@
 package com.platform.controller;
 
+import com.google.common.base.Strings;
 import com.platform.commons.utils.PageData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -124,8 +125,11 @@ public class ViewController extends  BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/zhsz", method = {RequestMethod.GET})
-	public String zhsz() {
-		return "api/zhsz";
+	public String zhsz(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
+	    return "api/zhsz";
 	}
 
 	/**
@@ -160,7 +164,10 @@ public class ViewController extends  BaseController {
      * @return
      */
     @RequestMapping(value = "/api/mymessage", method = {RequestMethod.GET})
-    public String messages() {
+    public String messages(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
         return "api/mymessage";
     }
 
@@ -169,7 +176,10 @@ public class ViewController extends  BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/grzl", method = {RequestMethod.GET})
-	public String grzl() {
+	public String grzl(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
 		return "api/grzl";
 	}
 
@@ -231,13 +241,11 @@ public class ViewController extends  BaseController {
      * 个人中心页
      */
     @RequestMapping(value="/api/busown")
-    public ModelAndView busown(HttpSession httpSession){
-        ModelAndView mv = this.getModelAndView();
-        PageData pd = new PageData();
-        pd = this.getPageData();
-        mv.setViewName("/api/busown");
-        mv.addObject("pd",pd);
-        return mv;
+    public String busown(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
+        return "/api/busown";
     }
 
 	/**
@@ -245,7 +253,10 @@ public class ViewController extends  BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/wddd", method = {RequestMethod.GET})
-	public String orders() {
+	public String orders(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
 		return "api/wddd";
 	}
 
@@ -255,7 +266,10 @@ public class ViewController extends  BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/feedback", method = {RequestMethod.GET})
-	public String feedback() {
+	public String feedback(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
 		return "api/feedback";
 	}
 
@@ -264,7 +278,10 @@ public class ViewController extends  BaseController {
      * @return
      */
     @RequestMapping(value = "/api/bzzx", method = {RequestMethod.GET})
-    public String bzzx() {
+    public String bzzx(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
         return "api/bzzx";
     }
 
@@ -273,7 +290,10 @@ public class ViewController extends  BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/cyxx", method = {RequestMethod.GET})
-	public String cyxx() {
+	public String cyxx(HttpSession session) {
+        if(session.getAttribute("uuid") == null){
+            return "redirect:login";
+        }
 		return "api/cyxx";
 	}
 }
