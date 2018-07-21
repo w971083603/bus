@@ -371,27 +371,32 @@ public class ApiController extends BaseController {
             }
 
             String useNumber = pd.getString("useNumber");
-            if (Strings.isNullOrEmpty(useNumber)) {
+            if (Strings.isNullOrEmpty(useNumber) || Integer.valueOf(useNumber) == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车人数不能为空"));
             }
             String busNumber = pd.getString("busNumber");
-            if (Strings.isNullOrEmpty(busNumber)) {
+            if (Strings.isNullOrEmpty(busNumber) || Integer.valueOf(busNumber) == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车数量不能为空"));
             }
-            /*if (busNumber.equals("1座")) {
-                String busNumber1 = pd.getString("busNumber1");
-                if (Strings.isNullOrEmpty(busNumber1)) {
+            int busNumber1 = StringUtils.isEmpty(pd.getString("busNumber1")) == true ? 0 : Integer.valueOf(pd.getString("busNumber1")) ;
+            int busNumber2 = StringUtils.isEmpty(pd.getString("busNumber2")) == true ? 0 : Integer.valueOf(pd.getString("busNumber2")) ;
+            int busNumber3 = StringUtils.isEmpty(pd.getString("busNumber3")) == true ? 0 : Integer.valueOf(pd.getString("busNumber3")) ;
+            pd.put("busNumber1",busNumber1);
+            pd.put("busNumber2",busNumber2);
+            pd.put("busNumber3",busNumber3);
+            if (Integer.valueOf(busNumber1) == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
+            }
+            if (busNumber.equals("2")) {
+                if (Integer.valueOf(busNumber2) == 0) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
                 }
             }
-            String busNumber2 = pd.getString("busNumber2");
-            if (Strings.isNullOrEmpty(busNumber2)) {
-                return ResponseEntity.ok(ResponseWrapper.failed(-1, "验证码不能为空"));
+            if(busNumber.equals("3")) {
+                if (Integer.valueOf(busNumber3) == 0) {
+                    return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车座位不能为空"));
+                }
             }
-            String busNumber3 = pd.getString("busNumber3");
-            if (Strings.isNullOrEmpty(busNumber3)) {
-                return ResponseEntity.ok(ResponseWrapper.failed(-1, "验证码不能为空"));
-            }*/
             String uuid = (String) session.getAttribute("uuid");
             String orderUuid = DateUtil.getDayshmsS();
             pd.put("uuid", uuid);

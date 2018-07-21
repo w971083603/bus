@@ -17,6 +17,11 @@
     <%--<link rel="stylesheet" type="text/css" href="../../../api/public/static/home/css/response.css?v=20170108">--%>
     <!--[if lt IE9]-->
     <link rel="stylesheet" href="../../../api/public/static/home/css/style-ie8.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrapValidator.css">
+    <link rel="stylesheet" href="../../plugins/datepicker/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../../plugins/datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="../../api/css/apicss.css">
 </head>
 
 
