@@ -16,6 +16,10 @@
             <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
         </div>
         <div class="index_title_three">
+            <%
+                String headerUrl = (String)request.getSession().getAttribute("headerUrl");
+                String tel = (String)request.getSession().getAttribute("tel");
+            %>
             <img src="../../../api/img/web/header.png" class="user_head">
             <div class="index_login">
                 <a onclick="tzUrl('/api/login')" class="indexcolor">登陆</a>
@@ -36,7 +40,7 @@
                 <input type="text" placeholder="请输入手机号" id="tel">
             </li>
             <li>
-                <textarea type="text" placeholder="请输入车队信息" id="info" style="height: 100px;width: 100%;"></textarea>
+                <textarea type="text" placeholder="请输入车队信息" id="remarks" style="height: 100px;width: 100%;"></textarea>
             </li>
             <li>
                 <div id="ok">保存</div>
@@ -65,23 +69,23 @@
                 layer.msg("名字不能为空", {icon: 2});
                 return;
             }
-            var remarsk = $("#remarsk").val();
-            if (remarsk == '' || remarsk == null) {
+            var remarks = $("#remarks").val();
+            if (remarks == '' || remarks == null) {
                 layer.msg("信息不能为空", {icon: 2});
                 return;
             }
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: platform.CONSTS.URL_BASE_CMS + "api/createFleet",
                 data: {
                     "tel": tel,
                     "name": name,
-                    "remarsk": remarsk
+                    "remarks": remarks
                 },
                 async: false,
                 success: function (data) {
                     if (data.success == true) {
-                        layer.msg('注册成功！');
+                        layer.msg('提交成功 等待客服主动联系您！');
                         // window.location.href = platform.CONSTS.URL_BASE_API;
                     } else {
                         layer.msg(data.message, {icon: 2});

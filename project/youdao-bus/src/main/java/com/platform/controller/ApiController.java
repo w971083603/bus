@@ -125,6 +125,9 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用户名或密码错误"));
             }
             session.setAttribute("uuid", userPd.getString("uuid"));
+            session.setAttribute("tel", userPd.getString("tel"));
+            session.setAttribute("nickname", userPd.getString("nickname"));
+            session.setAttribute("header_url", userPd.getString("headerUrl"));
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -339,6 +342,9 @@ public class ApiController extends BaseController {
             if (Strings.isNullOrEmpty(contactTel)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "联系人电话不能为空"));
             }
+            if (!RegUtil.IsMobile(contactTel)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "请输入正确的联系人电话"));
+            }
             String contactName = pd.getString("contactName");
             if (Strings.isNullOrEmpty(contactName)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "联系人姓名不能为空"));
@@ -480,6 +486,13 @@ public class ApiController extends BaseController {
         ResponseWrapper result = ResponseWrapper.succeed(true);
         try {
             PageData pd = this.getPageData();
+            String tel = pd.getString("tel");
+            if (Strings.isNullOrEmpty(tel)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "手机不能为空"));
+            }
+            if (!RegUtil.IsMobile(tel)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "请输入正确的手机号"));
+            }
             pd.put("status", "1");
             int n = fleetMapper.save(pd);
             if (n == 0) {

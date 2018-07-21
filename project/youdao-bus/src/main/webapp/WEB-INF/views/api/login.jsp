@@ -82,7 +82,9 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('登录成功！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        setTimeout(function () {
+                            window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/fbxc';
+                        }, 3000);
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
