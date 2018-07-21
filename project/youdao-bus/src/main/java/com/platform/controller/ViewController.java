@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  * 视图
@@ -208,6 +210,19 @@ public class ViewController {
 	@RequestMapping(value = "/api/zxkf", method = {RequestMethod.GET})
 	public String zxkf() {
 		return "api/zxkf";
+	}
+
+	/**
+	 * 退出
+	 * @return
+	 */
+	@RequestMapping(value = "/api/loginout", method = {RequestMethod.GET})
+	public String loginout(HttpSession httpSession) {
+		httpSession.removeAttribute("uuid");
+		httpSession.removeAttribute("tel");
+		httpSession.removeAttribute("nickname");
+		httpSession.removeAttribute("headerUrl");
+		return "redirect:busindex";
 	}
 
 	/**
