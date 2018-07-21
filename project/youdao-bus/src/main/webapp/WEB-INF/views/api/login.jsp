@@ -29,6 +29,7 @@
     <div class="zc_div_title" >账号登录</div>
     <div style="width: 60%;height: 100%;margin:0 auto;">
         <ul>
+            <input type="hidden" id="type" value="1">
             <li>
                <p style="color: red;font-size: 14px;">*请输入手机号和密码登录</p>
             </li>
