@@ -502,6 +502,9 @@ api {
 
 
 /*发布行程*/
+.fbxc_div_all{
+    display: none;
+}
 .fbxc_div{
     margin: 20px auto;width: 50%;
 }

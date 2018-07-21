@@ -110,10 +110,9 @@
                             </select>
                             <input type="text" name="toAddress" class="fbxcInputTime"/>
                         </li>
-                        <li style="">
+                        <li id="wayid">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">途&nbsp;&nbsp;&nbsp;径地</span></span>
-                            <%--<input type="text"  class="fbxcInputTime"/>--%>
-                            <button id="tjOk" class="fbxcTjBtn">新增途径地</button>
+                            <button id="tjOk" class="fbxcTjBtn" onclick="addmidway()" type="button">新增途径地</button>
                             <div id="tjaddress">
 
                             </div>
@@ -121,7 +120,7 @@
                         <li style="">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">联&nbsp;&nbsp;&nbsp;系人</span></span>
                             <input type="text" name="contactName" class="fbxcInputTime"/>
-                            <button id="cyOk" class="fbxcTjBtn">常用</button>
+                            <button id="cyOk" class="fbxcTjBtn" type="button" onclick="lxIframe()">常用</button>
                         </li>
                         <li style="">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">手机号码</span></span>
@@ -243,6 +242,26 @@
             <%--<div style="background-color:#80c369;/* height: 45px; */width: 80px;margin: 10px auto;padding:  10px;" id="ok">预览订单</div>--%>
         </div>
         <div class="fbxc_div_three fbxc_div_all">
+            <div class="demand_step">
+                <ul>
+                    <li class="on">
+                        <span class="step">1</span><br/>
+                        <span>选择用车类型</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">2</span><br/>
+                        <span>填写行程信息</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">3</span><br/>
+                        <span>发布用车需求</span>
+                    </li>
+                    <li>
+                        <span class="step">4</span><br/>
+                        <span>等待车队报价</span>
+                    </li>
+                </ul>
+            </div>
             <div class="fbxc_div_content" style="">
                 <div class="fbxc_div_content_content">
                     <ul>
@@ -290,6 +309,26 @@
             </div>
         </div>
         <div class="fbxc_div_four fbxc_div_all">
+            <div class="demand_step">
+                <ul>
+                    <li class="on">
+                        <span class="step">1</span><br/>
+                        <span>选择用车类型</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">2</span><br/>
+                        <span>填写行程信息</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">3</span><br/>
+                        <span>发布用车需求</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">4</span><br/>
+                        <span>等待车队报价</span>
+                    </li>
+                </ul>
+            </div>
             <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
                 <img src="../../../api/img/web/header.png">
                 <p>发布成功，等待报价</p>
@@ -298,6 +337,7 @@
             <div style="background-color:#80c369;width: 80px;margin: 10px auto;padding:  10px;" onclick="next('5')">等待报价</div>
         </div>
     </div>
+
 </form>
 </body>
 </html>
@@ -305,7 +345,6 @@
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
     $(function() {
-        $(".fbxc_div_all").hide();
         $(".fbxc_div_one").show();
 
 
@@ -417,10 +456,34 @@
         });
     }
 
-    function next(id,type) {
+    /**
+     * 开启下一步
+     * @param id
+     * @param value
+     */
+    function next(id,value) {
         $(".type").val(value);
         $(".fbxc_div_all").hide();
         $("." + id).show();
+    }
+
+    /**
+     * 新增途径: 获取方式 tjaddress 的class循环获取值
+     * @type {number}
+     */
+    function addmidway(){
+        midwayhtml="<input type=\"text\" class=\"tjaddress \" placeholder=\"请输入途径地\"  style=\"margin-left: 84px;margin-right: 4px;margin-top: 5px;height: 33px;\" autocomplete=\"off\"><button type='button' class='btn btn-default btn-sm' onclick='removemidway(this);' >删除</button><br><div id=\"automidway"+count+"\" style=\"display:none;\" class=\"automidways\"></div>";
+        midwayheight=$("#wayid").height()+35;
+        $("#tjaddress").append(midwayhtml);
+        $("#wayid").css("height", midwayheight+"px");
+    }
+    function removemidway(obj){
+        $(obj).prev().remove();
+        $(obj).next('br').remove();
+        $(obj).next().remove();
+        $(obj).remove();
+        midwayheight=$("#wayid").height()-35;
+        $("#wayid").css("height", midwayheight+"px");
     }
 
 </script>
