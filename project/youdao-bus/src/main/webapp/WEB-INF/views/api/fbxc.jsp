@@ -25,23 +25,60 @@
         </div>
     </div>
 </div>
-
 <form  id="saveForm" method="post">
     <div class="fbxc_div">
-        <%--<div class="fbxc_div_one">
-            <div class="fbxc_div_content">
-                <div class="fbxc_div_title" style="">&nbsp;&nbsp;&nbsp;&nbsp;选择用车类型</div>
-                <div style="   margin: 124px auto;  width: 51%; ">
-                    <select style="width: 100%;height: 37px;">
-                        <option>包车</option>
-                        <option>单接送</option>
-                    </select>
-                </div>
+        <div class="fbxc_div_one fbxc_div_all">
+            <div class="demand_step">
+                <ul>
+                    <li class="on">
+                        <span class="step">1</span><br/>
+                        <span>选择用车类型</span>
+                    </li>
+                    <li>
+                        <span class="step">2</span><br/>
+                        <span>填写行程信息</span>
+                    </li>
+                    <li>
+                        <span class="step">3</span><br/>
+                        <span>发布用车需求</span>
+                    </li>
+                    <li>
+                        <span class="step">4</span><br/>
+                        <span>等待车队报价</span>
+                    </li>
+                </ul>
             </div>
-            <div class="fbxc_div_next" style="" onclick="next('2')">下一步</div>
-        </div>--%>
+            <div class="demand_list">
+                <ul style="width: 1260px;padding: 0px 15px;">
+                    <li id="dancheng" style="text-indent: 10px"><a onclick="nexttwo('1')">单程用车</a></li>
+                    <li id="duori"><a onclick="nexttwo('2')">多日用车</a></li>
+                    <div style="clear: both;"></div>
+                </ul>
+            </div>
+        </div>
+
         <input type="hidden" name="type" value="1">
-        <div class="fbxc_div_two">
+        <div class="fbxc_div_two fbxc_div_all">
+            <div class="demand_step">
+                <ul>
+                    <li class="on">
+                        <span class="step">1</span><br/>
+                        <span>选择用车类型</span>
+                    </li>
+                    <li class="on">
+                        <span class="step">2</span><br/>
+                        <span>填写行程信息</span>
+                    </li>
+                    <li>
+                        <span class="step">3</span><br/>
+                        <span>发布用车需求</span>
+                    </li>
+                    <li>
+                        <span class="step">4</span><br/>
+                        <span>等待车队报价</span>
+                    </li>
+                </ul>
+            </div>
             <div class="fbxc_div_content">
                 <div class="fbxc_div_title">&nbsp;&nbsp;&nbsp;&nbsp;包车服务-填写用车信息（请信息填写完成以便车队报价准确）</div>
                 <div class="fbxc_div_content_content" style="">
@@ -206,7 +243,7 @@
             </div>
             <%--<div style="background-color:#80c369;/* height: 45px; */width: 80px;margin: 10px auto;padding:  10px;" id="ok">预览订单</div>--%>
         </div>
-        <div class="fbxc_div_three">
+        <div class="fbxc_div_three fbxc_div_all">
             <div class="fbxc_div_content" style="">
                 <div class="fbxc_div_content_content">
                     <ul>
@@ -253,7 +290,7 @@
                 </div>
             </div>
         </div>
-        <div class="fbxc_div_four">
+        <div class="fbxc_div_four fbxc_div_all">
             <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
                 <img src="../../../api/img/web/header.png">
                 <p>发布成功，等待报价</p>
@@ -269,6 +306,10 @@
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
     $(function() {
+        $(".fbxc_div_all").hide();
+        $(".fbxc_div_one").show();
+
+
         $('#fromTime').datetimepicker({
             language: "zh-CN", //语言
             todayHighlight: true, //是否今日高亮
@@ -375,6 +416,12 @@
         $.each(citys, function (index, item) {
             city.append("<option value='"+item+"'>" + item + "</option>");
         });
+    }
+
+    function next(id,type) {
+        $(".type").val(value);
+        $(".fbxc_div_all").hide();
+        $("." + id).show();
     }
 
 </script>

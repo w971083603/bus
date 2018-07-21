@@ -506,7 +506,7 @@ api {
     margin: 20px auto;width: 50%;
 }
 .fbxc_div li{
-    display: block;margin-bottom: 18px;width: 100%;clear: both;
+    display: block;margin-bottom: 18px;width: 100%;
 }
 .fbxc_div li span:first-child{
     display: inline-block;
@@ -678,4 +678,89 @@ api {
 .wddd_div_table td{
     width: 10%;
     text-align: center;
+}
+
+
+/*发布行程-更改*/
+.demand {
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+.demand_type {
+    /*border: 1px solid red;*/
+    height: 484px;
+    text-align: center;
+}
+
+.demand_step {
+    overflow: hidden;
+}
+
+.demand_step li {
+    width: 25%;
+    float: left;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.demand_step .step {
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    line-height: 26px;
+    background-color: #c9c9c9;
+    color: #FFF;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+
+.demand_step .step:after {
+    content: "";
+    display: inline-block;
+    width: 260px;
+    height: 2px;
+    background-color:#c9c9c9;
+    position: absolute;
+    top:50%;
+    left:-264px;
+}
+
+.demand_step li.on .step {
+    background-color: #7fc368;
+}
+
+.demand_step li:first-child .step:after {
+    display: none;
+}
+
+.demand_step li.on:nth-last-child(n) .step:after{
+    background-color: #7fc368;
+}
+.demand_list {
+    overflow: hidden;
+    margin-bottom: 70px;
+}
+
+
+.demand_list li {
+    width: 40%;
+    float: left;
+    text-align: center;
+    margin-left: 4%;
+}
+
+.demand_list li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 80px 0;
+    border: 1px solid #454545;
+}
+
+.demand_list li a:hover,.demand_list li a.active {
+    background-color: #7fc368;
 }
