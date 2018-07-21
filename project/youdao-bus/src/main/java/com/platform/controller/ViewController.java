@@ -180,6 +180,15 @@ public class ViewController {
 
 
 
+    /**
+     * 车队入驻
+     * @return
+     */
+    @RequestMapping(value = "/api/cdrz", method = {RequestMethod.GET})
+    public String cdrz() {
+        return "api/cdrz";
+    }
+
 
 	/**
 	 * 个人中心页
