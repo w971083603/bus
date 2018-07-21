@@ -9,18 +9,18 @@
             <img src="../../../api/img/web/logo.png" class="index_logimage">
         </div>
         <div class="index_title_two">
-            <a href="company.jsp" class="apiTitle">首页</a>
-            <a href="company.jsp" class="apiTitle">发布行程</a>
-            <a href="company.jsp" class="apiTitle">车队入住</a>
-            <a href="company.jsp" class="apiTitle">关于我们</a>
-            <a href="company.jsp" class="apiTitle">在线客服</a>
+            <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
+            <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
+            <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队入住</a>
+            <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
+            <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
         </div>
         <div class="index_title_three">
             <img src="../../../api/img/web/header.png" class="user_head">
             <div class="index_login">
-                <a href="company.jsp" class="indexcolor">13616524441</a>
+                <a onclick="tzUrl('/api/login')" class="indexcolor">登陆</a>
                 <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
-                <a href="company.jsp" class="indexcolor">退出</a>
+                <a onclick="tzUrl('/api/register')" class="indexcolor">注册</a>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <div id="ok">注册</div>
             </li>
             <li style="font-size: 12px;">
-                已有账号？<a  href="#" style="color: red;">立即登录</a>
+                已有账号？<a  onclick="tzUrl('/api/login')" style="color: red;">立即登录</a>
             </li>
         </ul>
     </div>

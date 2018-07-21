@@ -537,3 +537,11 @@
 
 var platform = window.platform;
 
+/**
+ * 获取URL参数
+ * @param paramName
+ * @returns {null}
+ */
+function tzUrl(url) {
+    window.location.href =  platform.CONSTS.URL_BASE_CMS + url;
+};
