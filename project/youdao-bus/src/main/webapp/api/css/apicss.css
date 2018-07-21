@@ -646,10 +646,16 @@ a:hover {
 .cyxx_div li label{
     display: inline-block;width: 9%;text-align: left;
 }
-.cyxx_div li input[type=text]{
+/*.cyxx_div li input[type=text]{
     width: 13%;
     height: 45px;
     padding-left: 1%;
+}*/
+
+.cyxxInput {
+    width: 304px;
+    height: 45px;
+    border: solid 1px #b5b5b5;
 }
 .cyxx_div table{
     width: 100%;
@@ -657,6 +663,24 @@ a:hover {
 .cyxx_div table td{
     width: 10%;
     text-align: center;
+}
+
+.cyxxDelBtn{
+    width: 80px;
+    height: 47px;
+    background-color: #fe413f;
+    box-shadow: 3px 0px 4px 0px
+    rgba(3, 0, 1, 0.31);
+    border-radius: 10px;
+}
+
+.cyxxUpdateBtn {
+    width: 80px;
+    height: 47px;
+    background-color: #80c369;
+    box-shadow: 3px 0px 4px 0px
+    rgba(3, 0, 1, 0.31);
+    border-radius: 10px;
 }
 
 

@@ -10,17 +10,18 @@
             <div class="change change_fp zhszType" onclick="changediv(this,'2')">发票</div>
         </li>
         <li class="ready ready_one">
-            <label>姓名：</label>
-            <input type="text" placeholder="请输入姓名" id="name">
+            <label >姓名：</label>
+            <input type="text" class="cyxxInput" placeholder="请输入姓名" id="name">
         </li>
         <li class="ready ready_one">
             <label>手机号：</label>
-            <input type="text" placeholder="请输入手机号" id="phone">
+            <input type="text" class="cyxxInput" placeholder="请输入手机号" id="phone">
         </li>
         <li class="ready ready_one">
-            <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveLxr()">
+           <%-- <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveLxr()">
                 保存
-            </div>
+            </div>--%>
+            <button  class="zhszOk" id="ok" onclick="saveLxr()">保存</button>
         </li>
         <li class="ready ready_one" style="width: 100%;display: block;">
             <table style="width: 100%;">
@@ -32,28 +33,29 @@
 
         <li class="ready ready_two">
             <label>发票抬头：</label>
-            <input type="text" placeholder="请输入发票抬头" id="invoiceHeader" >
+            <input type="text" class="cyxxInput" placeholder="请输入发票抬头" id="invoiceHeader" >
         </li>
         <li class="ready ready_two">
             <label>收件人：</label>
-            <input type="text" placeholder="请输入收件人" id="invoiceContact">
+            <input type="text" class="cyxxInput" placeholder="请输入收件人" id="invoiceContact">
         </li>
         <li class="ready ready_two">
             <label>手机号码：</label>
-            <input type="text" placeholder="请输入手机号码" id="invoicePhone">
+            <input type="text" class="cyxxInput" placeholder="请输入手机号码" id="invoicePhone">
         </li>
         <li class="ready ready_two">
             <label>收件地址：</label>
-            <input type="text" placeholder="请输入收件地址" id="invoiceAddress">
+            <input type="text" class="cyxxInput" placeholder="请输入收件地址" id="invoiceAddress">
         </li>
         <li class="ready ready_two">
             <label>税号：</label>
-            <input type="text" placeholder="请输入税号" id="invoiceDuty" >
+            <input type="text" class="cyxxInput" placeholder="请输入税号" id="invoiceDuty" >
         </li>
         <li class="ready ready_two">
-            <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveFp()">
+            <%--<div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveFp()">
                 保存
-            </div>
+            </div>--%>
+            <button  class="zhszOk" onclick="saveFp()">保存</button>
         </li>
         <li class="ready ready_two">
             <table>
@@ -175,8 +177,8 @@
                     "                             <td>" + list[i].name + "</td>" +
                     "                             <td>" + list[i].phone + "</td>" +
                     "                             <td>" +
-                    "                                 <button style=\"background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"detailLxr(this)\">修改</button>" +
-                    "                                 <button style=\"background-color:red;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"deleteLxr(this)\">删除</button>" +
+                    "                                 <button class=\"cyxxUpdateBtn\" onclick=\"detailLxr(this)\">修改</button>" +
+                    "                                 <button class=\"cyxxDelBtn\" onclick=\"deleteLxr(this)\">删除</button>" +
                     "                             </td>" +
                     "                         </tr>";
 
@@ -287,8 +289,8 @@
                     "                    <td>" + list[i].invoiceAddress + "</td>" +
                     "                    <td>" + list[i].invoiceDuty + "</td>" +
                     "                    <td>" +
-                    "                        <button style=\"background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"detailFp(this)\">修改</button>" +
-                    "                        <button style=\"background-color:red;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"deleteFp(this)\">删除</button>" +
+                    "                        <button class=\"cyxxUpdateBtn\" onclick=\"detailFp(this)\">修改</button>" +
+                    "                        <button class=\"cyxxDelBtn\" onclick=\"deleteFp(this)\">删除</button>" +
                     "                    </td>" +
                     "                </tr>";
 
