@@ -13,11 +13,11 @@
 <script src="../../../apiresources/js/jquery.form.js"></script>
 
 <%--复制其他网站--%>
-<script type="text/javascript" src="../../../api/public/static/home/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="../../../api/public/static/home/js/jquery.fullPage.js"></script>
-<script type="text/javascript" src="../../../api/public/static/home/js/idangerous.swiper.min.js"></script>
-<script type="text/javascript" src="../../../api/public/static/home/js/xbc.web.js"></script>
-<script type="text/javascript" src="../../../api/public/static/home/js/jquery.SuperSlide.2.1.1.js"></script>
+<%--<script type="text/javascript" src="../../../api/public/static/home/js/jquery-1.9.1.min.js"></script>--%>
+<%--<script type="text/javascript" src="../../../api/public/static/home/js/jquery.fullPage.js"></script>--%>
+<%--<script type="text/javascript" src="../../../api/public/static/home/js/idangerous.swiper.min.js"></script>--%>
+<%--<script type="text/javascript" src="../../../api/public/static/home/js/xbc.web.js"></script>--%>
+<%--<script type="text/javascript" src="../../../api/public/static/home/js/jquery.SuperSlide.2.1.1.js"></script>--%>
 
 <script type="text/javascript">
     platform.CONSTS.URL_BASE_IMG = "<%=SystemConfig.getInstance().getURL_BASE_IMG()%>";
