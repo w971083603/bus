@@ -547,7 +547,45 @@ api {
     height: 45px;
     padding-left: 1%;
 }
+.cyxx_div table{
+    width: 100%;
+}
 .cyxx_div table td{
+    width: 10%;
+    text-align: center;
+}
+
+
+/*个人订单*/
+.wddd_div{
+    padding: 40px;
+    width: 60%;
+}
+.wddd_div_li{
+    display: block;
+    width: 18%;
+    float: left;
+    text-align: center;
+    padding: 4px 0;
+    border-right: 1px solid #d2d6de;
+}
+.wddd_div_li:hover{
+    border-bottom: 1px solid #00B83F;
+    cursor: pointer;
+}
+
+.wddd_div_title{
+    width: 70%;border-bottom: 1px solid #d2d6de;height: 60px;    float: left;
+}
+
+.wddd_div_table{
+    margin-top: 100px;width: 70%;
+}
+.wddd_div_table table{
+   width: 100%;
+}
+
+.wddd_div_table td{
     width: 10%;
     text-align: center;
 }

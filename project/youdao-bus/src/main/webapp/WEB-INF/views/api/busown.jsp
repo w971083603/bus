@@ -34,11 +34,11 @@
             </div>
             <div style="width:100%;height: 500px">
                 <ul>
-                    <li class="lib">我的订单</li>
+                    <li class="lib" onclick="tz('api/wddd',this)">我的订单</li>
                     <li class="lib" onclick="tz('api/grzl',this)">个人资料</li>
                     <li class="lib" onclick="tz('api/zhsz',this)">账号设置</li>
-                    <li class="lib">常用信息</li>
-                    <li class="lib">帮助中心</li>
+                    <li class="lib" onclick="tz('api/cyxx',this)">常用信息</li>
+                    <li class="lib" onclick="tz('api/bzxx',this)">帮助中心</li>
                     <li class="lib" onclick="tz('api/mymessage',this)">我的消息</li>
                     <li class="lib" onclick="tz('api/feedback',this)">问题反馈</li>
                 </ul>

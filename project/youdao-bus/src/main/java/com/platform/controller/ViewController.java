@@ -194,9 +194,9 @@ public class ViewController {
 	 * 个人订单
 	 * @return
 	 */
-	@RequestMapping(value = "/api/orders", method = {RequestMethod.GET})
+	@RequestMapping(value = "/api/wddd", method = {RequestMethod.GET})
 	public String orders() {
-		return "api/orders";
+		return "api/wddd";
 	}
 
 
