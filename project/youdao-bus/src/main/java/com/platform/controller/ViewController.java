@@ -259,6 +259,14 @@ public class ViewController extends  BaseController {
 		return "api/feedback";
 	}
 
+    /**
+     * 帮助中心
+     * @return
+     */
+    @RequestMapping(value = "/api/bzzx", method = {RequestMethod.GET})
+    public String bzzx() {
+        return "api/bzzx";
+    }
 
 	/**
 	 * 常用信息

@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
@@ -16,21 +17,23 @@
                 <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
             </div>
             <div class="index_title_three">
-                <c:if test="${empty sessionScope.uuid}" >
-                    <div class="index_login">
-                        <a onclick="tzUrl('/api/login')" class="indexcolor">登陆</a>
-                        <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
-                        <a onclick="tzUrl('/api/register')" class="indexcolor">注册</a>
-                    </div>
-                </c:if>
-                <c:if test="${!empty sessionScope.uuid}" >
-                    <img src="${sessionScope.headerUrl}" class="user_head">
-                    <div class="index_login">
-                        <a onclick="tzUrl('/api/busown')" class="indexcolor">${sessionScope.nickname}</a>
-                        <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
-                        <a onclick="tzUrl('/api/loginout')" class="indexcolor">退出</a>
-                    </div>
-                </c:if>
+                <c:choose>
+                    <c:when test="${empty sessionScope.uuid}">
+                        <div class="index_login">
+                            <a onclick="tzUrl('/api/login')" class="indexcolor">登陆</a>
+                            <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                            <a onclick="tzUrl('/api/register')" class="indexcolor">注册</a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${sessionScope.headerUrl}" class="user_head">
+                        <div class="index_login">
+                            <a onclick="tzUrl('/api/busown')" class="indexcolor">${sessionScope.nickname}</a>
+                            <span class="indexcolor"> &nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                            <a onclick="tzUrl('/api/loginout')" class="indexcolor">退出</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -46,7 +49,7 @@
                     <li class="lib" onclick="tz('api/grzl',this)">个人资料</li>
                     <li class="lib" onclick="tz('api/zhsz',this)">账号设置</li>
                     <li class="lib" onclick="tz('api/cyxx',this)">常用信息</li>
-                    <li class="lib" onclick="tz('api/gywm',this)">帮助中心</li>
+                    <li class="lib" onclick="tz('api/bzzx',this)">帮助中心</li>
                     <li class="lib" onclick="tz('api/mymessage',this)">我的消息</li>
                     <li class="lib" onclick="tz('api/feedback',this)">问题反馈</li>
                 </ul>
