@@ -32,44 +32,34 @@
 
         <li class="ready ready_two">
             <label>发票抬头：</label>
-            <input type="text" placeholder="请输入发票抬头">
+            <input type="text" placeholder="请输入发票抬头" id="invoiceHeader" >
         </li>
         <li class="ready ready_two">
             <label>收件人：</label>
-            <input type="text" placeholder="请输入收件人">
+            <input type="text" placeholder="请输入收件人" id="invoiceContact">
         </li>
         <li class="ready ready_two">
             <label>手机号码：</label>
-            <input type="text" placeholder="请输入手机号码">
+            <input type="text" placeholder="请输入手机号码" id="invoicePhone">
         </li>
         <li class="ready ready_two">
             <label>收件地址：</label>
-            <input type="text" placeholder="请输入收件地址">
+            <input type="text" placeholder="请输入收件地址" id="invoiceAddress">
         </li>
         <li class="ready ready_two">
             <label>税号：</label>
-            <input type="text" placeholder="请输入税号">
+            <input type="text" placeholder="请输入税号" id="invoiceDuty" >
         </li>
         <li class="ready ready_two">
-            <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="savefp()">
+            <div style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;" onclick="saveFp()">
                 保存
             </div>
         </li>
         <li class="ready ready_two">
             <table>
-                <tr>
-                    <td>发票抬头</td>
-                    <td>收件人</td>
-                    <td>手机号码</td>
-                    <td>收件地址</td>
-                    <td>税号</td>
-                    <td>
-                        <button style="background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;">修改
-                        </button>
-                        <button style="background-color:red;padding:  10px 0;text-align: center;width: 100px;">删除
-                        </button>
-                    </td>
-                </tr>
+                <tbody class="fplist">
+
+                </tbody>
             </table>
         </li>
 
@@ -108,10 +98,10 @@
         $.ajax({
             type: "POST",
             url: platform.CONSTS.URL_BASE_CMS + "api/deleteContract",
-            data : {
-                id:lxid
+            data: {
+                id: lxid
             },
-            success:function(result){
+            success: function (result) {
                 layer.msg('删除成功！');
                 //更新列表
                 listContract();
@@ -124,17 +114,17 @@
         $.ajax({
             type: "POST",
             url: platform.CONSTS.URL_BASE_CMS + "api/updateContract",
-            data : {
+            data: {
                 "id": lxIdOnley,
                 "name": $("#name").val(),
                 "phone": $("#phone").val()
             },
-            success:function(result){
+            success: function (result) {
                 layer.msg('修改成功！');
                 $("#name").val("");
-                    $("#phone").val(""),
-                //更新列表
-                listContract();
+                $("#phone").val(""),
+                    //更新列表
+                    listContract();
             }
         });
 
@@ -143,17 +133,17 @@
 
     //新增联系人
     function saveLxr() {
-        if(lxIdOnley != ""){
+        if (lxIdOnley != "") {
             updateLxr();
-        }else{
+        } else {
             $.ajax({
                 type: "POST",
                 url: platform.CONSTS.URL_BASE_CMS + "api/createContract",
-                data : {
+                data: {
                     "name": $("#name").val(),
                     "phone": $("#phone").val()
                 },
-                success:function(result){
+                success: function (result) {
                     layer.msg('新增成功！');
                     $("#name").val("");
                     $("#phone").val("");
@@ -200,6 +190,114 @@
 
     //以下是发票
 
+    var fpIdOnley = "";
+
+    //删除发票
+    function deleteFp(obj) {
+        var fpid = $(obj).parent().parent().attr("fpid");
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/deleteInvoice",
+            data: {
+                id: fpid
+            },
+            success: function (result) {
+                layer.msg('删除成功！');
+                //更新列表
+                listInvoice();
+            }
+        });
+    }
+
+    //修改联系人
+    function updateFp() {
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/updateInvoice",
+            data: {
+                "id": fpIdOnley,
+                "invoiceHeader": $("#invoiceHeader").val(),
+                "invoiceContact": $("#invoiceContact").val(),
+                "invoicePhone": $("#invoicePhone").val(),
+                "invoiceAddress": $("#invoiceAddress").val(),
+                "invoiceDuty": $("#invoiceDuty").val()
+            },
+            success: function (result) {
+                layer.msg('修改成功！');
+                $("#invoiceHeader").val("");
+                $("#invoiceContact").val("");
+                $("#invoicePhone").val("");
+                $("#invoiceAddress").val("");
+                $("#invoiceDuty").val("");
+                    //更新列表
+                    listInvoice();
+            }
+        });
+        lxIdOnley = "";
+    }
+    //创建发票
+    function saveFp() {
+        if (fpIdOnley != "") {
+            updateFp();
+        } else {
+            $.ajax({
+                type: "POST",
+                url: platform.CONSTS.URL_BASE_CMS + "api/createInvoice",
+                data: {
+                    "name": $("#name").val(),
+                    "phone": $("#phone").val()
+                },
+                success: function (result) {
+                    layer.msg('新增成功！');
+                    $("#invoiceHeader").val("");
+                    $("#invoiceContact").val("");
+                    $("#invoicePhone").val("");
+                    $("#invoiceAddress").val("");
+                    $("#invoiceDuty").val("");
+                    //更新列表
+                    listInvoice();
+                }
+            });
+        }
+    }
+
+    //联系人详情
+    function detailFp(obj) {
+        var firstParent = $(obj).parent().parent();
+        fpIdOnley = firstParent.attr("fpid");
+        $("#invoiceHeader").val($(firstParent).children("td").eq(0).html());
+        $("#invoiceContact").val($(firstParent).children("td").eq(1).html());
+        $("#invoicePhone").val($(firstParent).children("td").eq(2).html());
+        $("#invoiceAddress").val($(firstParent).children("td").eq(3).html());
+        $("#invoiceDuty").val($(firstParent).children("td").eq(4).html());
+    }
+
+    //发票列表 listInvoice
+    listInvoice();
+    function listInvoice() {
+        platform.post('api/listInvoice', {}, function (result) {
+            console.log(result);
+            var list = result;
+            $(".fplist").empty();
+            for (var i = 0; i < list.length; i++) {
+                var str = "<tr fpid='" + list[i].id + "'>" +
+                    "                    <td>" + list[i].invoiceHeader + "</td>" +
+                    "                    <td>" + list[i].invoiceContact + "</td>" +
+                    "                    <td>" + list[i].invoicePhone + "</td>" +
+                    "                    <td>" + list[i].invoiceAddress + "</td>" +
+                    "                    <td>" + list[i].invoiceDuty + "</td>" +
+                    "                    <td>" +
+                    "                        <button style=\"background-color:#80c369;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"detailFp(this)\">修改</button>" +
+                    "                        <button style=\"background-color:red;padding:  10px 0;text-align: center;width: 100px;\" onclick=\"deleteFp(this)\">删除</button>" +
+                    "                    </td>" +
+                    "                </tr>";
+
+                $(".fplist").append(str);
+            }
+        }, function (err) {
+            layer.msg('操作失败！', {icon: 2});
+        }, "application/json");
+    }
 
 
 </script>

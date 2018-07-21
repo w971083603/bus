@@ -127,7 +127,7 @@ api {
 
 /*个人中心*/
 .content {
-    margin: 0 auto;
+    margin: 100px auto;
     border: 2px solid #b7b7b7;
     width: 80%;
     height: 600px;
@@ -640,7 +640,7 @@ api {
     height: 73px;
 }
 .cyxx_div li label{
-    display: inline-block;width: 5%;text-align: left;
+    display: inline-block;width: 9%;text-align: left;
 }
 .cyxx_div li input[type=text]{
     width: 13%;
