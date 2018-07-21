@@ -134,7 +134,7 @@
                         <li style="">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">联&nbsp;&nbsp;&nbsp;系人</span></span>
                             <input type="text" name="contactName" class="fbxcInputTime"/>
-                            <button id="cyOk" class="fbxcTjBtn" type="button" onclick="lxIframe()">常用</button>
+                            <%--<button id="cyOk" class="fbxcTjBtn" type="button" onclick="lxIframe()">常用</button>--%>
                         </li>
                         <li style="">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">手机号码</span></span>

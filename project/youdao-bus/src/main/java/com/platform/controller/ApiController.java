@@ -849,11 +849,11 @@ public class ApiController extends BaseController {
             int xszOrder = 0;
             int qrOrder = 0;
             if (countOrderPd != null) {
-                createOrder = countOrderPd.getInteger("createOrder");
-                bjOrder = countOrderPd.getInteger("bjOrder");
-                finishOrder = countOrderPd.getInteger("finishOrder");
-                xszOrder = countOrderPd.getInteger("xszOrder");
-                qrOrder = countOrderPd.getInteger("qrOrder");
+                createOrder = countOrderPd.getBigDecimal("createOrder").intValue();
+                bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
+                finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
+                xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
+                qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
             }
             orderList.put("createOrder", createOrder);
             orderList.put("bjOrder", bjOrder);

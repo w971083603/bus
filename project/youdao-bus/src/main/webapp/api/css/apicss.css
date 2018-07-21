@@ -689,7 +689,22 @@ a:hover {
    width: 100%;
 }
 
-.wddd_div_table td{
+/*.wddd_div_table td{
     width: 10%;
+    text-align: center;
+}*/
+
+.wddd_div_tableCfd {
+    width: 20%;
+    text-align: center;
+}
+
+.wddd_div_tableTime {
+    width: 10%;
+    text-align: center;
+}
+
+.wddd_div_tableInvoice {
+    width: 5%;
     text-align: center;
 }

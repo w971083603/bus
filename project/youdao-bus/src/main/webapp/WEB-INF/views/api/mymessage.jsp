@@ -121,7 +121,7 @@
                         for(var i = 0; i < result.list.length;i++ ) {
                             var str = "<tr><td class=\"messageTdCheckbox\"><input type=\"checkbox\" class=\"one_checked\" value='" + result.list[i].id
                                 + "'></td><td class=\"messageTdContent\">" + result.list[i].massage + "</td>"
-                                +"<td class=\"messageTdYorn\">" + result.list[i].isYorn + "</td><td class=\"messageTdTime\">" + result.list[i].createTime + "</td>";
+                                +"<td class=\"messageTdYorn\">" + result.list[i].isYorn + "</td><td class=\"messageTdTime\">" + result.list[i].createTime + "</td></tr>";
                             $("#selectMessage").append(str);
                         }
                     }

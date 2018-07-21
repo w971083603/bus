@@ -6,10 +6,10 @@
     <div  class="wddd_div" style="overflow-y: scroll;height: 590px;">
          <div class="wddd_div_title">
              <ul>
-                 <li class="wddd_div_li" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj"></span>)</li>
-                 <li class="wddd_div_li" onclick="orderstatus('2',this)">已预定(<span style="color: red;" id="yj"></span>)</li>
-                 <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;" id="xs"></span>)</li>
-                 <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;" id="wc"></span>)</li>
+                 <li class="wddd_div_li" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj">0</span>)</li>
+                 <li class="wddd_div_li" onclick="orderstatus('0',this)">已预定(<span style="color: red;" id="yj">0</span>)</li>
+                 <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;" id="xs">0</span>)</li>
+                 <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;" id="wc">0</span>)</li>
              </ul>
              <div style="width: 20%;float: right;text-align: center;">
                  <img src="">
@@ -18,22 +18,34 @@
          </div>
 
          <div class="wddd_div_table">
-             <table>
-                 <tbody class="orderlist">
+             <table class="tableOrder">
+                 <thead>
                      <tr>
-                         <td>用车类型</td>
-                         <td>出发地</td>
-                         <td>目的地</td>
-                         <td>联系人</td>
-                         <td>手机号码</td>
-                         <td>用车人数</td>
-                         <td>用车数量</td>
-                         <td>车辆座位</td>
-                         <td>出发时间</td>
-                         <td>结束时间</td>
+                         <td class="wddd_div_tableInvoice">服务</td>
+                         <td class="wddd_div_tableCfd">出发地</td>
+                         <td class="wddd_div_tableCfd">目的地</td>
+                         <td class="wddd_div_tableTime">联系人</td>
+                         <td class="wddd_div_tableTime">手机号码</td>
+                         <td class="wddd_div_tableInvoice">用车人数</td>
+                         <td class="wddd_div_tableInvoice">用车数量</td>
+                         <td class="wddd_div_tableInvoice">发票</td>
+                         <td class="wddd_div_tableTime">出发时间</td>
+                         <td class="wddd_div_tableTime">结束时间</td>
                      </tr>
+                 </thead>
+                 <tbody class="orderlist">
+
                  </tbody>
              </table>
+             <div class="noList">
+                 <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
+                     <img src="../../../api/img/web/myorder.png">
+                     <p>暂无数据，您未发布需求</p>
+                 </div>
+                 <div align="center">
+                     <button type="button" class="fbxcBtn" onclick="topUrl('/api/fbxc')">发布行程</button>
+                 </div>
+             </div>
          </div>
     </div>
 </body>
@@ -46,8 +58,59 @@
         $(".wddd_div_li").css("background-color","#fcfffb");
         $(obj).css("background-color","#06dc00");
         //清空td，ajax获取数据展示
+        getMessage(type);
+    }
 
+    $(function () {
+        getMessage("1");
+    })
 
+    function getMessage(status) {
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/orderList",
+            data: {
+                status:status
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    var result = data.data;
+                    $("#bj").html(result.bjOrder);
+                    $("#yj").html(result.createOrder);
+                    $("#xs").html(result.xszOrder);
+                    $("#wc").html(result.finishOrder);
+                    if (result.list.length > 0) {
+                        $(".tableOrder").show();
+                        $(".orderlist").empty();
+                        $(".noList").hide();
+                        // $(".orderlist").html("");
+                        for(var i = 0; i < result.list.length;i++ ) {
+                            var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber  + "辆";
+                            var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince +result.list[i].fromCity + result.list[i].fromAddress + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableCfd\">"  + result.list[i].toProvince +result.list[i].toCity + result.list[i].toAddress +  "</td>\n" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].contactName + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].contactTel + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td></tr>";
+                            $(".orderlist").append(str);
+                        }
+                    } else {
+                        $(".tableOrder").hide();
+                        $(".noList").show();
+
+                    }
+
+                } else {
+                    layer.msg(data.message, {icon: 2});
+                    return;
+                }
+            }
+        });
     }
 
 
