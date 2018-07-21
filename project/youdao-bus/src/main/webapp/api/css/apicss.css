@@ -7,6 +7,13 @@ html, body, h1, h2, h3, h4, h5, h6, header, footer, menu, div, p, ul, ol, blockq
     border: 0px;
 }
 
+body{
+    width: 100%;
+}
+
+iframe body{
+    width: 100%;
+}
 
 
 ul, li {
@@ -26,12 +33,9 @@ a:hover {
     letter-spacing: 2px
 }
 
-api {
-    width: 1920px;
-}
-
 /*首页*/
 .apiLogoDiv {
+    width: 100%;
     background: url("../img/web/one.png");
     height: 150px;
     color: white;
@@ -39,21 +43,21 @@ api {
 }
 
 .apiLogoDiv .index_title_one {
-    width: 9%;
-    height: 50%;
+    width: 200px;
+    height: 75px;
     float: left;
     margin-left: 10%;
 }
 
 .apiLogoDiv .index_title_two {
-    width: 40%;
+    width: 960px;
     height: 50%;
     float: left;
     margin-left: 5%;
 }
 
 .apiLogoDiv .index_title_three {
-    width: 20%;
+    width: 300px;
     height: 50%;
     float: right;
     margin-right: 5%;
@@ -154,7 +158,7 @@ api {
 }
 
 .content_right {
-    width: 78%;
+    width: 80%;
     height: 100%;
     float: left;
 }
