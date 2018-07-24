@@ -18,11 +18,11 @@
     <div class="margin_div">
         <input type="password" class="app_input" placeholder="请输入密码" id="password">
     </div>
-    <div class="margin_div2">
-        <div class="app_buttom_ls" id="ok">注册</div>
+    <div class="margin_div">
+        <input type="password" class="app_input" placeholder="请再次输入密码" id="password_again">
     </div>
-    <div style="width:100%;text-align: center;padding-top: 1%;" >
-        <span style="color:white;"><img src="../../../api/img/app/gou.png"  style="width: 17px;">&nbsp;我已同意</span><a style="color: white;text-decoration: underline;" onclick="appTz(url)">《就道巴士平台会员协议》</a>
+    <div class="margin_div2">
+        <div class="app_buttom_ls" id="ok">完成</div>
     </div>
 </section>
 </body>
@@ -43,7 +43,7 @@
                 data: {
                     "tel": tel,
                     "type":"1",
-                    "smsType": "1"
+                    "smsType": "2"
                 },
                 async: false,
                 success: function (data) {
@@ -58,7 +58,6 @@
                 }
             });
         });
-
         $("#ok").click(function () {
             var tel = $("#tel").val();
             if (tel == '' || tel == null) {
@@ -75,9 +74,18 @@
                 layer.msg("密码不能为空", {icon: 2});
                 return;
             }
+            var password_again = $("#password_again").val();
+            if (password_again == '' || password_again == null) {
+                layer.msg("再次输入密码不能为空", {icon: 2});
+                return;
+            }
+            if(password_again != password){
+                layer.msg("两次密码输入不一致，请重新输入", {icon: 2});
+                return;
+            }
             $.ajax({
-                type: "GET",
-                url: platform.CONSTS.URL_BASE_CMS + "api/ownRegister",
+                type: "POST",
+                url: platform.CONSTS.URL_BASE_CMS + "api/forgetPassword",
                 data: {
                     "tel": tel,
                     "code": code,
@@ -87,7 +95,7 @@
                 async: false,
                 success: function (data) {
                     if (data.success == true) {
-                        layer.msg('注册成功！');
+                        layer.msg('修改成功！');
                         window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/app_login';
                     } else {
                         layer.msg(data.message, {icon: 2});

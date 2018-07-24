@@ -18,7 +18,7 @@
         <div class="app_buttom_ls"  id="ok">登录</div>
     </div>
     <div style="width:100%;text-align: center;padding-top: 1%;" >
-        <a style="color: white;text-decoration: underline;" onclick="appTz(url)">忘记密码?</a>
+        <a style="color: white;text-decoration: underline;" onclick="appTz('/api/app_wjmm')">忘记密码?</a>
     </div>
 </section>
 </body>

@@ -327,4 +327,13 @@ public class ViewController extends  BaseController {
         return "api/app_kszc";
     }
 
+    /**
+     * 忘记密码
+     * @return
+     */
+    @RequestMapping(value = "/api/app_wjmm", method = {RequestMethod.GET})
+    public String app_wjmm(HttpSession session) {
+        return "api/app_wjmm";
+    }
+
 }
