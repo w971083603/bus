@@ -318,4 +318,13 @@ public class ViewController extends  BaseController {
 		return "api/app_index";
 	}
 
+    /**
+     * 快速注册
+     * @return
+     */
+    @RequestMapping(value = "/api/app_kszc", method = {RequestMethod.GET})
+    public String app_kszc(HttpSession session) {
+        return "api/app_kszc";
+    }
+
 }
