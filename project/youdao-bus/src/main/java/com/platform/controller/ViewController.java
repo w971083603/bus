@@ -296,4 +296,26 @@ public class ViewController extends  BaseController {
         }
 		return "api/cyxx";
 	}
+
+
+	//============================================app下面==========================================
+
+	/**
+	 * 登录
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_login", method = {RequestMethod.GET})
+	public String app_login(HttpSession session) {
+		return "api/app_login";
+	}
+
+	/**
+	 * 首页
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_index", method = {RequestMethod.GET})
+	public String app_index(HttpSession session) {
+		return "api/app_index";
+	}
+
 }
