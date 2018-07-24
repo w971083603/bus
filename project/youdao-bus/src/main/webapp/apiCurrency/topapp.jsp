@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="../../../plugins/datetimepicker/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="../../../api/css/appcss.css">
+    <link rel="stylesheet" href="../../../api/css/ptm.min.css">
 </head>
 
 

@@ -344,9 +344,22 @@ public class ViewController extends  BaseController {
 	@RequestMapping(value = "/api/app_grzx", method = {RequestMethod.GET})
 	public String app_grzx(HttpSession session) {
 //		if(session.getAttribute("uuid") == null){
-//			return "redirect:app_login";
+//			return "redirect:app_index";
 //		}
 		return "api/app_grzx";
+	}
+
+	/**
+	 * 退出
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_loginout", method = {RequestMethod.GET})
+	public String app_loginout(HttpSession httpSession) {
+		httpSession.removeAttribute("uuid");
+		httpSession.removeAttribute("tel");
+		httpSession.removeAttribute("nickname");
+		httpSession.removeAttribute("headerUrl");
+		return "redirect:app_index";
 	}
 
 }

@@ -4,23 +4,22 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/topapp.jsp" %>
 <body>
-<header>
-    <div class="app_title_back"><a class="back" href="javascript:history.back(-1)" ></a> </div>
+<header class="ptm-bar ptm-bar-nav  ptm-fix">
+    <div class="ptm-title">用户中心</div>
+    <a class="ptm-pull-right" onclick="appTz('/api/app_loginout')">注销</a>
 </header>
-<section class="content">
-    <div class="margin_div">
-        <input type="text" class="app_input" placeholder="请输入位手机号" id="tel">
+<div class="ptm-content my-header" style="margin-top:40px;">
+    <div class="my-info">
+        <img src="${empty sessionScope.headerUrl || sessionScope.headerUrl eq ''?'../../../api/img/web/header.png':sessionScope.headerUrl}">
     </div>
-    <div class="margin_div">
-        <input type="password" class="app_input" placeholder="请输入密码" id="password">
-    </div>
-    <div class="margin_div2">
-        <div class="app_buttom_ls"  id="ok">登录</div>
-    </div>
-    <div style="width:100%;text-align: center;padding-top: 1%;" >
-        <a style="color: white;text-decoration: underline;" onclick="appTz('/api/app_wjmm')">忘记密码?</a>
-    </div>
-</section>
+</div>
+<div class="ptm-content ptm-card">
+    <ul class="ptm-list-view">
+        <li class="ptm-list-view-cell">
+            <a class="ptm-arrow-right" href="javascript:void(0)/user/history/index.html">浏览历史</a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
 <!-- jQuery 2.2.3 -->
