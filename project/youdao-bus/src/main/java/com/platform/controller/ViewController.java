@@ -336,4 +336,17 @@ public class ViewController extends  BaseController {
         return "api/app_wjmm";
     }
 
+
+	/**
+	 * 个人中心
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_grzx", method = {RequestMethod.GET})
+	public String app_grzx(HttpSession session) {
+//		if(session.getAttribute("uuid") == null){
+//			return "redirect:app_login";
+//		}
+		return "api/app_grzx";
+	}
+
 }
