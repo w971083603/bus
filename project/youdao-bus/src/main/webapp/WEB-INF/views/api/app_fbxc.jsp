@@ -6,7 +6,7 @@
 <body style="  background: none; background-color: #ddd;">
 <header class="ptm-bar ptm-bar-nav  ptm-fix">
     <a class="back ptm-pull-left" onclick="appTz('/api/app_grzx')" style="margin: 16px;"></a>
-    <div class="ptm-title">选择包车模式</div>
+    <div class="ptm-title">发布行程</div>
     <a class="ptm-pull-right"></a>
 </header>
 <div class="ptm-content" style="margin-top:40px;">
