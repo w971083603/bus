@@ -17,7 +17,6 @@ h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold}
 del,ins,u,s,a,a:hover{text-decoration:none}
 html,body{height:100%;width:100%;min-width:320px}
 html{-webkit-text-size-adjust:none;}
-body,textarea,input,button,select,keygen,legend{font:16px/1.5 "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontVsoicon,sans-serif;color:#333;outline:0;background:#f4f4f4}
 a,a:hover{color:#333;text-decoration:none}
 .login_top{text-align:center;height:46px;background:#51b7ec;position:relative;line-height:46px;}
 .login_top .people,.login_top .menusearch,.login_top .shujia{background:url(../image/propic.png) no-repeat;display:inline-block;background-size:120px 30px}
@@ -150,7 +149,6 @@ button,.ptm-btn{position:relative;display:inline-block;padding:6px 12px;margin-b
 .ptm-btn-info.ptm-btn-outlined:active{background:#2980b9;color:#fff}
 .ptm-btn-warning.ptm-btn-outlined:active{background:#faa732;color:#fff}
 .ptm-btn-danger.ptm-btn-outlined:active{background:#c0392b;color:#fff}
-textarea{width:100%;-webkit-appearance:none;padding:10px 15px;margin-bottom:15px;line-height:21px;-webkit-user-select:text;background-color:#fff;border:1px solid rgba(0,0,0,.2);border-radius:3px;outline:0}
 .ptm-form{position:relative;background:#fff}
 .ptm-input-row{position:relative;display:table;padding:6px 0}
 .ptm-input-row:after{border-bottom:1px solid #c8c7cc;display:block;content:'';position:absolute;top:0;right:0;bottom:0;left:0;-webkit-transform-origin:0 0;-webkit-transform:scale(1);pointer-events:none}

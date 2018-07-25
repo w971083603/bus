@@ -373,6 +373,19 @@ public class ViewController extends  BaseController {
 		return "api/app_wddd";
 	}
 
+
+	/**
+	 * 发布行程
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_fbxc", method = {RequestMethod.GET})
+	public String app_fbxc(HttpSession session) {
+		if(session.getAttribute("uuid") == null){
+			return "redirect:app_index";
+		}
+		return "api/app_fbxc";
+	}
+
 	/**
 	 * 退出
 	 * @return

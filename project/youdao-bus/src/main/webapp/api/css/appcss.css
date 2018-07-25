@@ -164,3 +164,152 @@ a:hover {
     width: 5%;
     text-align: center;
 }
+
+
+/*发布行程*/
+.fbxc_div_all{
+    display: none;
+}
+.fbxc_div{
+
+}
+.fbxc_div .firs_one{
+    display: block;
+    margin: 36px auto;
+    width: 93%;
+    background-color: #8cff94;
+    height: 118px;
+    border-radius: 11px;
+    text-align: center;
+    padding-top: 37px;
+}
+.firs_one:after {
+    font-family: "ptmicon"!important;
+    right: 15px;
+    content: '>';
+}
+.firs_one:after {
+    font-family: 'ptmicon';
+    font-size: inherit;
+    line-height: 1;
+    color: #bbb;
+    text-decoration: none;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-font-smoothing: antialiased;
+}
+
+.fbxc_div li span:first-child{
+    display: inline-block;
+}
+
+.fbxcInputTime{
+    height: 33px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+}
+.fbxcSpanRed{
+    width: 10px;
+    height: 18px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #fe0000;
+}
+.fbxcSpanName {
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 0px;
+    color: #333333;
+}
+
+.fbxcSelect{
+    width: 88px;
+    height: 28px;
+    border-radius: 5px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+}
+.fbxcYcrs{
+    width: 126px;
+    height: 28px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+}
+.fbxcRemarks{
+    height: 112px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+}
+.fbxcRedio{
+    width: 50px;
+    height: 15px;
+    background-color: #d9d9d9;
+    border: solid 0px #b7b7b7;
+}
+.fbxctitleName{
+    width: 56px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #fe0000;
+}
+
+.fbxcBtn{
+    width: 188px;
+    height: 45px;
+    background-color: #80c269;
+    border-radius: 5px;
+    margin-top: 43px;
+}
+
+.fbxcDelBtn{
+    width: 80px;
+    height: 33px;
+    background-color: #fe413f;
+    border-radius: 5px;
+}
+.fbxcTjBtn{
+    width: 137px;
+    height: 38px;
+    background-color: #80c269;
+    border-radius: 5px;
+}
+
+.fbxcCyBtn{
+    width: 79px;
+    height: 38px;
+    background-color: #80c269;
+    border-radius: 5px;
+}
+
+.fbxcRedioName{
+    width: 80px;
+    height: 22px;
+    font-size: 12px;
+    background-color: #80c269;
+}
+
+.fbxc_div_content{
+
+}
+.fbxc_div_content_content{
+
+}
+.fbxc_div_content_content li{
+    display: block;
+    padding-top: 14px;
+}
+.fbxc_div_title{
+    width: 100%;padding: 4px;background-color:#80c369;
+}
+
+.fbxc_div_next{
+    background-color:#80c369;margin: 10px auto;padding:  10px 0;text-align: center;width: 100px;
+}
