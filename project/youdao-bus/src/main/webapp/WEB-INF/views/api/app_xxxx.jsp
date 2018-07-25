@@ -7,6 +7,7 @@
 <header class="ptm-bar ptm-bar-nav  ptm-fix">
     <a class="back ptm-pull-left" onclick="appTz('/api/app_grzx')"  style="margin: 16px;"></a>
     <div class="ptm-title">详细信息</div>
+    <a class="ptm-pull-right"></a>
 </header>
 <div class="ptm-content my-header" style="margin-top:40px;">
     <div class="my-info" id="headerUrl" onclick="changeImage('headerUrl')">

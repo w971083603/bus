@@ -18,6 +18,9 @@
         <li class="ptm-list-view-cell">
             <a class="ptm-arrow-right"  onclick="appTz('/api/app_xxxx')" >详细信息</a>
         </li>
+        <li class="ptm-list-view-cell">
+            <a class="ptm-arrow-right"  onclick="appTz('/api/app_wddd')" >我的订单</a>
+        </li>
     </ul>
 </div>
 </body>

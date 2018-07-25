@@ -4,7 +4,7 @@ html, body, h1, h2, h3, h4, h5, h6, header, footer, menu, div, p, ul, ol, blockq
 }
 body{
     width: 100%;
-    height: 800px;
+    height: 600px;
     background-image: url("../../api/img/app/bj.png");
     background-size:100% 100%;
 }
@@ -113,4 +113,54 @@ a:hover {
 
 .xxxx_right{
     background-color: white;border: none;text-align: right;width: 109px;position: absolute; right: 30px;
+}
+
+
+
+/*个人订单*/
+.wddd_div{
+    width: 100%;
+}
+.wddd_div_li{
+    display: block;
+    width: 25%;
+    float: left;
+    text-align: center;
+    padding: 14px 0;
+    border-right: 1px solid #d2d6de;
+}
+.wddd_div_li:hover{
+    border-bottom: 1px solid #00B83F;
+    cursor: pointer;
+}
+
+.wddd_div_title{
+    width: 100%;border-bottom: 1px solid #d2d6de;float: left;
+}
+
+.wddd_div_table{
+    overflow-x: auto; overflow-y: auto; width:100%;
+}
+.wddd_div_table table{
+    width: 100%;
+}
+
+/*.wddd_div_table td{
+    width: 10%;
+    text-align: center;
+}*/
+
+.wddd_div_tableCfd {
+    width: 20%;
+    text-align: center;
+}
+
+.wddd_div_tableTime {
+    width: 10%;
+    text-align: center;
+}
+
+.wddd_div_tableInvoice {
+    width: 5%;
+    text-align: center;
 }

@@ -362,6 +362,18 @@ public class ViewController extends  BaseController {
 	}
 
 	/**
+	 * 我的订单
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_wddd", method = {RequestMethod.GET})
+	public String app_wddd(HttpSession session) {
+		if(session.getAttribute("uuid") == null){
+			return "redirect:app_index";
+		}
+		return "api/app_wddd";
+	}
+
+	/**
 	 * 退出
 	 * @return
 	 */
