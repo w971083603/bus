@@ -210,6 +210,7 @@ a:hover {
     height: 33px;
     border: solid 1px #333333;
     opacity: 0.5;
+    border-radius: 5px;
 }
 .fbxcSpanRed{
     width: 10px;
@@ -230,15 +231,17 @@ a:hover {
 .fbxcSelect{
     width: 88px;
     height: 28px;
-    border-radius: 5px;
     border: solid 1px #333333;
     opacity: 0.5;
+    background-color: white;
+    border-radius: 5px;
 }
 .fbxcYcrs{
     width: 126px;
     height: 28px;
     border: solid 1px #333333;
     opacity: 0.5;
+    border-radius: 5px;
 }
 .fbxcRemarks{
     height: 112px;
@@ -293,7 +296,6 @@ a:hover {
     width: 80px;
     height: 22px;
     font-size: 12px;
-    background-color: #80c269;
 }
 
 .fbxc_div_content{

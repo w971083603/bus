@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div align="center">
-                    <button id="ok" type="button" class="fbxcBtn">预览订单</button>
+                    <div class="app_buttom_ls"  id="ok" >预览订单</div>
                 </div>
                 <%--<div style="background-color:#80c369;/* height: 45px; */width: 80px;margin: 10px auto;padding:  10px;" id="ok">预览订单</div>--%>
             </div>
@@ -260,7 +260,7 @@
 
                         </ul>
                         <div align="center">
-                            <button id="isOk" type="button" class="fbxcBtn">确认发布</button>
+                            <div class="app_buttom_ls"  id="isOk" >确认发布</div>
                         </div>
                     </div>
                 </div>
@@ -268,12 +268,12 @@
             <input type="hidden" name="orderUuid" id="orderUuid">
             <div class="fbxc_div_four fbxc_div_all">
                 <div style="padding-top: 29%;width: 71%;margin: auto;text-align: center;">
-                    <img src="../../../api/img/web/cdbj.png">
+                    <img src="../../../api/img/web/myorder.png">
                     <p>发布成功，等待报价</p>
                     <span>我们正将你的需求发送给车队，一大群车队正在纷纷赶来报价</span>
                 </div>
                 <div align="center">
-                    <button type="button" class="fbxcBtn" onclick="tzUrl('/api/app_wddd')">查看我的行程</button>
+                    <div class="app_buttom_ls"   onclick="tzUrl('/api/app_wddd')">查看我的行程</div>
                 </div>
             </div>
         </div>

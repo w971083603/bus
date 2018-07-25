@@ -362,7 +362,7 @@
                 </ul>
             </div>
             <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
-                <img src="../../../api/img/web/cdbj.png">
+                <img src="../../../api/img/web/myorder.png">
                 <p>发布成功，等待报价</p>
                 <span>我们正将你的需求发送给车队，一大群车队正在纷纷赶来报价</span>
             </div>

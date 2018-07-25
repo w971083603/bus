@@ -21,7 +21,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:log4j.properties</value>
-				<value>classpath:environment/env-localhost.properties</value>
+				<value>classpath:environment/env-product.properties</value>
 			</list>
 		</property>
 	</bean>
