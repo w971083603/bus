@@ -320,13 +320,13 @@ public class ApiController extends BaseController {
             if (Strings.isNullOrEmpty(fromTime)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "出发时间不能为空"));
             }
+            String toTime = pd.getString("toTime");
             if (type.equals("1")) {
-                String toTime = pd.getString("toTime");
                 if (Strings.isNullOrEmpty(toTime)) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "结束时间不能为空"));
                 }
-            }else{
-                pd.put("toTime",null);
+            } else {
+                pd.put("toTime", null);
             }
             String fromProvince = pd.getString("fromProvince");
             if (Strings.isNullOrEmpty(fromProvince)) {
@@ -447,6 +447,33 @@ public class ApiController extends BaseController {
             orderPd.put("roadList", list);
             result = ResponseWrapper.succeed(orderPd);
             // TODO 添加短信发送，添加websocket推送后台
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(msgHeader);
+            stringBuffer.append("出发时间：" + fromTime + ",");
+            stringBuffer.append("出发地址：" + fromAddress + ",");
+            stringBuffer.append("目的地地址：" + toAddress + ",");
+            //1-包车，2-单接送
+            //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            if (type.equals("1")) {
+                stringBuffer.append("结束时间：" + toTime + ",");
+                stringBuffer.append("途径地址：" + road + ",");
+            }
+            stringBuffer.append("联系人：" + contactName + ",");
+            stringBuffer.append("联系方式：" + contactTel + ",");
+            stringBuffer.append("用车人数：" + useNumber + ",");
+            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber)*Integer.parseInt(busNumber) + ",");
+            String message = stringBuffer.toString();
+            //获取审核通过车队的
+            List<PageData> fleetList = fleetMapper.selectAllPassFleet();
+            for (PageData fleetPd : fleetList) {
+                String tel = fleetPd.getString("tel");
+                JSONObject sms = SendSmsUtil.sendSms(message, tel);
+                if (sms.getString("code").equals("0")) {
+                    pd.put("message",message);
+                    messageMapper.save(pd);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ResponseWrapper.failed(-1, "创建订单失败"));
