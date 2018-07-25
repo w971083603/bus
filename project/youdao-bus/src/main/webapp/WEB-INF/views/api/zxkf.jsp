@@ -38,7 +38,9 @@
         </div>
     </div>
 </div>
-<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode"></div>
+<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode">
+    <img src="../../../api/img/mrqycode.jpg" style="width: 400px;height: 400px;">
+</div>
 <div class="apiLogoImage">
     <img src="../../../api/img/web/zcbj.png" style="width:100%;height:100%;">
 </div>
@@ -47,13 +49,13 @@
 <!-- jQuery 2.2.3 -->
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
-    $(function () {
-        $("#qrcode").qrcode({
-            render: "table",
-            width: 400,
-            height:400,
-            text: platform.CONSTS.URL_BASE_CMS + "api/busindex"
-        });
-    });
+//    $(function () {
+//        $("#qrcode").qrcode({
+//            render: "table",
+//            width: 400,
+//            height:400,
+//            text: platform.CONSTS.URL_BASE_CMS + "api/busindex"
+//        });
+//    });
 
 </script>
