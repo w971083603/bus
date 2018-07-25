@@ -343,10 +343,22 @@ public class ViewController extends  BaseController {
 	 */
 	@RequestMapping(value = "/api/app_grzx", method = {RequestMethod.GET})
 	public String app_grzx(HttpSession session) {
-//		if(session.getAttribute("uuid") == null){
-//			return "redirect:app_index";
-//		}
+		if(session.getAttribute("uuid") == null){
+			return "redirect:app_index";
+		}
 		return "api/app_grzx";
+	}
+
+	/**
+	 * 详细信息
+	 * @return
+	 */
+	@RequestMapping(value = "/api/app_xxxx", method = {RequestMethod.GET})
+	public String app_xxxx(HttpSession session) {
+		if(session.getAttribute("uuid") == null){
+			return "redirect:app_index";
+		}
+		return "api/app_xxxx";
 	}
 
 	/**

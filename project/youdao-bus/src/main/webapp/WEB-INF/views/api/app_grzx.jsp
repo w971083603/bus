@@ -16,7 +16,7 @@
 <div class="ptm-content ptm-card">
     <ul class="ptm-list-view">
         <li class="ptm-list-view-cell">
-            <a class="ptm-arrow-right" href="javascript:void(0)/user/history/index.html">浏览历史</a>
+            <a class="ptm-arrow-right"  onclick="appTz('/api/app_xxxx')" >详细信息</a>
         </li>
     </ul>
 </div>

@@ -110,3 +110,7 @@ a:hover {
     transform: rotate(45deg);
     color: white;
 }
+
+.xxxx_right{
+    background-color: white;border: none;text-align: right;width: 109px;position: absolute; right: 30px;
+}

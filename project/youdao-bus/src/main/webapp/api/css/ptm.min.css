@@ -151,7 +151,6 @@ button,.ptm-btn{position:relative;display:inline-block;padding:6px 12px;margin-b
 .ptm-btn-warning.ptm-btn-outlined:active{background:#faa732;color:#fff}
 .ptm-btn-danger.ptm-btn-outlined:active{background:#c0392b;color:#fff}
 textarea{width:100%;-webkit-appearance:none;padding:10px 15px;margin-bottom:15px;line-height:21px;-webkit-user-select:text;background-color:#fff;border:1px solid rgba(0,0,0,.2);border-radius:3px;outline:0}
-select,input[type="text"],input[type="search"],input[type="password"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="tel"],input[type="color"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"]{width:100%;-webkit-appearance:none;-webkit-user-select:text;padding:10px 15px;margin-bottom:15px;line-height:21px;background-color:#fff;border:1px solid rgba(0,0,0,.2);border-radius:3px;outline:0}
 .ptm-form{position:relative;background:#fff}
 .ptm-input-row{position:relative;display:table;padding:6px 0}
 .ptm-input-row:after{border-bottom:1px solid #c8c7cc;display:block;content:'';position:absolute;top:0;right:0;bottom:0;left:0;-webkit-transform-origin:0 0;-webkit-transform:scale(1);pointer-events:none}
@@ -258,7 +257,7 @@ select,input[type="text"],input[type="search"],input[type="password"],input[type
 .ptm-badge-info{color:#fff;background-color:#3498db}
 .ptm-badge-warning{color:#fff;background-color:#f82}
 .ptm-badge-danger{color:#fff;background-color:#e74c3c}
-.ptm-bar{position:relative;top:0;left:0;z-index:10;width:100%;background-color:#51b7ec;color:#fff;display:block;height:45px;line-height:45px;font-size:18px;text-align:center}
+.ptm-bar{position:relative;top:0;left:0;z-index:10;width:100%;background-color:#11161b;color:#fff;display:block;height:45px;line-height:45px;font-size:18px;text-align:center}
 .ptm-bar.ptm-fix{position:fixed}
 .ptm-title{position:absolute;width:100%;margin:0 -10px;text-align:center;white-space:nowrap}
 .ptm-title a{color:inherit}
@@ -666,7 +665,7 @@ to{background-position:-444px 0}
 
 
 .my-header {
-    background: #51b7ec;
+    background: #11161b;
     background-size: cover;
     min-height: 150px;
     position: relative;
