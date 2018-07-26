@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../../../apiCurrency/topapp.jsp" %>
-<body style="  background: none; background-color: #ddd;">
+<body style="  background: none; background-color: #fdfdfd;">
 <header class="ptm-bar ptm-bar-nav  ptm-fix">
     <a class="back ptm-pull-left" onclick="appTz('/api/app_grzx')" style="margin: 16px;"></a>
     <div class="ptm-title">发布行程</div>
@@ -17,10 +17,10 @@
                 <div class="demand_list">
                     <ul style="padding-top: 26px;">
                         <li class="firs_one" id="dancheng" style="text-indent: 10px" onclick="next('fbxc_div_two','1')">
-                          <a style="">包车</a>
+                          <a style="">选择包车</a>
                         </li>
                         <li class="firs_one" id="duori" onclick="next('fbxc_div_two','2')">
-                            <a style="">单接送</a>
+                            <a style="">选择单接送</a>
                         </li>
                         <div style="clear: both;"></div>
                     </ul>
@@ -32,60 +32,75 @@
                     <div class="fbxc_div_content_content" style="">
                         <ul>
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">出发时间</span></span>
-                                <input type="text" class="fbxcInputTime" id="fromTime" name="fromTime"/>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/time.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">出发时间</span>
+                                    <input type="text" class="fbxcInputTime" id="fromTime" name="fromTime" placeholder="请选择出发时间"/>
+                                </div>
                             </li>
                             <li style="" class="toTimeForDjs">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">结束时间</span></span>
-                                <input type="text" class="fbxcInputTime" id="toTime" name="toTime"/>
-                            </li>
-                            <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span
-                                        class="fbxcSpanName">出&nbsp;&nbsp;&nbsp;发地</span></span>
-                                <select name="fromProvince" class="fbxcSelect" onchange="getFromCity(this)">
-                                    <option selected="selected" value="">请选择</option>
-                                </select>
-                                <select name="fromCity" class="fbxcSelect">
-                                    <option selected="selected" value="">请选择</option>
-                                </select>
-                                <input type="text" name="fromAddress" class="fbxcInputTime" style="    width: 125px;"/>
-                            </li>
-                            <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span
-                                        class="fbxcSpanName">目&nbsp;&nbsp;&nbsp;的地</span></span>
-                                <select name="toProvince" class="fbxcSelect" onchange="getToCity(this)">
-                                    <option selected="selected" value="">请选择</option>
-                                </select>
-                                <select name="toCity" class="fbxcSelect">
-                                    <option selected="selected" value="">请选择</option>
-                                </select>
-                                <input type="text" name="toAddress" class="fbxcInputTime" style="    width: 125px;"/>
-                            </li>
-                            <li id="wayid">
-                                <span class="fbxcSpanName">途&nbsp;&nbsp;&nbsp;径地</span>
-                                <button id="tjOk" class="fbxcTjBtn" onclick="addmidway()" type="button">新增途径地</button>
-                                <input type="hidden" name="road" id="road">
-                                <div id="tjaddress">
-
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/time.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">结束时间</span>
+                                    <input type="text" class="fbxcInputTime" id="toTime" name="toTime"  placeholder="请选择结束时间"/>
                                 </div>
                             </li>
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span
-                                        class="fbxcSpanName">联&nbsp;&nbsp;&nbsp;系人</span></span>
-                                <input type="text" name="contactName" class="fbxcInputTime"/>
-                                <%--<button id="cyOk" class="fbxcTjBtn" type="button" onclick="lxIframe()">常用</button>--%>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/address.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                        <span class="fbxcSpanName">出&nbsp;&nbsp;&nbsp;发地</span>
+                                        <input type="text" name="fromAddress" class="fbxcInputTime fbxcSelect_input"/>
+                                        <select name="fromCity" class="fbxcSelect">
+                                            <option selected="selected" value="">请选择</option>
+                                        </select>
+                                        <select name="fromProvince" class="fbxcSelect" onchange="getFromCity(this)">
+                                            <option selected="selected" value="">请选择</option>
+                                        </select>
+                                </div>
                             </li>
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">手机号码</span></span>
-                                <input type="text" name="contactTel" class="fbxcInputTime"/>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/address.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">目&nbsp;&nbsp;&nbsp;的地</span>
+                                    <input type="text" name="toAddress" class="fbxcInputTime fbxcSelect_input"/>
+                                    <select name="toCity" class="fbxcSelect">
+                                        <option selected="selected" value="">请选择</option>
+                                    </select>
+                                    <select name="toProvince" class="fbxcSelect" onchange="getToCity(this)">
+                                        <option selected="selected" value="">请选择</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li id="wayid">
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/+.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName fbxcTjBtn" onclick="addmidway()" id="tjOk">新增途径地</span>
+                                    <input type="hidden" name="road" id="road">
+                                    <div id="tjaddress" style="width: 100%;">
+
+                                    </div>
+                                </div>
                             </li>
                             <li style="">
-                                <div>
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">用车人数</span></span>
-                                    <input type="number" name="useNumber" class="fbxcYcrs"/>
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">用车数量</span></span>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/lxr.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">联&nbsp;&nbsp;&nbsp;系人</span>
+                                    <input type="text" name="contactName" class="fbxcInputTime" placeholder="请请输入联系人"/>
+                                </div>
+                            </li>
+                            <li style="">
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/lxr.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">手机号码</span>
+                                    <input type="text" name="contactTel" class="fbxcInputTime" placeholder="请输入手机号码"/>
+                                </div>
+                             </li>
+                            <li style="">
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/rs.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">用车人数</span>
+                                    <input type="number" name="useNumber" class="fbxcYcrs" placeholder="人数"/>
+                                    <span class="fbxcSpanName">用车数量</span>
                                     <select name="busNumber" class="fbxcSelect" id="busNumber">
                                         <option value="">辆</option>
                                         <option value="1">1辆</option>
@@ -94,13 +109,11 @@
                                         <option value="4">>3辆</option>
                                     </select>
                                 </div>
-
                             </li>
                             <li style="">
-
-                                <div>
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">车辆座位</span></span>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/zw.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">车辆座位</span>
                                     <select name="busNumber1" class="fbxcSelect">
                                         <option value="">座</option>
                                         <option value="4">4座</option>
@@ -153,52 +166,61 @@
                                         <option value="54">54座</option>
                                     </select>
                                 </div>
-
                             </li>
                             <li style="">
-                                <span class="fbxcSpanName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注</span>
-                                <textarea name="remarks" class="fbxcRemarks"></textarea>
-                            </li>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/bz.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">备&nbsp;&nbsp;&nbsp;&nbsp;注</span>
+                                    <input type="text" name="remarks" class="fbxcRemarks" placeholder="请请输入备注"/>
+                                </div>
+                             </li>
                             <li style="">
-                                <span class="fbxctitleName">带*必填</span>
+                                <div class="fbxcSpanRed"><img src="../../../api/img/app/fp.png"></div>
+                                <div class="fbxcSpanRed_nextdiv">
+                                    <span class="fbxcSpanName">需要发票</span>
+                                    <input class="fbxcRedio" name="isInvoice" type="radio" value="否" checked/><span
+                                        class="fbxcRedioName">否</span>
+                                    <input class="fbxcRedio" name="isInvoice" type="radio" value="是"/><span
+                                        class="fbxcRedioName">是</span>
+                                    <ul id="invoice" style="display: none;width: 100%;">
+                                        <li style="">
+                                            <div class="fbxcSpanRed_nextdiv">
+                                            <span class="fbxcSpanName">发票抬头</span>
+                                            <input type="text" class="fbxcInputTime input_not_paddingleft" id="invoiceHeader" name="invoiceHeader"/>
+                                            </div>
+                                        </li>
+                                        <li style="">
+                                            <div class="fbxcSpanRed_nextdiv">
+                                            <span class="fbxcSpanName">收&nbsp;&nbsp;&nbsp;&nbsp;件人</span>
+                                            <input type="text" class="fbxcInputTime input_not_paddingleft" id="invoiceContact" name="invoiceContact"/>
+                                            </div>
+                                        </li>
+                                        <li style="">
+                                            <div class="fbxcSpanRed_nextdiv">
+                                               <span class="fbxcSpanName">联系方式</span>
+                                            <input type="text" class="fbxcInputTime input_not_paddingleft" id="invoicePhone" name="invoicePhone"/>
+                                            </div>
+                                        </li>
+                                        <li style="">
+                                            <div class="fbxcSpanRed_nextdiv">
+                                            <span class="fbxcSpanName">收件地址</span>
+                                            <input type="text" class="fbxcInputTime input_not_paddingleft" id="invoiceAddress" name="invoiceAddress"/>
+                                            </div>
+                                        </li>
+                                        <li style="">
+                                            <div class="fbxcSpanRed_nextdiv">
+                                            <span class="fbxcSpanName">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
+                                            <input type="text" class="fbxcInputTime input_not_paddingleft" id="invoiceDuty" name="invoiceDuty"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
-                            <li style="">
-                                <span class="fbxcSpanName">需要发票</span>
-                                <input class="fbxcRedio" name="isInvoice" type="radio" value="否" checked/><span
-                                    class="fbxcRedioName">否</span>
-                                <input class="fbxcRedio" name="isInvoice" type="radio" value="是"/><span
-                                    class="fbxcRedioName">是</span>
+                            <li>
+                                <div class="app_buttom_ls"  id="ok" >预览订单</div>
                             </li>
-                            <div id="invoice" style="display: none">
-                                <li style="">
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">发票抬头</span></span>
-                                    <input type="text" class="fbxcInputTime" id="invoiceHeader" name="invoiceHeader"/>
-                                </li>
-                                <li style="">
-                                    <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">收&nbsp;&nbsp;&nbsp;&nbsp;件人</span></span>
-                                    <input type="text" class="fbxcInputTime" id="invoiceContact" name="invoiceContact"/>
-                                </li>
-                                <li style="">
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">联系方式</span></span>
-                                    <input type="text" class="fbxcInputTime" id="invoicePhone" name="invoicePhone"/>
-                                </li>
-                                <li style="">
-                                    <span><span class="fbxcSpanRed">*</span><span
-                                            class="fbxcSpanName">收件地址</span></span>
-                                    <input type="text" class="fbxcInputTime" id="invoiceAddress" name="invoiceAddress"/>
-                                </li>
-                                <li style="">
-                                    <span class="fbxcSpanName">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
-                                    <input type="text" class="fbxcInputTime" id="invoiceDuty" name="invoiceDuty"/>
-                                </li>
-                            </div>
                         </ul>
                     </div>
-                </div>
-                <div align="center">
-                    <div class="app_buttom_ls"  id="ok" >预览订单</div>
                 </div>
                 <%--<div style="background-color:#80c369;/* height: 45px; */width: 80px;margin: 10px auto;padding:  10px;" id="ok">预览订单</div>--%>
             </div>
@@ -236,32 +258,32 @@
                             <li style="padding-left: 20px;">
                                 用车数量：<span class="busNumber"></span>
                             </li>
-                            <div class="invoiceTitel">
-                                <li style="padding-left: 20px;">
-                                    发票抬头：<span class="invoiceHeader"></span>
-                                </li>
-                                <li style="padding-left: 20px;">
-                                    收件人：<span class="invoiceContact"></span>
-                                </li>
-                                <li style="padding-left: 20px;">
-                                    收件人联系方式：<span class="invoicePhone"></span>
-                                </li>
-                                <li style="padding-left: 20px;">
-                                    收件人地址：<span class="invoiceAddress"></span>
-                                </li>
-                                <li style="padding-left: 20px;">
-                                    税号：<span class="invoiceDuty"></span>
-                                </li>
-                            </div>
-
+                            <li>
+                                <ul class="invoiceTitel">
+                                    <li style="padding-left: 20px;">
+                                        发票抬头：<span class="invoiceHeader"></span>
+                                    </li>
+                                    <li style="padding-left: 20px;">
+                                        收件人：<span class="invoiceContact"></span>
+                                    </li>
+                                    <li style="padding-left: 20px;">
+                                        收件人联系方式：<span class="invoicePhone"></span>
+                                    </li>
+                                    <li style="padding-left: 20px;">
+                                        收件人地址：<span class="invoiceAddress"></span>
+                                    </li>
+                                    <li style="padding-left: 20px;">
+                                        税号：<span class="invoiceDuty"></span>
+                                    </li>
+                                </ul>
+                            </li>
                             <li style="">
                                 <input type="checkbox"> 我已同意<a href="#" style="color: red;">《就道巴士服务协议》</a>
                             </li>
-
+                            <li style="">
+                                <div class="app_buttom_ls"  id="isOk" >确认发布</div>
+                            </li>
                         </ul>
-                        <div align="center">
-                            <div class="app_buttom_ls"  id="isOk" >确认发布</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -473,6 +495,9 @@
         if (value == "2") {
             $(".toTimeForDjs").hide();
             $("#wayid").hide();
+            $(".ptm-title").html("单接送服务");
+        }else{
+            $(".ptm-title").html("包车服务");
         }
         $("." + id).show();
     }
@@ -483,7 +508,7 @@
      */
     function addmidway() {
         // var html = "<li><span class=\"fbxcSpanName\">途&nbsp;&nbsp;&nbsp;径地</span><input type=\"text\" class=\"fbxcInputTime\" id=\"toTime\" name=\"toTime\" /></li>";
-        midwayhtml = "<input type=\"text\" class=\"tjaddress\" placeholder=\"请输入途径地\"  style=\"margin-left: 84px;margin-right: 4px;margin-top: 5px;width: 403px;height: 33px;\" autocomplete=\"off\"><button type='button' class='fbxcDelBtn' onclick='removemidway(this);' >删除</button><br><div id=\"automidway\" style=\"display:none;\" class=\"automidways\"></div>";
+        midwayhtml = "<input type=\"text\" class=\"tjaddress fbxcDel_address\" placeholder=\"请输入途径地\"  style=\"\" autocomplete=\"off\"><button type='button' class='fbxcDelBtn' onclick='removemidway(this);' >删除</button><br><div id=\"automidway\" style=\"display:none;\" class=\"automidways\"></div>";
         midwayheight = $("#wayid").height() + 35;
         $("#tjaddress").append(midwayhtml);
         $("#wayid").css("height", midwayheight + "px");
