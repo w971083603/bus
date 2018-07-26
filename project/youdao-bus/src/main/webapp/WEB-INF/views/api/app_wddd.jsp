@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../../../apiCurrency/topapp.jsp" %>
-<body>
+<body style=" background: none;  background-color: #fbfbfb; ">
 <header class="ptm-bar ptm-bar-nav  ptm-fix">
     <a class="back ptm-pull-left" onclick="appTz('/api/app_grzx')"  style="margin: 16px;"></a>
     <div class="ptm-title">我的订单</div>

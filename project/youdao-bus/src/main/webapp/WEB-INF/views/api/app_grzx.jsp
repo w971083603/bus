@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../../../apiCurrency/topapp.jsp" %>
-<body>
+<body style=" background: none;  background-color: #fbfbfb; ">
 <header class="ptm-bar ptm-bar-nav  ptm-fix">
     <div class="ptm-title">用户中心</div>
     <a class="ptm-pull-right" onclick="appTz('/api/app_loginout')">注销</a>
