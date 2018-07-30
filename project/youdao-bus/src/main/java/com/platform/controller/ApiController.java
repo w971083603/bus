@@ -463,7 +463,7 @@ public class ApiController extends BaseController {
             stringBuffer.append("联系人：" + contactName + ",");
             stringBuffer.append("联系方式：" + contactTel + ",");
             stringBuffer.append("用车人数：" + useNumber + ",");
-            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber)*Integer.parseInt(busNumber) + ",");
+            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
             String message = stringBuffer.toString();
             //获取审核通过车队的
             List<PageData> fleetList = fleetMapper.selectAllPassFleet();
@@ -471,7 +471,7 @@ public class ApiController extends BaseController {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
                 if (sms.getString("code").equals("0")) {
-                    pd.put("message",message);
+                    pd.put("message", message);
                     messageMapper.save(pd);
                 }
             }
@@ -867,6 +867,7 @@ public class ApiController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
+
     /**
      * 查询订单,根据状态status
      *
@@ -884,6 +885,7 @@ public class ApiController extends BaseController {
             PageData countOrderPd = orderMapper.countOrder(pd);
             int createOrder = 0;
             int bjOrder = 0;
+            int txOrder = 0;
             int finishOrder = 0;
             int xszOrder = 0;
             int qrOrder = 0;
@@ -893,13 +895,21 @@ public class ApiController extends BaseController {
                 finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
                 xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
                 qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
+                txOrder = countOrderPd.getBigDecimal("txOrder").intValue();
             }
             orderList.put("createOrder", createOrder);
             orderList.put("bjOrder", bjOrder);
             orderList.put("finishOrder", finishOrder);
             orderList.put("xszOrder", xszOrder);
             orderList.put("qrOrder", qrOrder);
+            orderList.put("txOrder", txOrder);
             List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
+            if (pd.getString("status").equals("2")) {
+                for (PageData orderpd : list) {
+                    List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                    orderpd.put("fleetList", fleetList);
+                }
+            }
             orderList.put("list", list);
             result = ResponseWrapper.succeed(orderList);
         } catch (Exception e) {
@@ -1026,5 +1036,62 @@ public class ApiController extends BaseController {
         }
         return ResponseEntity.ok(result);
     }
+
+
+
+
+    /**
+     * 新增/修改报价信息
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/orderFleetAmount", method = RequestMethod.POST)
+    public ResponseEntity orderFleetAmount(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            String userUuid = (String) session.getAttribute("uuid");
+            pd.put("userUuid", userUuid);
+            int n = 1;
+            if(orderMapper.selectFleetByOrderUuidAndUserUuid(pd) != null){
+                n = orderMapper.updateFleetAmount(pd);
+            }else{
+                n = orderMapper.insertFleetAmount(pd);
+            }
+            if (n == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "报价失败"));
+            }
+            result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 用户选择报价车队
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/userChangeFleet", method = RequestMethod.POST)
+    public ResponseEntity userChangeFleet(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
+            if (n == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
+            }
+            result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
 
 }

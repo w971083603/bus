@@ -26,9 +26,18 @@ public interface OrderMapper {
     PageData countOrder(PageData pd);
 
     List<PageData> selectByUuidAndStatus(PageData pd);
+    List<PageData> selectAllFleetByOrderUuid(PageData pd);
+    PageData selectFleetByOrderUuidAndUserUuid(PageData pd);
 
     List<PageData> selectList(Map<String, String> para);
 
     int updateByOrderUuid(PageData pd);
+
+    //新增报价信息
+    int insertFleetAmount(PageData pd);
+    //修改报价信息
+    int updateFleetAmount(PageData pd);
+    @Update("update t_orders set order_fleet_id = #{orderFleetId} where order_uuid = #{orderUuid}")
+    int updateOrderForFleet(@Param("orderUuid") String orderUuid, @Param("orderFleetId") String orderFleetId);
 
 }

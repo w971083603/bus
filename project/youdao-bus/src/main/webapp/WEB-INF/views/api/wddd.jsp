@@ -7,7 +7,7 @@
          <div class="wddd_div_title">
              <ul>
                  <li class="wddd_div_li" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj">0</span>)</li>
-                 <li class="wddd_div_li" onclick="orderstatus('0',this)">已预定(<span style="color: red;" id="yj">0</span>)</li>
+                 <li class="wddd_div_li" onclick="orderstatus('0',this)">预订单(<span style="color: red;" id="yj">0</span>)</li>
                  <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;" id="xs">0</span>)</li>
                  <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;" id="wc">0</span>)</li>
              </ul>
@@ -31,6 +31,7 @@
                          <td class="wddd_div_tableInvoice">发票</td>
                          <td class="wddd_div_tableTime">出发时间</td>
                          <td class="wddd_div_tableTime">结束时间</td>
+                         <td class="wddd_div_tableTime">操作</td>
                      </tr>
                  </thead>
                  <tbody class="orderlist">
@@ -78,14 +79,27 @@
                     var result = data.data;
                     $("#bj").html(result.bjOrder);
                     $("#yj").html(result.createOrder);
+                    $("#tx").html(result.txOrder);
                     $("#xs").html(result.xszOrder);
                     $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {
                         $(".tableOrder").show();
                         $(".orderlist").empty();
                         $(".noList").hide();
-                        // $(".orderlist").html("");
                         for(var i = 0; i < result.list.length;i++ ) {
+                            var changeFleet =  " <td class=\"wddd_div_tableTime\">-</td></tr>";
+                            if(status == "1"){
+                                var optionStr = "";
+                                var fleetList = result.list[i].fleetList;
+                                for(var j = 0; j < fleetList.length;j++ ) {
+                                    optionStr += "<option value='"+ fleetList[j].id+"''>"+ fleetList[j].amount+"元</option>"
+                                }
+                                changeFleet =  " <td class=\"wddd_div_tableTime\"><select>"+optionStr+"</select>" +
+                                    "<button type=\"button\" onclick=\"sureOrder('"+fleetList[j].id+"','"+result.list[i].orderUuid+"')\">确认</button>" +
+                                    "</td></tr>";
+                            }
+
+
                             var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber  + "辆";
                             var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince +result.list[i].fromCity + result.list[i].fromAddress + "</td>\n" +
@@ -96,7 +110,9 @@
                                 "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td></tr>";
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
+                                changeFleet +
+                                "</tr>";
                             $(".orderlist").append(str);
                         }
                     } else {
