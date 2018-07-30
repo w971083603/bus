@@ -38,6 +38,7 @@ public class orderJob {
      */
     @Scheduled(fixedDelay = 60*1000)
     public void notifyJob() {
+        System.out.println("进入定时器");
         long nowTime = System.currentTimeMillis();
         PageData pd = new PageData();
         pd.put("status", "1");
@@ -57,6 +58,8 @@ public class orderJob {
                          continue;
                     }
                 }
+                orderpd.put("status","2");
+                orderMapper.update("2",orderpd.getString("userUuid"),orderpd.getString("orderUuid"));
             } else if (nowTime - createTime > 4 * 1000) {
                 //修改状态对超过4分钟未报价的订单平台对车队管理人员手机发短信提示
                 String message = "订单"+orderpd.getString("orderUuid")+"正在报价中,请前往参加";
