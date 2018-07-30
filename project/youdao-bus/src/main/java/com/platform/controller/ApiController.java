@@ -925,10 +925,14 @@ public class ApiController extends BaseController {
             orderList.put("txOrder", txOrder);
             List<PageData> list ;
             if(type.equals("2")){
-                list = orderMapper.selectByUuidAndStatusFleet(pd);
+                if(pd.getString("status").equals("1")){
+                    list = orderMapper.selectByUuidAndStatusFleet(pd);
+                }else{
+                    list = orderMapper.selectByUuidAndStatusFleet234(pd);
+                }
             }else{
                 list = orderMapper.selectByUuidAndStatus(pd);
-                if (pd.getString("status").equals("2")) {
+                if (pd.getString("status").equals("1")) {
                     for (PageData orderpd : list) {
                         List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
                         orderpd.put("fleetList", fleetList);

@@ -31,6 +31,7 @@
                          <td class="wddd_div_tableInvoice">发票</td>
                          <td class="wddd_div_tableTime">出发时间</td>
                          <td class="wddd_div_tableTime">结束时间</td>
+                         <td class="wddd_div_tableTime">报价金额</td>
                          <td class="wddd_div_tableTime">操作</td>
                      </tr>
                  </thead>
@@ -89,13 +90,13 @@
                         for(var i = 0; i < result.list.length;i++ ) {
                             var changeFleet =  " <td class=\"wddd_div_tableTime\">-</td></tr>";
                             if(status == "1"){
-                                var optionStr = "";
+                                var optionStr = " <option value='''>请选择</option>";
                                 var fleetList = result.list[i].fleetList;
                                 for(var j = 0; j < fleetList.length;j++ ) {
                                     optionStr += "<option value='"+ fleetList[j].id+"''>"+ fleetList[j].amount+"元</option>"
                                 }
-                                changeFleet =  " <td class=\"wddd_div_tableTime\"><select>"+optionStr+"</select>" +
-                                    "<button type=\"button\" onclick=\"sureOrder('"+fleetList[j].id+"','"+result.list[i].orderUuid+"')\">确认</button>" +
+                                changeFleet =  " <td class=\"wddd_div_tableTime\"><select style='width: 88px;'>"+optionStr+"</select>" +
+                                    "<button type=\"button\" onclick=\"sureOrder(this,'"+result.list[i].orderUuid+"')\">确认</button>" +
                                     "</td></tr>";
                             }
 
@@ -111,6 +112,7 @@
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                 changeFleet +
                                 "</tr>";
                             $(".orderlist").append(str);
@@ -129,6 +131,32 @@
         });
     }
 
+
+
+    //确认报价
+    function sureOrder(obj, orderUuid) {
+        if($(obj).val() == ""){
+            layer.msg("车队不能为空", {icon: 2});
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/userChangeFleet",
+            data: {
+                orderUuid: orderUuid,
+                orderFleetId: $(obj).val()
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    getMessage("1");
+                } else {
+                    layer.msg(data.message, {icon: 2});
+                    return;
+                }
+            }
+        });
+    }
 
 
 </script>

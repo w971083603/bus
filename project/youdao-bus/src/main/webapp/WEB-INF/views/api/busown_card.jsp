@@ -59,15 +59,15 @@
                     <li class="wddd_div_li one" onclick="orderstatus('1',this)">报价订单(<span style="color: red;"
                                                                                            id="bj">0</span>)
                     </li>
-                    <%--<li class="wddd_div_li" onclick="orderstatus('2',this)">客户报价(<span style="color: red;"--%>
-                                                                                       <%--id="dk">0</span>)--%>
-                    <%--</li>--%>
-                    <%--<li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"--%>
-                                                                                      <%--id="xs">0</span>)--%>
-                    <%--</li>--%>
-                    <%--<li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;"--%>
-                                                                                      <%--id="wc">0</span>)--%>
-                    <%--</li>--%>
+                    <li class="wddd_div_li" onclick="orderstatus('2',this)">客户报价(<span style="color: red;"
+                                                                                       id="dk">0</span>)
+                    </li>
+                    <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"
+                                                                                      id="xs">0</span>)
+                    </li>
+                    <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;"
+                                                                                      id="wc">0</span>)
+                    </li>
                 </ul>
             </div>
 
@@ -83,6 +83,7 @@
                         <td class="wddd_div_tableInvoice">发票</td>
                         <td class="wddd_div_tableTime">出发时间</td>
                         <td class="wddd_div_tableTime">结束时间</td>
+                        <td class="wddd_div_tableTime">报价金额</td>
                         <td class="wddd_div_tableTime">操作</td>
                     </tr>
                     </thead>
@@ -126,9 +127,9 @@
                 if (data.success == true) {
                     var result = data.data;
                     $("#yj").html(result.createOrder);
-//                    $("#dk").html(result.qrOrder) ;
-//                    $("#xs").html(result.xszOrder);
-//                    $("#wc").html(result.finishOrder);
+                    $("#dk").html(result.qrOrder) ;
+                    $("#xs").html(result.xszOrder);
+                    $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {
                         $(".tableOrder").show();
                         $(".orderlist").empty();
@@ -137,7 +138,7 @@
                             var caozuo = "<td class=\"wddd_div_tableTime\">-</td>";
                             if (status == "1") {
                                 caozuo = "<td class=\"wddd_div_tableTime\">" +
-                                    "<input placeholder='请输入报价金额' value='"+result[i].amount+"' style=' width: 50%; font-size: 11px;'>" +
+                                    "<input placeholder='请输入报价金额' value='' style='font-size: 11px;'>" +
                                     "<button type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
                             }
@@ -150,6 +151,7 @@
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                 caozuo +
                                 "</tr>";
                             $(".orderlist").append(str);

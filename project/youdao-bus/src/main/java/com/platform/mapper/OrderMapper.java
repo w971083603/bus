@@ -28,6 +28,7 @@ public interface OrderMapper {
 
     List<PageData> selectByUuidAndStatus(PageData pd);
     List<PageData> selectByUuidAndStatusFleet(PageData pd);
+    List<PageData> selectByUuidAndStatusFleet234(PageData pd);
     List<PageData> selectAllFleetByOrderUuid(PageData pd);
     PageData selectFleetByOrderUuidAndUserUuid(PageData pd);
 
@@ -39,7 +40,7 @@ public interface OrderMapper {
     int insertFleetAmount(PageData pd);
     //修改报价信息
     int updateFleetAmount(PageData pd);
-    @Update("update t_orders set order_fleet_id = #{orderFleetId} where order_uuid = #{orderUuid}")
+    @Update("update t_orders set order_fleet_id = #{orderFleetId},status = 3 where order_uuid = #{orderUuid}")
     int updateOrderForFleet(@Param("orderUuid") String orderUuid, @Param("orderFleetId") String orderFleetId);
 
 }
