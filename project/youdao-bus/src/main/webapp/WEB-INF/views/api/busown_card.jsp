@@ -53,15 +53,11 @@
             <div  class="wddd_div" style="overflow-y: scroll;height: 590px;">
                 <div class="wddd_div_title">
                     <ul>
-                        <li class="wddd_div_li" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj">0</span>)</li>
+                        <li class="wddd_div_li one" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj">0</span>)</li>
                         <li class="wddd_div_li" onclick="orderstatus('0',this)">已预定(<span style="color: red;" id="yj">0</span>)</li>
                         <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;" id="xs">0</span>)</li>
                         <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;" id="wc">0</span>)</li>
                     </ul>
-                    <div style="width: 20%;float: right;text-align: center;">
-                        <img src="">
-                        <a>服务热线</a>
-                    </div>
                 </div>
 
                 <div class="wddd_div_table">
@@ -90,20 +86,19 @@
 </body>
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
-    var type = platform.getQueryDecodeString("type");
-    if(type != '' && type != null && type == '2'){
-        $(".order").click();
+
+    function tz(url,obj) {
+        $(".lib").css("background-color","#fcfffb");
+        $(obj).css("background-color","#00B83F");
     }
+    $(".order").click();
+    $(".one").click();
     function orderstatus(type,obj) {
         $(".wddd_div_li").css("background-color","#fcfffb");
         $(obj).css("background-color","#06dc00");
         //清空td，ajax获取数据展示
         getMessage(type);
     }
-
-    $(function () {
-        getMessage("1");
-    })
 
     function getMessage(status) {
         $.ajax({
