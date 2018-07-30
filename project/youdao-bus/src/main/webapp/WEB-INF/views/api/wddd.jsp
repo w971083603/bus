@@ -135,7 +135,7 @@
 
     //确认报价
     function sureOrder(obj, orderUuid) {
-        if($(obj).val() == ""){
+        if($(obj).prev().val() == ""){
             layer.msg("车队不能为空", {icon: 2});
             return;
         }
@@ -144,7 +144,7 @@
             url: platform.CONSTS.URL_BASE_CMS + "api/userChangeFleet",
             data: {
                 orderUuid: orderUuid,
-                orderFleetId: $(obj).val()
+                orderFleetId: $(obj).prev().val()
             },
             async: false,
             success: function (data) {

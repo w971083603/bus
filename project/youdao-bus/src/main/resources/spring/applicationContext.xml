@@ -26,6 +26,10 @@
 		</property>
 	</bean>
 
+
+	<!-- 任务调度器 -->
+	<task:annotation-driven/>
+
 	<!--声明式事务失效 根本原因：由子容器扫描装配了@Service 注解的实例。-->
 	<!--spring的context是父子容器，由ServletContextListener 加载spring配置文件产生的是父容器，springMVC加载配置文件产生的是子容器，
 	    子容器对Controller进行扫描装配时装配了@Service注解的实例 (@Controller 实例依赖@Service实例)，
