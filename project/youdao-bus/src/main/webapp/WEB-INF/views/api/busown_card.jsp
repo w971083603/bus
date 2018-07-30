@@ -59,15 +59,15 @@
                     <li class="wddd_div_li one" onclick="orderstatus('1',this)">报价订单(<span style="color: red;"
                                                                                            id="bj">0</span>)
                     </li>
-                    <li class="wddd_div_li" onclick="orderstatus('2',this)">客户报价(<span style="color: red;"
-                                                                                       id="dk">0</span>)
-                    </li>
-                    <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"
-                                                                                      id="xs">0</span>)
-                    </li>
-                    <li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;"
-                                                                                      id="wc">0</span>)
-                    </li>
+                    <%--<li class="wddd_div_li" onclick="orderstatus('2',this)">客户报价(<span style="color: red;"--%>
+                                                                                       <%--id="dk">0</span>)--%>
+                    <%--</li>--%>
+                    <%--<li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"--%>
+                                                                                      <%--id="xs">0</span>)--%>
+                    <%--</li>--%>
+                    <%--<li class="wddd_div_li" onclick="orderstatus('4',this)">已完成(<span style="color: red;"--%>
+                                                                                      <%--id="wc">0</span>)--%>
+                    <%--</li>--%>
                 </ul>
             </div>
 
@@ -125,20 +125,20 @@
             success: function (data) {
                 if (data.success == true) {
                     var result = data.data;
-                    $("#dk").html(result.qrOrder);
                     $("#yj").html(result.createOrder);
-                    $("#xs").html(result.xszOrder);
-                    $("#wc").html(result.finishOrder);
+//                    $("#dk").html(result.qrOrder) ;
+//                    $("#xs").html(result.xszOrder);
+//                    $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {
                         $(".tableOrder").show();
                         $(".orderlist").empty();
                         $(".noList").hide();
                         for (var i = 0; i < result.list.length; i++) {
                             var caozuo = "<td class=\"wddd_div_tableTime\">-</td>";
-                            if (status == "0") {
+                            if (status == "1") {
                                 caozuo = "<td class=\"wddd_div_tableTime\">" +
-                                    "<input placeholder='请输入报价金额' value='' >" +
-                                    "<button type=\"button\" onclick=\"sureOrder('"+orderUuid+"',this)\">确认</button>" +
+                                    "<input placeholder='请输入报价金额' value='"+result[i].amount+"' style=' width: 50%; font-size: 11px;'>" +
+                                    "<button type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
                             }
                             var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber + "辆";
@@ -169,14 +169,14 @@
     }
 
     //确认报价
-    function sureOrder(orderUuid,obj) {
-        if($(obj).prev().val() == ""){
+    function sureOrder(orderUuid, obj) {
+        if ($(obj).prev().val() == "") {
             layer.msg("报价金额不能为空", {icon: 2});
             return;
         }
         $.ajax({
             type: "POST",
-            url: platform.CONSTS.URL_BASE_CMS + "api/orderFleetAmount",
+            url: platform.CONSTS.URL_BASE_CMS + "api/addorderFleetAmount",
             data: {
                 orderUuid: orderUuid,
                 amount: $(obj).prev().val()
@@ -184,7 +184,7 @@
             async: false,
             success: function (data) {
                 if (data.success == true) {
-                    getMessage("0");
+                    getMessage("1");
                 } else {
                     layer.msg(data.message, {icon: 2});
                     return;

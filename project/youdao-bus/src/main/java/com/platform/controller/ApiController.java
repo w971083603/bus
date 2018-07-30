@@ -19,7 +19,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -465,9 +467,11 @@ public class ApiController extends BaseController {
             stringBuffer.append("用车人数：" + useNumber + ",");
             stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
             String message = stringBuffer.toString();
-            //获取审核通过车队的
-            List<PageData> fleetList = fleetMapper.selectAllPassFleet();
-            for (PageData fleetPd : fleetList) {
+
+            Map<String, String> map = new HashMap<>();
+            map.put("type", "2");
+            List<PageData> listFleet =  userMapper.selectListBus(map);
+            for (PageData fleetPd : list) {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
                 if (sms.getString("code").equals("0")) {
@@ -475,6 +479,16 @@ public class ApiController extends BaseController {
                     messageMapper.save(pd);
                 }
             }
+//            //获取审核通过车队的
+//            List<PageData> fleetList = fleetMapper.selectAllPassFleet();
+//            for (PageData fleetPd : fleetList) {
+//                String tel = fleetPd.getString("tel");
+//                JSONObject sms = SendSmsUtil.sendSms(message, tel);
+//                if (sms.getString("code").equals("0")) {
+//                    pd.put("message", message);
+//                    messageMapper.save(pd);
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ResponseWrapper.failed(-1, "创建订单失败"));
@@ -880,15 +894,21 @@ public class ApiController extends BaseController {
         try {
             PageData pd = this.getPageData();
             String uuid = (String) session.getAttribute("uuid");
-            pd.put("uuid", uuid);
-            PageData orderList = new PageData();
-            PageData countOrderPd = orderMapper.countOrder(pd);
+            String type = (String) session.getAttribute("type");
             int createOrder = 0;
             int bjOrder = 0;
             int txOrder = 0;
             int finishOrder = 0;
             int xszOrder = 0;
             int qrOrder = 0;
+            pd.put("uuid", uuid);
+            PageData orderList = new PageData();
+            PageData countOrderPd = orderMapper.countOrder(pd);
+            if(type.equals("2")){
+                countOrderPd = orderMapper.countOrderForFleet(pd);
+            }else{
+                countOrderPd = orderMapper.countOrder(pd);
+            }
             if (countOrderPd != null) {
                 createOrder = countOrderPd.getBigDecimal("createOrder").intValue();
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
@@ -903,11 +923,16 @@ public class ApiController extends BaseController {
             orderList.put("xszOrder", xszOrder);
             orderList.put("qrOrder", qrOrder);
             orderList.put("txOrder", txOrder);
-            List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
-            if (pd.getString("status").equals("2")) {
-                for (PageData orderpd : list) {
-                    List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
-                    orderpd.put("fleetList", fleetList);
+            List<PageData> list ;
+            if(type.equals("2")){
+                list = orderMapper.selectByUuidAndStatusFleet(pd);
+            }else{
+                list = orderMapper.selectByUuidAndStatus(pd);
+                if (pd.getString("status").equals("2")) {
+                    for (PageData orderpd : list) {
+                        List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                        orderpd.put("fleetList", fleetList);
+                    }
                 }
             }
             orderList.put("list", list);
@@ -1046,8 +1071,8 @@ public class ApiController extends BaseController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/orderFleetAmount", method = RequestMethod.POST)
-    public ResponseEntity orderFleetAmount(HttpSession session) {
+    @RequestMapping(value = "/addorderFleetAmount", method = RequestMethod.POST)
+    public ResponseEntity addorderFleetAmount(HttpSession session) {
         ResponseWrapper result;
         try {
             PageData pd = this.getPageData();

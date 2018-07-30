@@ -24,8 +24,10 @@ public interface OrderMapper {
     int update(@Param("status") String status, @Param("uuid") String uuid, @Param("orderUuid") String orderUuid);
 
     PageData countOrder(PageData pd);
+    PageData countOrderForFleet(PageData pd);
 
     List<PageData> selectByUuidAndStatus(PageData pd);
+    List<PageData> selectByUuidAndStatusFleet(PageData pd);
     List<PageData> selectAllFleetByOrderUuid(PageData pd);
     PageData selectFleetByOrderUuidAndUserUuid(PageData pd);
 
