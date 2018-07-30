@@ -26,6 +26,7 @@ public interface OrderMapper {
     PageData countOrder(PageData pd);
     PageData countOrderForFleet(PageData pd);
 
+    List<PageData> selectByStatus(PageData pd);
     List<PageData> selectByUuidAndStatus(PageData pd);
     List<PageData> selectByUuidAndStatusFleet(PageData pd);
     List<PageData> selectByUuidAndStatusFleet234(PageData pd);

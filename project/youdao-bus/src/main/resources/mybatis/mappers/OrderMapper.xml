@@ -146,6 +146,55 @@
         order by a.id desc
     </select>
 
+    <select id="selectByStatus" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        	select
+                a.type,
+                CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
+                a.order_uuid AS orderUuid,
+                a.user_uuid AS uuid,
+                ifnull(a.from_time,'') AS fromTime,
+                ifnull(a.to_time,'') AS toTime,
+                ifnull(a.from_province,'') AS fromProvince,
+                ifnull(a.from_city,'') AS fromCity,
+                ifnull(a.from_address,'') AS fromAddress,
+                ifnull(a.to_province,'') AS toProvince,
+                ifnull(a.to_city,'') AS toCity,
+                ifnull(a.to_address,'') AS toAddress,
+                ifnull(a.contact_tel,'') AS contactTel,
+                ifnull(a.contact_name,'') AS contactName,
+                ifnull(a.is_invoice,'') AS isInvoice,
+                ifnull(a.invoice_header,'') AS invoiceHeader,
+                ifnull(a.invoice_contact,'') AS invoiceContact,
+                ifnull(a.invoice_phone,'') AS invoicePhone,
+                ifnull(a.invoice_address,'') AS invoiceAddress,
+                ifnull(a.invoice_duty,'') AS invoiceDuty,
+                ifnull(a.use_number,'') AS useNumber,
+                ifnull(a.bus_number,'') AS busNumber,
+                ifnull(a.bus_number1,'') AS busNumber1,
+                ifnull(a.bus_number2,'') AS busNumber2,
+                ifnull(a.bus_number3,'') AS busNumber3,
+                ifnull(a.remarks,'') as remarks,
+                a.create_time AS createTime,
+                a.status,
+                a.finish_time AS finishTime,
+                ifnull(a.feet_by,'') AS feetBy,
+                ifnull(a.feet_money,'') AS feetMoney,
+                ifnull(a.feet_time,'') AS feetTime,
+                ifnull(a.feet_remarks,'') AS feetRemarks,
+                ifnull(a.audit_remarks,'') AS auditRemarks,
+                ifnull(a.audit_money,'') AS auditMoney,
+                ifnull(a.audit_by,'') AS auditBy,
+                ifnull(a.audit_time,'') AS auditTime,
+                ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
+        FROM
+        t_orders a
+        WHERE
+          a.status = #{status}
+
+        order by a.id desc
+    </select>
+
 
     <select id="selectByUuidAndStatusFleet" parameterType="com.platform.commons.utils.PageData"
             resultType="com.platform.commons.utils.PageData">

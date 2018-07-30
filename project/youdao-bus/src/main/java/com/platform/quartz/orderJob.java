@@ -36,12 +36,12 @@ public class orderJob {
     /**
      * 订单的定时通知处理
      */
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 60*1000)
     public void notifyJob() {
         long nowTime = System.currentTimeMillis();
         PageData pd = new PageData();
         pd.put("status", "1");
-        List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
+        List<PageData> list = orderMapper.selectByStatus(pd);
         Map<String, String> map = new HashMap<>();
         map.put("type", "2");
         for (PageData orderpd : list) {
