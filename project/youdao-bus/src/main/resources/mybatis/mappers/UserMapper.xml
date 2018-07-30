@@ -88,6 +88,7 @@
     <select id="selectListBus" parameterType="java.util.Map"   resultType="com.platform.commons.utils.PageData">
         SELECT
           a.id as userId,
+          a.uuid as userUuid,
           a.nickname,
           a.tel
         FROM

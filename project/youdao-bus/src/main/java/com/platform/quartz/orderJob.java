@@ -58,13 +58,12 @@ public class orderJob {
                          continue;
                     }
                 }
-                orderpd.put("status","2");
-                orderMapper.update("2",orderpd.getString("userUuid"),orderpd.getString("orderUuid"));
+                orderMapper.update("2",orderpd.getString("uuid"),orderpd.getString("orderUuid"));
             } else if (nowTime - createTime > 4 * 1000) {
                 //修改状态对超过4分钟未报价的订单平台对车队管理人员手机发短信提示
                 String message = "订单"+orderpd.getString("orderUuid")+"正在报价中,请前往参加";
                 List<PageData> listFleet =  userMapper.selectListBus(map);
-                for (PageData fleetPd : list) {
+                for (PageData fleetPd : listFleet) {
                     String tel = fleetPd.getString("tel");
                     JSONObject sms = SendSmsUtil.sendSms(message, tel);
                     if (sms.getString("code").equals("0")) {
