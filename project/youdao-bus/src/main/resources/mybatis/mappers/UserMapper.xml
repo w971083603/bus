@@ -40,6 +40,13 @@
     </insert>
 
 
+    <insert id="saveBus" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO  `t_user`
+        ( `type`, `uuid`, `tel`, `nickname`, `password`, `locked`, `create_by`, `create_time`, `login_time`)
+        VALUES
+        ( #{type}, #{uuid}, #{tel}, #{nickname}, #{password}, 0, #{createBy}, now(),now())
+    </insert>
+
     <insert id="saveClient" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
         INSERT INTO  `t_user`
         ( `type`, `uuid`, `tel`, `nickname`, `password`, `locked`, `create_by`, `create_time`, `login_time`)
@@ -77,6 +84,20 @@
         id =#{userId}
     </update>
 
-
+    <!--查询车队账号的分页查询-->
+    <select id="selectListBus" parameterType="java.util.Map"   resultType="com.platform.commons.utils.PageData">
+        SELECT
+          a.id as userId,
+          a.nickname,
+          a.tel
+        FROM
+          t_user a
+        WHERE
+         a.type = #{type}
+        <if test=" loginName != null and loginName != '' ">
+            and   a.tel LIKE CONCAT('%',CONCAT(#{loginName},'%') )
+        </if>
+        order by a.id desc
+    </select>
 
 </mapper>

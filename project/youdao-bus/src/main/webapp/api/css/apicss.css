@@ -43,21 +43,21 @@ a:hover {
 }
 
 .apiLogoDiv .index_title_one {
-    width: 200px;
+    width: 10%x;
     height: 75px;
     float: left;
     margin-left: 10%;
 }
 
 .apiLogoDiv .index_title_two {
-    width: 960px;
+    width: 50%;
     height: 50%;
     float: left;
     margin-left: 5%;
 }
 
 .apiLogoDiv .index_title_three {
-    width: 300px;
+    width: 20%;
     height: 50%;
     float: right;
     margin-right: 5%;
@@ -65,6 +65,7 @@ a:hover {
 
 .index_logimage {
     float: left;
+    width: 100%;
 }
 
 .apiLogoDiv .index_title_one span {

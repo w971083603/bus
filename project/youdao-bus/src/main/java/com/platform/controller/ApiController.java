@@ -131,6 +131,7 @@ public class ApiController extends BaseController {
             }
             session.setAttribute("uuid", userPd.getString("uuid"));
             session.setAttribute("tel", userPd.getString("tel"));
+            session.setAttribute("type", userPd.get("type").toString());
             session.setAttribute("nickname", userPd.getString("nickname"));
             session.setAttribute("headerUrl", userPd.getString("headerUrl"));
             result = ResponseWrapper.succeed(true);

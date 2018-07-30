@@ -12,7 +12,7 @@
             <div class="index_title_two">
                 <a onclick="tzUrl('/api/busindex')" class="apiTitle" style=" color: #00B83F;">首页</a>
                 <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
-                <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队入住</a>
+                <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队登录</a>
                 <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
                 <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
             </div>

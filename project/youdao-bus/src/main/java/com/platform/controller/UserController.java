@@ -63,7 +63,7 @@ public class UserController extends BaseController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
-  /**
+    /**
      * 客服列表==============================================
      *
      * @param params
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
         int draw = params.getIntValue("draw");
         int page = (start / rows) + 1;
         try {
-            params.put("roleId","2");
+            params.put("roleId", "2");
             DatatablesResult datatablesResult = this.userService.selectList(params, page, rows, draw);
             return ResponseEntity.ok(datatablesResult);
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class UserController extends BaseController {
         ResponseWrapper result = ResponseWrapper.succeed(true);
         try {
             PageData pd = userMapper.selectByLoginName(loginNumber);
-            if (pd != null)  result = ResponseWrapper.failed(-1, "当前账户已存在");
+            if (pd != null) result = ResponseWrapper.failed(-1, "当前账户已存在");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
@@ -190,12 +190,101 @@ public class UserController extends BaseController {
             PageData pd = this.getPageData();
             String oldPassword = pd.getString("oldPassword");
             String password = pd.getString("password");
-            if (!StringUtils.getMD5Str(oldPassword).equals( this.getShiroUser().getPassword())) {
+            if (!StringUtils.getMD5Str(oldPassword).equals(this.getShiroUser().getPassword())) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "旧密码错误，请重新输入"));
             }
             pd.put("password", StringUtils.getMD5Str(password));
             int n = userMapper.updateUser(pd);
             if (n == 0) result = ResponseWrapper.failed(-1, "修改密码失败");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
+    /**
+     * 车队列表==============================================
+     *
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/system/dataGridBus", method = RequestMethod.POST)
+    public ResponseEntity<DatatablesResult> dataGridBus(@RequestBody JSONObject params) {
+        int rows = params.getIntValue("length");
+        int start = params.getIntValue("start");
+        int draw = params.getIntValue("draw");
+        int page = (start / rows) + 1;
+        try {
+            DatatablesResult datatablesResult = this.userService.selectListBus(params, page, rows, draw);
+            return ResponseEntity.ok(datatablesResult);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+
+    /**
+     * 判断当前登录账号是否可以新增
+     *
+     * @param phone
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/system/phoneIsHave", method = RequestMethod.POST)
+    public ResponseEntity phoneIsHave(String phone) {
+        ResponseWrapper result = ResponseWrapper.succeed(true);
+        try {
+            PageData pd = userMapper.selectByPhoneAndType(phone, "2");
+            if (pd != null) result = ResponseWrapper.failed(-1, "当前账户已存在");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
+    /**
+     * 新增车队信息
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/system/addUserBus", method = RequestMethod.POST)
+    public ResponseEntity addUserBus() {
+        ResponseWrapper result = ResponseWrapper.succeed(true);
+        try {
+            PageData pd = this.getPageData();
+            pd.put("password", StringUtils.getMD5Str(pd.getString("password")));
+            pd.put("type", "2");
+            pd.put("uuid", StringUtils.getUUId());
+            int n = userMapper.saveBus(pd);
+            if (n == 0) {
+                result = ResponseWrapper.failed(-1, "新增信息失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 修改车队信息
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/system/updateUserBus", method = RequestMethod.POST)
+    public ResponseEntity updateUserBus() throws IOException {
+        ResponseWrapper result = ResponseWrapper.succeed(true);
+        try {
+            PageData pd = this.getPageData();
+            int n = userMapper.updateBus(pd.getString("userId"),  pd.getString("nickname"), pd.getString("tel"));
+            if (n == 0) result = ResponseWrapper.failed(-1, "修改信息失败");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
