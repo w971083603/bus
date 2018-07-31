@@ -133,9 +133,9 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg(message);
-                        setTimeout(function () {
+
                             top.location.href = platform.CONSTS.URL_BASE_CMS + '/api/login';
-                        }, 3000);
+
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;

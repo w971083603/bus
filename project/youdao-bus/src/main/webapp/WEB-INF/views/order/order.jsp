@@ -452,14 +452,14 @@
             if (data.status == 2 && orderFleetList.length == 0) {
                 $(".allFleetListDiv").show();
                 var allFleetList = data.allFleetList;
-                $(".allFleetListDiv").empty();
+                $(".allFleetList").empty();
                 $(".allFleetList").append("<option value=''>请选择车队</option>");
                 //不是到达报价时间或没人报价时介入
                 for (var i = 0; i < allFleetList.length; i++) {
                     $(".allFleetList").append("<option value='" + allFleetList[i].userUuid + "'>" + allFleetList[i].nickname + "</option>");
                 }
             }
-            if (data.status == '5' || (st == 2 && orderFleetList.length == 0)) {
+            if (data.status == '5' || (data.status == 2 && orderFleetList.length == 0)) {
                 $(".auditButton").show();
             } else {
                 $(".auditButton").hide();

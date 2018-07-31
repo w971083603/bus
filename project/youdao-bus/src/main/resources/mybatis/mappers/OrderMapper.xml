@@ -402,7 +402,11 @@
             resultType="com.platform.commons.utils.PageData">
         select a.user_uuid as userUuid,a.order_id as orderUuid,a.amount,b.nickname,b.tel
         from t_order_fleet a,t_user b
-        where a.user_uuid = b.uuid and  a.user_uuid = #{userUuid} and a.order_id = #{orderUuid}
+        where a.user_uuid = b.uuid
+        <choose>
+            <when test="orderFleetId != null and orderFleetId != ''">and a.id = #{orderFleetId}</when>
+            <otherwise>and  a.user_uuid = #{userUuid} and a.order_id = #{orderUuid}</otherwise>
+        </choose>
     </select>
 
 </mapper>

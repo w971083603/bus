@@ -1147,17 +1147,13 @@ public class ApiController extends BaseController {
         ResponseWrapper result;
         try {
             PageData pd = this.getPageData();
-            String userUuid = (String) session.getAttribute("uuid");
             String tel = (String) session.getAttribute("tel");
-            pd.put("userUuid", userUuid);
             int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
             }
             //确认合同状态
             orderMapper.updateOrderForContractOver(pd.getString("orderUuid"), "1");
-            //获取订单详情
-
             //获取车队详情
             PageData fleetPd = orderMapper.selectFleetByOrderUuidAndUserUuid(pd);
             PageData userFleetPd = userMapper.selectByUuid(fleetPd.getString("userUuid"));

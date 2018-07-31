@@ -130,9 +130,9 @@
                 success: function (data) {
                     if (data.success == true) {
                         layer.msg('注册成功！');
-                        setTimeout(function () {
+
                             window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/login';
-                        }, 3000);
+
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;
