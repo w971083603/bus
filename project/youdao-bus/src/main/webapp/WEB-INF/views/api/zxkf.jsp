@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode">
+<div style="width: 100%;position: absolute;top: 61%;left: 36%;" id="qrcode">
     <img src="../../../api/img/mrqycode.jpg" style="width: 400px;height: 400px;">
 </div>
 <div class="apiLogoImage">

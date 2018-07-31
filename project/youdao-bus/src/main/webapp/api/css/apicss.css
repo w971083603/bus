@@ -37,7 +37,7 @@ a:hover {
 .apiLogoDiv {
     width: 100%;
     background: url("../img/web/one.png");
-    height: 150px;
+    height: 110px;
     color: white;
     padding-top: 2%;
 }
@@ -66,6 +66,7 @@ a:hover {
 .index_logimage {
     float: left;
     width: 100%;
+    margin-top: 2%;
 }
 
 .apiLogoDiv .index_title_one span {
@@ -89,6 +90,7 @@ a:hover {
 .user_head {
     width: 15%;
     float: left;
+    margin-top: 2%;
 }
 
 .index_login {
@@ -511,7 +513,7 @@ a:hover {
     display: none;
 }
 .fbxc_div{
-    margin: 20px auto;width: 50%;
+    margin: 8% auto;width: 50%;
 }
 .fbxc_div li{
     display: block;margin-bottom: 18px;width: 100%;
@@ -521,7 +523,7 @@ a:hover {
 }
 
 .fbxcInputTime{
-    width: 364px;
+    width: 276px;
     height: 33px;
     border: solid 1px #333333;
     opacity: 0.5;
