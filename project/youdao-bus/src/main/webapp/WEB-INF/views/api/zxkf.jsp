@@ -12,7 +12,7 @@
         <div class="index_title_two">
             <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
             <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
-            <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队入住</a>
+            <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队登录</a>
             <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
             <a onclick="tzUrl('/api/zxkf')" class="apiTitle" style=" color: #00B83F;">在线客服</a>
         </div>
@@ -38,7 +38,9 @@
         </div>
     </div>
 </div>
-<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode"></div>
+<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode">
+    <img src="../../../api/img/mrqycode.jpg" style="width: 400px;height: 400px;">
+</div>
 <div class="apiLogoImage">
     <img src="../../../api/img/web/zcbj.png" style="width:100%;height:100%;">
 </div>
@@ -47,13 +49,13 @@
 <!-- jQuery 2.2.3 -->
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
-    $(function () {
-        $("#qrcode").qrcode({
-            render: "table",
-            width: 400,
-            height:400,
-            text: platform.CONSTS.URL_BASE_CMS + "api/busindex"
-        });
-    });
+//    $(function () {
+//        $("#qrcode").qrcode({
+//            render: "table",
+//            width: 400,
+//            height:400,
+//            text: platform.CONSTS.URL_BASE_CMS + "api/busindex"
+//        });
+//    });
 
 </script>

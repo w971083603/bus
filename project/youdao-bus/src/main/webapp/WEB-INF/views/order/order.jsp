@@ -215,6 +215,17 @@
                             <textarea  style="margin: 0px; width: 100%; height: 100px;" class="auditRemarks" ></textarea>
                         </div>
                     </div>
+
+                    <div class="form-group"  >
+                        <label class="col-sm-3 control-label">车牌号</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control licensePlate"  >
+                        </div>
+                        <label class="col-sm-3 control-label">联系电话</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control busPhone">
+                        </div>
+                    </div>
                 </form>
                 <div class="auditButton" style="display: none">
                     <div class="text-center " >
@@ -390,6 +401,8 @@
                 st = "已完成";
             }
             $(".status").val(st);
+            $(".licensePlate").val(data.licensePlate);
+            $(".busPhone").val(data.busPhone);
             if(data.status == '1') {
                 $(".auditButton").show();
             }else{
@@ -414,7 +427,9 @@
                     "auditMoney": auditMoney,
                     "status" : status,
                     "uuid": $(".uuid").val(),
-                    "auditRemarks" : $(".auditRemarks").val()
+                    "auditRemarks" : $(".auditRemarks").val(),
+                    "licensePlate":$(".licensePlate").val(),
+                    "busPhone":$(".busPhone").val()
                 },
                 async: false,
                 success: function (data) {

@@ -23,4 +23,7 @@ public interface FleetMapper {
     @Select("select * from t_fleet where id = #{id}")
     PageData findById(@Param("id") String id);
 
+    @Select("select * from t_fleet where status = 2")
+    List<PageData> selectAllPassFleet();
+
 }

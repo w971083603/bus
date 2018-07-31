@@ -1,0 +1,370 @@
+html, body, h1, h2, h3, h4, h5, h6, header, footer, menu, div, p, ul, ol, blockquote, dl, dt, dd {
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    max-height: 600px;
+    background-size: 100%  auto;
+    background-repeat: no-repeat;
+    background-image: url("../../api/img/app/bj.png");
+}
+
+.button {
+    border: 0px;
+}
+
+
+iframe body{
+    width: 100%;
+}
+
+
+ul, li {
+    list-style-type: none;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+
+.content {
+    position: absolute;
+    width: 80%;
+    left: 11%;
+    top: 20%;
+}
+
+.margin_div{
+    margin-top: 15px;
+}
+.margin_div2{
+    margin-top: 40px;
+}
+
+.app_input{
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    outline:none;
+}
+.app_buttom_ls{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    padding: 5% 0;
+    border-radius: 25px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: white;
+    background-color:#80c369;
+    border: 1px solid #80c369;
+}
+.app_buttom_ls_one{
+    position: absolute;
+    width: 30%;
+    height: 40px;
+    text-align: center;
+    padding: 9px 0 0 0;
+    border-radius: 25px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: white;
+    background-color: #80c369;
+    border: 1px solid #80c369;
+    right: 4%;
+    top: 86px;
+}
+.app_buttom_bs{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    padding: 5% 0;
+    border-radius: 25px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #2f3430;
+    background-color:white;
+    border: 1px solid #80c369;
+}
+
+.app_title_back{
+    width:100%;text-align: left;
+    padding-left: 7%;
+    padding-top: 11%;
+}
+.back{
+    display: inline-block;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    width: 16px;
+    height: 16px;
+    transform: rotate(45deg);
+    color: white;
+}
+
+.xxxx_right{
+    background-color: white;border: none;text-align: right;width: 109px;position: absolute; right: 30px;
+}
+
+
+
+/*个人订单*/
+.wddd_div{
+    width: 100%;
+}
+.wddd_div_li{
+    display: block;
+    width: 25%;
+    float: left;
+    text-align: center;
+    padding: 14px 0;
+    border-right: 1px solid #d2d6de;
+}
+.wddd_div_li:hover{
+    border-bottom: 1px solid #00B83F;
+    cursor: pointer;
+}
+
+.wddd_div_title{
+    width: 100%;border-bottom: 1px solid #d2d6de;float: left;
+}
+
+.wddd_div_table{
+    overflow-x: auto; overflow-y: auto; width:100%;
+}
+.wddd_div_table table{
+    width: 100%;
+}
+
+/*.wddd_div_table td{
+    width: 10%;
+    text-align: center;
+}*/
+
+.wddd_div_tableCfd {
+    width: 20%;
+    text-align: center;
+}
+
+.wddd_div_tableTime {
+    width: 10%;
+    text-align: center;
+}
+
+.wddd_div_tableInvoice {
+    width: 5%;
+    text-align: center;
+}
+
+
+/*发布行程*/
+.fbxc_div_all{
+    display: none;
+}
+.fbxc_div{
+
+}
+.fbxc_div .firs_one{
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    margin-bottom: 20px;
+    background-color: #8cff94;
+    height: 92px;
+    border-radius: 11px;
+    text-align: center;
+    padding-top: 37px;
+}
+.firs_one:after {
+    font-family: "ptmicon"!important;
+    right: 15px;
+    content: '>';
+}
+.firs_one:after {
+    font-family: 'ptmicon';
+    font-size: inherit;
+    line-height: 1;
+    color: #bbb;
+    text-decoration: none;
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-font-smoothing: antialiased;
+}
+.fbxcInputTime{
+    width: 78%;
+    height: 33px;
+    border: solid 1px #4f4c4c;
+    opacity: 0.5;
+    border-radius: 5px;
+    display: block;
+    float: right;
+    padding-left: 40%;
+    font-size: 12px;
+}
+.fbxcSpanRed{
+    width: 12%;
+    height: 20px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #fe0000;
+    text-align: center;
+    margin-top: 5px;
+}
+.fbxcSpanRed_nextdiv{
+    width: 86%;
+    border-bottom: 1px solid #929292;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+.fbxcSpanName {
+    display: block;
+    float: left;
+    width: 21%;
+    font-size: 12px;
+    padding-top: 7px;
+    color: #333333;
+}
+
+.fbxcSelect{
+    width: 24%;
+    font-size: 12px;
+    height: 33px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+    background-color: white;
+    border-radius: 5px;
+    float: right;
+    display: block;
+}
+.fbxcSelect_input{
+    width: 30%;
+    display: block;
+    float: right;
+    padding-left: 1%;
+}
+.fbxcYcrs{
+    display: block;
+    float: left;
+    width: 28%;
+    height: 33px;
+    border: solid 1px #333333;
+    opacity: 0.5;
+    border-radius: 5px;
+    margin-right: 4%;
+    margin-left: 1%;
+    font-size: 12px;
+    padding-left: 9%;
+}
+.fbxcRemarks{
+    width: 78%;
+    height: 33px;
+    border: solid 1px #4f4c4c;
+    opacity: 0.5;
+    border-radius: 5px;
+    display: block;
+    float: right;
+    padding-left: 40%;
+    font-size: 12px;
+}
+.fbxcRedio{
+    width: 50px;
+    height: 15px;
+    background-color: #d9d9d9;
+    border: solid 0px #b7b7b7;
+}
+.fbxctitleName{
+    width: 56px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #fe0000;
+}
+
+.fbxcBtn{
+    width: 188px;
+    height: 45px;
+    background-color: #80c269;
+    border-radius: 5px;
+    margin-top: 43px;
+}
+
+.fbxcDelBtn{
+    width: 18%;
+    height: 33px;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+.fbxcDel_address{
+    width: 77%;
+    height: 33px;
+    border: solid 1px #4f4c4c;
+    opacity: 0.5;
+    border-radius: 5px;
+    display: inline-block;
+    padding-left: 40%;
+    font-size: 12px;
+    margin-right: 2%;
+    margin-top: 7px;
+}
+
+
+
+.fbxcCyBtn{
+    width: 79px;
+    height: 38px;
+    background-color: #80c269;
+    border-radius: 5px;
+}
+
+.fbxcRedioName{
+    width: 80px;
+    height: 22px;
+    font-size: 12px;
+}
+
+.fbxc_div_content{
+
+}
+.fbxc_div_content_content div{
+    float: left;
+}
+.fbxc_div_content_content img{
+    height: 100%;
+}
+.fbxc_div_content_content li{
+    display: block;
+    padding-top: 14px;
+    padding-left: 4%;
+    padding-right: 4%;
+    width: 100%;
+}
+.fbxc_div_title{
+    width: 100%;padding: 4px;background-color:#80c369;
+}
+
+.fbxc_div_next{
+    background-color:#80c369;margin: 10px auto;padding:  10px 0;text-align: center;width: 100px;
+}
+
+.input_not_paddingleft{
+    padding-left: 1%;
+}

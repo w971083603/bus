@@ -545,6 +545,14 @@ var platform = window.platform;
 function tzUrl(url) {
     window.location.href =  platform.CONSTS.URL_BASE_CMS + url;
 };
+/**
+ * 获取URL参数
+ * @param paramName
+ * @returns {null}
+ */
+function appTz(url) {
+    window.location.href =  platform.CONSTS.URL_BASE_CMS + url;
+};
 
 /**
  * 获取URL参数

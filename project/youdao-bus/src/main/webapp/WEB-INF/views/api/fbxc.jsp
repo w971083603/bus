@@ -12,7 +12,7 @@
         <div class="index_title_two">
             <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
             <a onclick="tzUrl('/api/fbxc')" class="apiTitle" style=" color: #00B83F;">发布行程</a>
-            <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队入住</a>
+            <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队登录</a>
             <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
             <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
         </div>
@@ -362,7 +362,7 @@
                 </ul>
             </div>
             <div style="padding-top: 8%;width: 20%;margin: auto;text-align: center;">
-                <img src="../../../api/img/web/cdbj.png">
+                <img src="../../../api/img/web/myorder.png">
                 <p>发布成功，等待报价</p>
                 <span>我们正将你的需求发送给车队，一大群车队正在纷纷赶来报价</span>
             </div>

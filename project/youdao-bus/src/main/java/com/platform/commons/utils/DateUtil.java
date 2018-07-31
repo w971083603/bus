@@ -46,6 +46,21 @@ public class DateUtil {
     }
 
     /**
+     * 格式化日期  yyyy-MM-dd HH:mm:ss
+     *
+     * @return
+     */
+    public static Date fomatDate2(String date) {
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return fmt.parse(date);
+        } catch ( Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 获取YYYY-MM-DD HH:mm:ss格式
      *
      * @return

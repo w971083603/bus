@@ -19,4 +19,6 @@ public interface IUserService{
 
      DatatablesResult<PageData> selectList(JSONObject params, Integer page, Integer rows, Integer draw);
 
+     DatatablesResult<PageData> selectListBus(JSONObject params, Integer page, Integer rows, Integer draw);
+
 }

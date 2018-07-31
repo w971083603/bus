@@ -19,7 +19,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -131,6 +133,7 @@ public class ApiController extends BaseController {
             }
             session.setAttribute("uuid", userPd.getString("uuid"));
             session.setAttribute("tel", userPd.getString("tel"));
+            session.setAttribute("type", userPd.get("type").toString());
             session.setAttribute("nickname", userPd.getString("nickname"));
             session.setAttribute("headerUrl", userPd.getString("headerUrl"));
             result = ResponseWrapper.succeed(true);
@@ -320,13 +323,13 @@ public class ApiController extends BaseController {
             if (Strings.isNullOrEmpty(fromTime)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "出发时间不能为空"));
             }
+            String toTime = pd.getString("toTime");
             if (type.equals("1")) {
-                String toTime = pd.getString("toTime");
                 if (Strings.isNullOrEmpty(toTime)) {
                     return ResponseEntity.ok(ResponseWrapper.failed(-1, "结束时间不能为空"));
                 }
-            }else{
-                pd.put("toTime",null);
+            } else {
+                pd.put("toTime", null);
             }
             String fromProvince = pd.getString("fromProvince");
             if (Strings.isNullOrEmpty(fromProvince)) {
@@ -447,6 +450,45 @@ public class ApiController extends BaseController {
             orderPd.put("roadList", list);
             result = ResponseWrapper.succeed(orderPd);
             // TODO 添加短信发送，添加websocket推送后台
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(msgHeader);
+            stringBuffer.append("出发时间：" + fromTime + ",");
+            stringBuffer.append("出发地址：" + fromAddress + ",");
+            stringBuffer.append("目的地地址：" + toAddress + ",");
+            //1-包车，2-单接送
+            //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            if (type.equals("1")) {
+                stringBuffer.append("结束时间：" + toTime + ",");
+                stringBuffer.append("途径地址：" + road + ",");
+            }
+            stringBuffer.append("联系人：" + contactName + ",");
+            stringBuffer.append("联系方式：" + contactTel + ",");
+            stringBuffer.append("用车人数：" + useNumber + ",");
+            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
+            String message = stringBuffer.toString();
+
+            Map<String, String> map = new HashMap<>();
+            map.put("type", "2");
+            List<PageData> listFleet =  userMapper.selectListBus(map);
+            for (PageData fleetPd : list) {
+                String tel = fleetPd.getString("tel");
+                JSONObject sms = SendSmsUtil.sendSms(message, tel);
+                if (sms.getString("code").equals("0")) {
+                    pd.put("message", message);
+                    messageMapper.save(pd);
+                }
+            }
+//            //获取审核通过车队的
+//            List<PageData> fleetList = fleetMapper.selectAllPassFleet();
+//            for (PageData fleetPd : fleetList) {
+//                String tel = fleetPd.getString("tel");
+//                JSONObject sms = SendSmsUtil.sendSms(message, tel);
+//                if (sms.getString("code").equals("0")) {
+//                    pd.put("message", message);
+//                    messageMapper.save(pd);
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ResponseWrapper.failed(-1, "创建订单失败"));
@@ -839,6 +881,7 @@ public class ApiController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
+
     /**
      * 查询订单,根据状态status
      *
@@ -851,27 +894,51 @@ public class ApiController extends BaseController {
         try {
             PageData pd = this.getPageData();
             String uuid = (String) session.getAttribute("uuid");
-            pd.put("uuid", uuid);
-            PageData orderList = new PageData();
-            PageData countOrderPd = orderMapper.countOrder(pd);
+            String type = (String) session.getAttribute("type");
             int createOrder = 0;
             int bjOrder = 0;
+            int txOrder = 0;
             int finishOrder = 0;
             int xszOrder = 0;
             int qrOrder = 0;
+            pd.put("uuid", uuid);
+            PageData orderList = new PageData();
+            PageData countOrderPd = orderMapper.countOrder(pd);
+            if(type.equals("2")){
+                countOrderPd = orderMapper.countOrderForFleet(pd);
+            }else{
+                countOrderPd = orderMapper.countOrder(pd);
+            }
             if (countOrderPd != null) {
                 createOrder = countOrderPd.getBigDecimal("createOrder").intValue();
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
                 finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
                 xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
                 qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
+                txOrder = countOrderPd.getBigDecimal("txOrder").intValue();
             }
             orderList.put("createOrder", createOrder);
             orderList.put("bjOrder", bjOrder);
             orderList.put("finishOrder", finishOrder);
             orderList.put("xszOrder", xszOrder);
             orderList.put("qrOrder", qrOrder);
-            List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
+            orderList.put("txOrder", txOrder);
+            List<PageData> list ;
+            if(type.equals("2")){
+                if(pd.getString("status").equals("1")){
+                    list = orderMapper.selectByUuidAndStatusFleet(pd);
+                }else{
+                    list = orderMapper.selectByUuidAndStatusFleet234(pd);
+                }
+            }else{
+                list = orderMapper.selectByUuidAndStatus(pd);
+                if (pd.getString("status").equals("1")) {
+                    for (PageData orderpd : list) {
+                        List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                        orderpd.put("fleetList", fleetList);
+                    }
+                }
+            }
             orderList.put("list", list);
             result = ResponseWrapper.succeed(orderList);
         } catch (Exception e) {
@@ -998,5 +1065,62 @@ public class ApiController extends BaseController {
         }
         return ResponseEntity.ok(result);
     }
+
+
+
+
+    /**
+     * 新增/修改报价信息
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/addorderFleetAmount", method = RequestMethod.POST)
+    public ResponseEntity addorderFleetAmount(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            String userUuid = (String) session.getAttribute("uuid");
+            pd.put("userUuid", userUuid);
+            int n = 1;
+            if(orderMapper.selectFleetByOrderUuidAndUserUuid(pd) != null){
+                n = orderMapper.updateFleetAmount(pd);
+            }else{
+                n = orderMapper.insertFleetAmount(pd);
+            }
+            if (n == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "报价失败"));
+            }
+            result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 用户选择报价车队
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/userChangeFleet", method = RequestMethod.POST)
+    public ResponseEntity userChangeFleet(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
+            if (n == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
+            }
+            result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
 
 }

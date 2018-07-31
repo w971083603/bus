@@ -12,7 +12,7 @@
         <div class="index_title_two">
             <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
             <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
-            <a onclick="tzUrl('/api/cdrz')" class="apiTitle" style=" color: #00B83F;">车队入住</a>
+            <a onclick="tzUrl('/api/cdrz')" class="apiTitle" style=" color: #00B83F;">车队登录</a>
             <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
             <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
         </div>
@@ -39,20 +39,18 @@
     </div>
 </div>
 <div  class="zc_div" >
-    <div class="zc_div_title" >账号登录</div>
+    <div class="zc_div_title" >车队登录</div>
     <div style="width: 60%;height: 100%;margin:0 auto;">
         <ul>
+            <input type="hidden" id="type" value="2">
             <li>
-                <input type="text" placeholder="请输入负责人姓名" id="name">
+                <input type="text" placeholder="请输入账号" id="tel">
             </li>
             <li>
-                <input type="text" placeholder="请输入手机号" id="tel">
+                <input type="password" placeholder="请输入密码" id="password">
             </li>
             <li>
-                <textarea type="text" placeholder="请输入车队信息" id="remarks" style="height: 100px;width: 100%;"></textarea>
-            </li>
-            <li>
-                <div id="ok">保存</div>
+                <div id="ok">登录</div>
             </li>
         </ul>
     </div>
@@ -66,36 +64,32 @@
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
     $(function () {
-
         $("#ok").click(function () {
             var tel = $("#tel").val();
             if (tel == '' || tel == null) {
                 layer.msg("手机号不能为空", {icon: 2});
                 return;
             }
-            var name = $("#name").val();
-            if (name == '' || name == null) {
-                layer.msg("名字不能为空", {icon: 2});
-                return;
-            }
-            var remarks = $("#remarks").val();
-            if (remarks == '' || remarks == null) {
-                layer.msg("信息不能为空", {icon: 2});
+            var password = $("#password").val();
+            if (password == '' || password == null) {
+                layer.msg("密码不能为空", {icon: 2});
                 return;
             }
             $.ajax({
                 type: "POST",
-                url: platform.CONSTS.URL_BASE_CMS + "api/createFleet",
+                url: platform.CONSTS.URL_BASE_CMS + "api/login",
                 data: {
                     "tel": tel,
-                    "name": name,
-                    "remarks": remarks
+                    "type":$("#type").val(),
+                    "password":password
                 },
                 async: false,
                 success: function (data) {
                     if (data.success == true) {
-                        layer.msg('提交成功 等待客服主动联系您！');
-                        // window.location.href = platform.CONSTS.URL_BASE_API;
+                        layer.msg('登录成功！');
+                        setTimeout(function () {
+                            window.location.href = platform.CONSTS.URL_BASE_CMS + '/api/busown';
+                        }, 3000);
                     } else {
                         layer.msg(data.message, {icon: 2});
                         return;

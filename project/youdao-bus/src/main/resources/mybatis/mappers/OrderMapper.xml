@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.platform.mapper.OrderMapper">
 
-    <insert id="insert" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="com.platform.commons.utils.PageData" useGeneratedKeys="true" keyProperty="id">
        INSERT INTO t_orders(type, order_uuid, user_uuid, from_time, to_time, from_province, from_city, from_address, to_province,
         to_city, to_address, contact_tel, contact_name, is_invoice, invoice_header, invoice_contact, invoice_phone, invoice_address,
          invoice_duty, use_number, bus_number, bus_number1, bus_number2, bus_number3, remarks, create_time, status)
@@ -12,13 +12,15 @@
          #{invoiceDuty}, #{useNumber}, #{busNumber}, #{busNumber1}, #{busNumber2}, #{busNumber3}, #{remarks}, now(), #{status})
     </insert>
 
-    <insert id="insertAddress" parameterType="com.platform.commons.utils.PageData"  useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insertAddress" parameterType="com.platform.commons.utils.PageData" useGeneratedKeys="true"
+            keyProperty="id">
        INSERT INTO t_address(order_uuid, address,create_time)
         VALUES
         (#{orderUuid}, #{address},now())
     </insert>
 
-    <select id="selectByOrderUuid" parameterType="com.platform.commons.utils.PageData"   resultType="com.platform.commons.utils.PageData">
+    <select id="selectByOrderUuid" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
         	select
                 a.type,
                 CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
@@ -56,7 +58,9 @@
                 ifnull(a.audit_remarks,'') AS auditRemarks,
                 ifnull(a.audit_money,'') AS auditMoney,
                 ifnull(a.audit_by,'') AS auditBy,
-                ifnull(a.audit_time,'') AS auditTime
+                ifnull(a.audit_time,'') AS auditTime,
+                ifnull(a.license_plate,'') as licensePate,
+                ifnull(a.bus_phone,'') as busPhone
         FROM
         t_orders a
         WHERE
@@ -64,25 +68,42 @@
           and a.order_uuid = #{orderUuid}
     </select>
 
-    <select id="countOrder" parameterType="com.platform.commons.utils.PageData" resultType="com.platform.commons.utils.PageData">
+    <select id="countOrder" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
         SELECT
-            sum(case when status = 0 then 1 else 0 end) as createOrder,
-            sum(case when status = 1 then 1 else 0 end) as bjOrder,
-            sum(case when status = 4 then 1 else 0 end) as finishOrder,
-            sum(case when status = 3 then 1 else 0 end) as xszOrder,
-            sum(case when status = 2 then 1 else 0 end) as qrOrder
+            ifnull(sum(case when status = 0 then 1 else 0 end),0) as createOrder,
+            ifnull(sum(case when status = 1 then 1 else 0 end),0) as bjOrder,
+            ifnull(sum(case when status = 4 then 1 else 0 end),0) as finishOrder,
+            ifnull(sum(case when status = 3 then 1 else 0 end),0) as xszOrder,
+            ifnull(sum(case when status = 5 then 1 else 0 end),0) as txOrder,
+            ifnull(sum(case when status = 2 then 1 else 0 end),0) as qrOrder
         FROM
             t_orders
         WHERE
             user_uuid = #{uuid}
     </select>
 
-    <select id="selectByUuidAndStatus" parameterType="com.platform.commons.utils.PageData"   resultType="com.platform.commons.utils.PageData">
+
+    <select id="countOrderForFleet" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        SELECT
+        ifnull(sum(case when status = 0 then 1 else 0 end),0) as createOrder,
+        ifnull(sum(case when status = 1 then 1 else 0 end),0) as bjOrder,
+        ifnull(sum(case when status = 4 then 1 else 0 end),0) as finishOrder,
+        ifnull(sum(case when status = 3 then 1 else 0 end),0) as xszOrder,
+        ifnull(sum(case when status = 5 then 1 else 0 end),0) as txOrder,
+        ifnull(sum(case when status = 2 then 1 else 0 end),0) as qrOrder
+        FROM
+        t_orders a
+    </select>
+
+    <select id="selectByUuidAndStatus" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
         	select
                 a.type,
                 CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
-                order_uuid AS orderUuid,
-                user_uuid AS uuid,
+                a.order_uuid AS orderUuid,
+                a.user_uuid AS uuid,
                 ifnull(a.from_time,'') AS fromTime,
                 ifnull(a.to_time,'') AS toTime,
                 ifnull(a.from_province,'') AS fromProvince,
@@ -115,16 +136,164 @@
                 ifnull(a.audit_remarks,'') AS auditRemarks,
                 ifnull(a.audit_money,'') AS auditMoney,
                 ifnull(a.audit_by,'') AS auditBy,
-                ifnull(a.audit_time,'') AS auditTime
+                ifnull(a.audit_time,'') AS auditTime,
+                ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
         FROM
         t_orders a
         WHERE
-          a.user_uuid = #{uuid}
-          and a.status = #{status}
+          a.status = #{status}
+          and   a.user_uuid = #{uuid}
         order by a.id desc
     </select>
 
-    <select id="selectList" parameterType="java.util.Map"   resultType="com.platform.commons.utils.PageData">
+    <select id="selectByStatus" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        	select
+                a.type,
+                CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
+                a.order_uuid AS orderUuid,
+                a.user_uuid AS uuid,
+                ifnull(a.from_time,'') AS fromTime,
+                ifnull(a.to_time,'') AS toTime,
+                ifnull(a.from_province,'') AS fromProvince,
+                ifnull(a.from_city,'') AS fromCity,
+                ifnull(a.from_address,'') AS fromAddress,
+                ifnull(a.to_province,'') AS toProvince,
+                ifnull(a.to_city,'') AS toCity,
+                ifnull(a.to_address,'') AS toAddress,
+                ifnull(a.contact_tel,'') AS contactTel,
+                ifnull(a.contact_name,'') AS contactName,
+                ifnull(a.is_invoice,'') AS isInvoice,
+                ifnull(a.invoice_header,'') AS invoiceHeader,
+                ifnull(a.invoice_contact,'') AS invoiceContact,
+                ifnull(a.invoice_phone,'') AS invoicePhone,
+                ifnull(a.invoice_address,'') AS invoiceAddress,
+                ifnull(a.invoice_duty,'') AS invoiceDuty,
+                ifnull(a.use_number,'') AS useNumber,
+                ifnull(a.bus_number,'') AS busNumber,
+                ifnull(a.bus_number1,'') AS busNumber1,
+                ifnull(a.bus_number2,'') AS busNumber2,
+                ifnull(a.bus_number3,'') AS busNumber3,
+                ifnull(a.remarks,'') as remarks,
+                a.create_time AS createTime,
+                a.status,
+                a.finish_time AS finishTime,
+                ifnull(a.feet_by,'') AS feetBy,
+                ifnull(a.feet_money,'') AS feetMoney,
+                ifnull(a.feet_time,'') AS feetTime,
+                ifnull(a.feet_remarks,'') AS feetRemarks,
+                ifnull(a.audit_remarks,'') AS auditRemarks,
+                ifnull(a.audit_money,'') AS auditMoney,
+                ifnull(a.audit_by,'') AS auditBy,
+                ifnull(a.audit_time,'') AS auditTime,
+                ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
+        FROM
+        t_orders a
+        WHERE
+          a.status = #{status}
+
+        order by a.id desc
+    </select>
+
+
+    <select id="selectByUuidAndStatusFleet" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        select
+        a.type,
+        CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
+        a.order_uuid AS orderUuid,
+        a.user_uuid AS uuid,
+        ifnull(a.from_time,'') AS fromTime,
+        ifnull(a.to_time,'') AS toTime,
+        ifnull(a.from_province,'') AS fromProvince,
+        ifnull(a.from_city,'') AS fromCity,
+        ifnull(a.from_address,'') AS fromAddress,
+        ifnull(a.to_province,'') AS toProvince,
+        ifnull(a.to_city,'') AS toCity,
+        ifnull(a.to_address,'') AS toAddress,
+        ifnull(a.contact_tel,'') AS contactTel,
+        ifnull(a.contact_name,'') AS contactName,
+        ifnull(a.is_invoice,'') AS isInvoice,
+        ifnull(a.invoice_header,'') AS invoiceHeader,
+        ifnull(a.invoice_contact,'') AS invoiceContact,
+        ifnull(a.invoice_phone,'') AS invoicePhone,
+        ifnull(a.invoice_address,'') AS invoiceAddress,
+        ifnull(a.invoice_duty,'') AS invoiceDuty,
+        ifnull(a.use_number,'') AS useNumber,
+        ifnull(a.bus_number,'') AS busNumber,
+        ifnull(a.bus_number1,'') AS busNumber1,
+        ifnull(a.bus_number2,'') AS busNumber2,
+        ifnull(a.bus_number3,'') AS busNumber3,
+        ifnull(a.remarks,'') as remarks,
+        a.create_time AS createTime,
+        a.status,
+        a.finish_time AS finishTime,
+        ifnull(a.feet_by,'') AS feetBy,
+        ifnull(a.feet_money,'') AS feetMoney,
+        ifnull(a.feet_time,'') AS feetTime,
+        ifnull(a.feet_remarks,'') AS feetRemarks,
+        ifnull(a.audit_remarks,'') AS auditRemarks,
+        ifnull(a.audit_money,'') AS auditMoney,
+        ifnull(a.audit_by,'') AS auditBy,
+        ifnull(a.audit_time,'') AS auditTime,
+        ifnull((select b.amount from t_order_fleet b where a.order_uuid = b.order_id and b.user_uuid = #{uuid} ),0) as amount
+        FROM
+        t_orders a
+        WHERE
+         a.status = #{status}
+         order by a.id desc
+    </select>
+    <select id="selectByUuidAndStatusFleet234" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        select
+        a.type,
+        CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
+        a.order_uuid AS orderUuid,
+        a.user_uuid AS uuid,
+        ifnull(a.from_time,'') AS fromTime,
+        ifnull(a.to_time,'') AS toTime,
+        ifnull(a.from_province,'') AS fromProvince,
+        ifnull(a.from_city,'') AS fromCity,
+        ifnull(a.from_address,'') AS fromAddress,
+        ifnull(a.to_province,'') AS toProvince,
+        ifnull(a.to_city,'') AS toCity,
+        ifnull(a.to_address,'') AS toAddress,
+        ifnull(a.contact_tel,'') AS contactTel,
+        ifnull(a.contact_name,'') AS contactName,
+        ifnull(a.is_invoice,'') AS isInvoice,
+        ifnull(a.invoice_header,'') AS invoiceHeader,
+        ifnull(a.invoice_contact,'') AS invoiceContact,
+        ifnull(a.invoice_phone,'') AS invoicePhone,
+        ifnull(a.invoice_address,'') AS invoiceAddress,
+        ifnull(a.invoice_duty,'') AS invoiceDuty,
+        ifnull(a.use_number,'') AS useNumber,
+        ifnull(a.bus_number,'') AS busNumber,
+        ifnull(a.bus_number1,'') AS busNumber1,
+        ifnull(a.bus_number2,'') AS busNumber2,
+        ifnull(a.bus_number3,'') AS busNumber3,
+        ifnull(a.remarks,'') as remarks,
+        a.create_time AS createTime,
+        a.status,
+        a.finish_time AS finishTime,
+        ifnull(a.feet_by,'') AS feetBy,
+        ifnull(a.feet_money,'') AS feetMoney,
+        ifnull(a.feet_time,'') AS feetTime,
+        ifnull(a.feet_remarks,'') AS feetRemarks,
+        ifnull(a.audit_remarks,'') AS auditRemarks,
+        ifnull(a.audit_money,'') AS auditMoney,
+        ifnull(a.audit_by,'') AS auditBy,
+        ifnull(a.audit_time,'') AS auditTime,
+        b.amount
+         FROM
+        t_orders a,t_order_fleet b
+        WHERE
+        a.order_uuid = b.order_id and b.user_uuid = #{uuid}
+        and a.status = #{status}
+        order by a.id desc
+    </select>
+
+
+    <select id="selectList" parameterType="java.util.Map" resultType="com.platform.commons.utils.PageData">
         select
         a.type,
         CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
@@ -163,32 +332,63 @@
         ifnull(a.audit_money,'') AS auditMoney,
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
-        ifnull(b.nickname,'') as  nickname
+        ifnull(b.nickname,'') as nickname,
+        ifnull(a.license_plate,'') as licensePate,
+        ifnull(a.bus_phone,'') as busPhone
         FROM
         t_orders a,t_user b
         WHERE a.user_uuid = b.uuid
         <if test="status != null and status != ''">
-            and  a.status = #{status}
+            and a.status = #{status}
         </if>
         <if test="contactTel != null and contactTel != ''">
-            and  a.contact_tel LIKE CONCAT('%',CONCAT(#{contactTel},'%') )
+            and a.contact_tel LIKE CONCAT('%',CONCAT(#{contactTel},'%') )
         </if>
         <if test="orderUuid != null and orderUuid != ''">
-            and  a.order_uuid LIKE CONCAT('%',CONCAT(#{orderUuid},'%') )
+            and a.order_uuid LIKE CONCAT('%',CONCAT(#{orderUuid},'%') )
         </if>
         <if test="type != null and type != ''">
-            and  a.type = #{type}
+            and a.type = #{type}
         </if>
         order by a.id desc
     </select>
 
-    <update id="updateByOrderUuid"  parameterType="com.platform.commons.utils.PageData">
+    <update id="updateByOrderUuid" parameterType="com.platform.commons.utils.PageData">
         update t_orders set
         audit_remarks = #{auditRemarks},
         audit_money = #{auditMoney},
         audit_by = #{auditBy},
         status = #{status},
+        license_plate = #{licensePlate},
+        bus_phone = #{busPhone},
         audit_time = now()
         where order_uuid = #{orderUuid}
     </update>
+
+
+    <insert id="insertFleetAmount" parameterType="com.platform.commons.utils.PageData">
+      insert into t_order_fleet
+      (order_id,user_uuid,amount,create_date)
+      VALUES
+      (#{orderUuid},#{userUuid},#{amount},now())
+    </insert>
+    <update id="updateFleetAmount" parameterType="com.platform.commons.utils.PageData">
+      update t_order_fleet
+      set amount = #{amount}
+      where user_uuid = #{userUuid} and order_id = #{orderUuid}
+    </update>
+    <select id="selectAllFleetByOrderUuid" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+          select user_uuid as userUuid,order_id as orderUuid,amount,id
+          from t_order_fleet
+          where order_id = #{orderUuid}
+          order by amount
+    </select>
+    <select id="selectFleetByOrderUuidAndUserUuid" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        select user_uuid as userUuid,order_id as orderUuid,amount
+        from t_order_fleet
+        where user_uuid = #{userUuid} and order_id = #{orderUuid}
+    </select>
+
 </mapper>

@@ -45,4 +45,19 @@ public class  UserService implements IUserService {
         pageResult.setRecordsFiltered(pageResult.getRecordsTotal());
           return pageResult;
     }
+
+
+    @Override
+    public DatatablesResult<PageData> selectListBus(JSONObject params, Integer page, Integer rows, Integer draw) {
+        PageHelper.startPage(page, rows);
+        Map<String,String> whereMap = cmsUtil.toHashMap(params);
+        List<PageData> userlistVos = this.userMapper.selectListBus(whereMap);
+        PageInfo<PageData> pageInfo = new PageInfo<PageData>(userlistVos);
+        DatatablesResult pageResult = new DatatablesResult<PageData>();
+        pageResult.setData(userlistVos);
+        pageResult.setDraw(draw);
+        pageResult.setRecordsTotal(((int)pageInfo.getTotal())==0?1:(int)pageInfo.getTotal());
+        pageResult.setRecordsFiltered(pageResult.getRecordsTotal());
+          return pageResult;
+    }
 }
