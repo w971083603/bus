@@ -87,7 +87,7 @@
                         <td class="wddd_div_tableTime">出发时间</td>
                         <td class="wddd_div_tableTime">结束时间</td>
                         <td class="wddd_div_tableTime">报价金额</td>
-                        <td class="wddd_div_tableTime">操作</td>
+                        <td class="wddd_div_tableTime2">操作</td>
                     </tr>
                     </thead>
                     <tbody class="orderlist">
@@ -139,11 +139,11 @@
                         $(".orderlist").empty();
                         $(".noList").hide();
                         for (var i = 0; i < result.list.length; i++) {
-                            var caozuo = "<td class=\"wddd_div_tableTime\">-</td>";
+                            var caozuo = "<td class=\"wddd_div_tableTime2\">-</td>";
                             if (status == "1") {
                                 caozuo = "<td class=\"wddd_div_tableTime\">" +
-                                    "<input placeholder='请输入报价金额' value='' style='font-size: 11px;'>" +
-                                    "<button type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
+                                    "<input placeholder='请输入报价金额' value='' style='font-size: 11px;width: 50%;'>" +
+                                    "<button  style='margin-left: 1%;' type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
                             }
                             var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber + "辆";

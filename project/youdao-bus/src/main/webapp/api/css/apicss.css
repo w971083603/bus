@@ -340,7 +340,7 @@ a:hover {
     border-top-left-radius:2em;
     border-top-right-radius:2em;
     padding-bottom: 15px;
-    height: 373px;
+    clear: both;
 }
 .zc_div_title{
     width: 100%;height: 67px;
@@ -521,7 +521,7 @@ a:hover {
 }
 
 .fbxcInputTime{
-    width: 403px;
+    width: 364px;
     height: 33px;
     border: solid 1px #333333;
     opacity: 0.5;
@@ -711,7 +711,7 @@ a:hover {
     margin-top: 100px;
 }
 .wddd_div_table table{
-   width: 100%;
+   width: 1200px;
 }
 
 /*.wddd_div_table td{
@@ -720,11 +720,17 @@ a:hover {
 }*/
 
 .wddd_div_tableCfd {
-    width: 20%;
+    width: 10%;
     text-align: center;
 }
 
 .wddd_div_tableTime {
+    width: 5%;
+    text-align: center;
+}
+
+
+.wddd_div_tableTime2 {
     width: 10%;
     text-align: center;
 }

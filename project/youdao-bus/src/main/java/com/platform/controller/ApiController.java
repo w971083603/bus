@@ -896,7 +896,6 @@ public class ApiController extends BaseController {
             String uuid = (String) session.getAttribute("uuid");
             int createOrder = 0;
             int bjOrder = 0;
-            int txOrder = 0;
             int finishOrder = 0;
             int xszOrder = 0;
             int qrOrder = 0;
@@ -910,7 +909,6 @@ public class ApiController extends BaseController {
                 finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
                 xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
                 qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
-                txOrder = countOrderPd.getBigDecimal("txOrder").intValue();
                 wcxOrder = countOrderPd.getBigDecimal("wcxOrder").intValue();
             }
             orderList.put("createOrder", createOrder);
@@ -919,7 +917,6 @@ public class ApiController extends BaseController {
             orderList.put("xszOrder", xszOrder);
             orderList.put("qrOrder", qrOrder);
             orderList.put("wcxOrder", wcxOrder);
-            orderList.put("txOrder", txOrder);
             List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
             if (pd.getString("status").equals("2")) {
                 for (PageData orderpd : list) {
@@ -956,16 +953,16 @@ public class ApiController extends BaseController {
             int xszOrder = 0;
             int finishOrder = 0;
             pd.put("uuid", uuid);
+            pd.put("uuidFleet", uuid);
             PageData orderList = new PageData();
             List<PageData> list ;
-            PageData countOrderPd;
+            PageData countOrderPd = orderMapper.countOrderForFleet(pd);
             if(pd.getString("status").equals("1")){
+                //获取所有已经竞猜的
                 list = orderMapper.selectByUuidAndStatusFleet(pd);
-                countOrderPd = orderMapper.countOrderForFleet(pd);
             }else{
                 list = orderMapper.selectByUuidAndStatusFleet2345(pd);
-                countOrderPd = orderMapper.countOrderForFleet2345(pd);
-            }
+             }
             if (countOrderPd != null) {
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
                 finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
@@ -1150,10 +1147,27 @@ public class ApiController extends BaseController {
         ResponseWrapper result;
         try {
             PageData pd = this.getPageData();
+            String userUuid = (String) session.getAttribute("uuid");
+            String tel = (String) session.getAttribute("tel");
+            pd.put("userUuid", userUuid);
             int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
             }
+            //确认合同状态
+            orderMapper.updateOrderForContractOver(pd.getString("orderUuid"), "1");
+            //获取订单详情
+
+            //获取车队详情
+            PageData fleetPd = orderMapper.selectFleetByOrderUuidAndUserUuid(pd);
+            PageData userFleetPd = userMapper.selectByUuid(fleetPd.getString("userUuid"));
+            String fleetPhone = userFleetPd.getString("tel");
+            //发送短信
+            String msg = msgHeader + "订单【" + pd.getString("orderUuid") +"】订车成功。";
+            SendSmsUtil.sendSms(msg, tel);
+            //发送短信
+            String fleetSms = msgHeader + "订单【" + pd.getString("orderUuid") +"】订车成功。";
+            SendSmsUtil.sendSms(fleetSms, fleetPhone);
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();

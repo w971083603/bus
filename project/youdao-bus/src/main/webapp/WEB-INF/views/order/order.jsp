@@ -185,7 +185,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group"  style="display: none">
                         <label class="col-sm-3 control-label">车队报价</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control feetMoney" readonly>
@@ -195,14 +195,14 @@
                             <input type="text" class="form-control feetTime" readonly>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="display: none">
                         <label class="col-sm-3 control-label">车队报价备注</label>
                         <div class="col-sm-6">
                             <textarea style="margin: 0px; width: 100%; height: 100px;" class="feetRemarks"
                                       readonly></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="display: none">
                         <label class="col-sm-3 control-label">平台报价</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control auditMoney">
@@ -212,7 +212,7 @@
                             <input type="text" class="form-control auditTime" readonly>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="display: none">
                         <label class="col-sm-3 control-label">平台报价备注</label>
                         <div class="col-sm-6">
                             <textarea style="margin: 0px; width: 100%; height: 100px;" class="auditRemarks"></textarea>
@@ -223,7 +223,7 @@
                     <div class="form-group orderFleetListDiv">
                         <label class="col-sm-3 control-label">参与报价车队</label>
                         <div class="col-sm-3">
-                            <select class="orderFleetList">
+                            <select class="orderFleetList  form-control">
 
                             </select>
                         </div>
@@ -232,7 +232,7 @@
                     <div class="form-group allFleetListDiv" style="display: none;">
                         <label class="col-sm-3 control-label">所有车队</label>
                         <div class="col-sm-3">
-                            <select class="allFleetList">
+                            <select class="allFleetList form-control">
                                 <option value="">请选择车队</option>
                             </select>
                         </div>
@@ -257,7 +257,7 @@
                     <div class="text-center ">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary btn-lg" id="okOne">
-                                确定报价
+                                确定
                             </button>
                         </div>
                     </div>
@@ -376,19 +376,22 @@
 
         //审核通过按钮
         $("#okOne").on("click", function () {
-            layer.confirm('<span style="color:red">确定报价吗？</span>', {
+            layer.confirm('<span style="color:red">确定保存吗？</span>', {
                 title: "审核",
                 btn: ['确认'] //按钮
             }, function (index) {
-                changeTradeHecStatus("2");
+                changeTradeHecStatus();
                 layer.close(index);
             });
 
         });
 
+        var statusD = 0;
+
         ///查看详情
         $("#dataTable tbody").on("click", ".audit", function () {
             var data = tables.api().row($(this).parents("tr")).data();
+            console.log(data);
             $(".orderUuid").val(data.orderUuid);
             $(".uuid").val(data.uuid);
             $(".fromTime").val(data.fromTime);
@@ -416,6 +419,7 @@
             $(".auditRemarks").val(data.auditRemarks);
             $(".auditMoney").val(data.auditMoney);
             $(".auditTime").val(data.auditTime);
+            statusD = data.status;
             var st = "";
             if (data.status == '0') {
                 st = "预订单";
@@ -434,11 +438,6 @@
             $(".licensePlate").val(data.licensePlate);
             $(".busPhone").val(data.busPhone);
 
-            if (data.status == '1') {
-                $(".auditButton").show();
-            } else {
-                $(".auditButton").hide();
-            }
             //处理没有报价的订单
             var orderFleetId = data.orderFleetId;
             $(".orderFleetId").val(data.orderFleetId);
@@ -446,40 +445,45 @@
             $(".orderFleetList").empty();
             //不是到达报价时间或没人报价时介入
             for (var i = 0; i < orderFleetList.length; i++) {
-                $(".orderFleetList").appent("<option value='" + orderFleetList[i].id + "'>" + orderFleetList[i].nickname + "-" + orderFleetList[i].amount + "</option>");
+                $(".orderFleetList").append("<option value='" + orderFleetList[i].id + "'>" + orderFleetList[i].nickname + "-" + orderFleetList[i].amount + "</option>");
             }
             $(".orderFleetList").val(orderFleetId);
             //处理如果状态时2，但是orderFleetList为0时
-            if (st == 2 && orderFleetList.length == 0) {
+            if (data.status == 2 && orderFleetList.length == 0) {
                 $(".allFleetListDiv").show();
                 var allFleetList = data.allFleetList;
                 $(".allFleetListDiv").empty();
-                $(".allFleetList").appent("<option value=''>请选择车队</option>");
+                $(".allFleetList").append("<option value=''>请选择车队</option>");
                 //不是到达报价时间或没人报价时介入
                 for (var i = 0; i < allFleetList.length; i++) {
-                    $(".allFleetList").appent("<option value='" + allFleetList[i].userUuid + "'>" + allFleetList[i].nickname + "</option>");
+                    $(".allFleetList").append("<option value='" + allFleetList[i].userUuid + "'>" + allFleetList[i].nickname + "</option>");
                 }
+            }
+            if (data.status == '5' || (st == 2 && orderFleetList.length == 0)) {
+                $(".auditButton").show();
+            } else {
+                $(".auditButton").hide();
             }
             $("#editModal").modal("show");
 
         });
 
-        function changeTradeHecStatus(status) {
-            var auditMoney = $(".auditMoney").val();
-            if (auditMoney == null || auditMoney == '') {
-                layer.msg("平台报价不能为空", {icon: 2});
-                return;
-            }
+        function changeTradeHecStatus() {
+//            var auditMoney = $(".auditMoney").val();
+//            if (auditMoney == null || auditMoney == '') {
+//                layer.msg("平台报价不能为空", {icon: 2});
+//                return;
+//            }
             $.ajax({
                 type: "POST",
                 url: platform.CONSTS.URL_BASE_CMS + "order/system/audit",
                 data: {
                     "auditBy": '<shiro:principal property="id"/>',
                     "orderUuid": $(".orderUuid").val(),
-                    "auditMoney": auditMoney,
-                    "status": status,
+//                    "auditMoney": auditMoney,
+                    "status": statusD,
                     "uuid": $(".uuid").val(),
-                    "auditRemarks": $(".auditRemarks").val(),
+//                    "auditRemarks": $(".auditRemarks").val(),
                     "licensePlate": $(".licensePlate").val(),
                     "fleetUserUuid": $(".allFleetList").val(),  //没有车队的时候可以输入
                     "amount": $(".allFleetListAmount").val(), //没有车队的时候可以输入

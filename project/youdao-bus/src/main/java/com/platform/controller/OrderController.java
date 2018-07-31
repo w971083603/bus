@@ -109,7 +109,7 @@ public class OrderController extends BaseController {
             }
             PageData userPd = userMapper.selectByUuid(pd.getString("uuid"));
             String tel = userPd.getString("tel");
-            String msg = msgHeader + "平台已对订单号【" + pd.getString("orderUuid") +"】进行报价，报价金额为" + pd.getString("auditMoney") + ",请前往网站进行查看。";
+            String msg = msgHeader + "平台已对订单号【" + pd.getString("orderUuid") +"】进行操作。";
             JSONObject sms = SendSmsUtil.sendSms(msg, tel);
             if (sms.getString("code").equals("0")) {
                 pd.put("message",msg);

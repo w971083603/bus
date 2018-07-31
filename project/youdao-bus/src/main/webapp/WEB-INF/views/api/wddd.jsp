@@ -35,7 +35,9 @@
                 <td class="wddd_div_tableTime">出发时间</td>
                 <td class="wddd_div_tableTime">结束时间</td>
                 <td class="wddd_div_tableTime">报价金额</td>
-                <td class="wddd_div_tableTime">操作</td>
+                <td class="wddd_div_tableTime">车牌号</td>
+                <td class="wddd_div_tableTime">联系电话</td>
+                <td class="wddd_div_tableTime2">操作</td>
             </tr>
             </thead>
             <tbody class="orderlist">
@@ -93,22 +95,25 @@
                         $(".orderlist").empty();
                         $(".noList").hide();
                         for (var i = 0; i < result.list.length; i++) {
-                            var changeFleet = " <td class=\"wddd_div_tableTime\">-</td></tr>";
+                            var changeFleet = " <td class=\"wddd_div_tableTime2\">-</td></tr>";
                             if (status == "2") {
                                 var optionStr = " <option value='''>请选择</option>";
                                 var fleetList = result.list[i].fleetList;
                                 for (var j = 0; j < fleetList.length; j++) {
                                     optionStr += "<option value='" + fleetList[j].id + "''>" + fleetList[j].amount + "元</option>"
                                 }
-                                changeFleet = " <td class=\"wddd_div_tableTime\"><select style='width: 88px;'>" + optionStr + "</select>" +
+                                changeFleet = " <td class=\"wddd_div_tableTime\"><select style='width: 88px;height: 32px;'>" + optionStr + "</select>" +
                                     "<button type=\"button\" onclick=\"sureOrder(this,'" + result.list[i].orderUuid + "')\">确认</button>" +
                                     "</td></tr>";
                             } else if (status == "5") {
                                 changeFleet = " <td class=\"wddd_div_tableTime\">" +
-                                    "<button type=\"button\" onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">确认出行</button>" +
+                                    "<button type=\"button\" onclick=\"sureOrderGo('3','" + result.list[i].orderUuid + "')\">确认出行</button>" +
+                                    "</td></tr>";
+                            } else if (status == "3") {
+                                changeFleet = " <td class=\"wddd_div_tableTime\">" +
+                                    "<button type=\"button\" onclick=\"sureOrderGo('4','" + result.list[i].orderUuid + "')\">已完成行程</button>" +
                                     "</td></tr>";
                             }
-
 
                             var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber + "辆";
                             var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>\n" +
@@ -122,6 +127,8 @@
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].licensePate + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>" +
                                 changeFleet +
                                 "</tr>";
                             $(".orderlist").append(str);
@@ -167,13 +174,13 @@
     }
 
     //确认出行
-    function sureOrderGo(orderUuid) {
+    function sureOrderGo(value,orderUuid) {
         $.ajax({
             type: "POST",
             url: platform.CONSTS.URL_BASE_CMS + "api/userChangeStatus",
             data: {
                 orderUuid: orderUuid,
-                status: "3"
+                status: value
             },
             async: false,
             success: function (data) {
