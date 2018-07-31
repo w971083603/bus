@@ -3,7 +3,7 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-<div class="wddd_div" style="overflow-y: scroll;height: 590px;">
+<div class="wddd_div">
     <div class="wddd_div_title">
         <ul>
             <li class="wddd_div_li" onclick="orderstatus('1',this)">报价中(<span style="color: red;" id="bj">0</span>)</li>

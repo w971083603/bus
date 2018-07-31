@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="content_right">
-        <div class="wddd_div" style="overflow-y: scroll;height: 590px;">
+        <div class="wddd_div">
             <div class="wddd_div_title">
                 <ul>
                     <li class="wddd_div_li one" onclick="orderstatus('1',this)">报价订单(<span style="color: red;"
