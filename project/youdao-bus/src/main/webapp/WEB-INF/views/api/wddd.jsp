@@ -63,7 +63,7 @@
 
     function orderstatus(type, obj) {
         $(".wddd_div_li").css("background-color", "#fcfffb");
-        $(obj).css("background-color", "#06dc00");
+        $(obj).css("background-color", "rgb(128, 194, 105)");
         //清空td，ajax获取数据展示
         getMessage(type);
     }

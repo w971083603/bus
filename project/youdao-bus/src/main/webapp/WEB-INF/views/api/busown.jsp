@@ -73,7 +73,7 @@
             var str = "<iframe id='myFrameId' src='"+url+"' name='myFrameName' scrolling='no' frameborder='0' style='width: 100%;height: 100%;'> </iframe>"
             $(".content_right").append(str);
             $(".lib").css("background-color","#fcfffb");
-            $(obj).css("background-color","#00B83F");
+            $(obj).css("background-color","rgb(128, 194, 105)");
         }
 </script>
 </html>

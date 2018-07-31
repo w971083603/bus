@@ -3,7 +3,7 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-<div style="width: 100%;margin: 10% 45%;position: absolute;" id="qrcode">
+<div style="width: 100%;position: absolute;top:13%;left: 36%;" id="qrcode">
     <img src="../../../api/img/mrqycode.jpg" style="width: 200px;height: 200px;">
 </div>
 </body>

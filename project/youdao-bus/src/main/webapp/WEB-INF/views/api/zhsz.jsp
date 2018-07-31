@@ -149,7 +149,7 @@
 
     function changediv(obj,type) {
         $(".change").css("background-color","#fcfffb");
-        $(obj).css("background-color","#06dc00");
+        $(obj).css("background-color","#80c369");
         $(".ready").show();
         if(type == "1"){
             $(".ready_tel").show();
