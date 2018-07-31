@@ -59,8 +59,11 @@
                     <li class="wddd_div_li one" onclick="orderstatus('1',this)">报价订单(<span style="color: red;"
                                                                                            id="bj">0</span>)
                     </li>
-                    <li class="wddd_div_li" onclick="orderstatus('2',this)">客户报价(<span style="color: red;"
-                                                                                       id="dk">0</span>)
+                    <li class="wddd_div_li one" onclick="orderstatus('2',this)">等待客户选择(<span style="color: red;"
+                                                                                           id="qr">0</span>)
+                    </li>
+                    <li class="wddd_div_li" onclick="orderstatus('5',this)">未出行(<span style="color: red;"
+                                                                                       id="wcx">0</span>)
                     </li>
                     <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"
                                                                                       id="xs">0</span>)
@@ -118,7 +121,7 @@
     function getMessage(status) {
         $.ajax({
             type: "POST",
-            url: platform.CONSTS.URL_BASE_CMS + "api/orderList",
+            url: platform.CONSTS.URL_BASE_CMS + "api/orderListForFleet",
             data: {
                 status: status
             },
@@ -126,8 +129,9 @@
             success: function (data) {
                 if (data.success == true) {
                     var result = data.data;
-                    $("#yj").html(result.createOrder);
-                    $("#dk").html(result.qrOrder) ;
+                    $("#bj").html(result.bjOrder);
+                    $("#qr").html(result.qrOrder);
+                    $("#wcx").html(result.wcxOrder);
                     $("#xs").html(result.xszOrder);
                     $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {

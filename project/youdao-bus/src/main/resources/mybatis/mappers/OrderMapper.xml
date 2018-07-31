@@ -75,7 +75,7 @@
             ifnull(sum(case when status = 1 then 1 else 0 end),0) as bjOrder,
             ifnull(sum(case when status = 4 then 1 else 0 end),0) as finishOrder,
             ifnull(sum(case when status = 3 then 1 else 0 end),0) as xszOrder,
-            ifnull(sum(case when status = 5 then 1 else 0 end),0) as txOrder,
+            ifnull(sum(case when status = 5 then 1 else 0 end),0) as wcxOrder,
             ifnull(sum(case when status = 2 then 1 else 0 end),0) as qrOrder
         FROM
             t_orders
@@ -91,10 +91,26 @@
         ifnull(sum(case when status = 1 then 1 else 0 end),0) as bjOrder,
         ifnull(sum(case when status = 4 then 1 else 0 end),0) as finishOrder,
         ifnull(sum(case when status = 3 then 1 else 0 end),0) as xszOrder,
-        ifnull(sum(case when status = 5 then 1 else 0 end),0) as txOrder,
+        ifnull(sum(case when status = 5 then 1 else 0 end),0) as wcxOrder,
         ifnull(sum(case when status = 2 then 1 else 0 end),0) as qrOrder
         FROM
         t_orders a
+    </select>
+    <select id="countOrderForFleet2345" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        SELECT
+            ifnull(sum(case when status = 0 then 1 else 0 end),0) as createOrder,
+            ifnull(sum(case when status = 1 then 1 else 0 end),0) as bjOrder,
+            ifnull(sum(case when status = 4 then 1 else 0 end),0) as finishOrder,
+            ifnull(sum(case when status = 3 then 1 else 0 end),0) as xszOrder,
+            ifnull(sum(case when status = 5 then 1 else 0 end),0) as wcxOrder,
+            ifnull(sum(case when status = 2 then 1 else 0 end),0) as qrOrder
+        FROM
+            t_orders a,t_order_fleet b
+        WHERE
+            a.order_uuid = b.order_id
+            and b.user_uuid = #{uuid}
+            and a.status = #{status}
     </select>
 
     <select id="selectByUuidAndStatus" parameterType="com.platform.commons.utils.PageData"
@@ -243,7 +259,7 @@
          a.status = #{status}
          order by a.id desc
     </select>
-    <select id="selectByUuidAndStatusFleet234" parameterType="com.platform.commons.utils.PageData"
+    <select id="selectByUuidAndStatusFleet2345" parameterType="com.platform.commons.utils.PageData"
             resultType="com.platform.commons.utils.PageData">
         select
         a.type,
@@ -332,6 +348,7 @@
         ifnull(a.audit_money,'') AS auditMoney,
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
+        ifnull(a.order_fleet_id,'') AS orderFleetId,
         ifnull(b.nickname,'') as nickname,
         ifnull(a.license_plate,'') as licensePate,
         ifnull(a.bus_phone,'') as busPhone
@@ -379,16 +396,16 @@
     </update>
     <select id="selectAllFleetByOrderUuid" parameterType="com.platform.commons.utils.PageData"
             resultType="com.platform.commons.utils.PageData">
-          select user_uuid as userUuid,order_id as orderUuid,amount,id
-          from t_order_fleet
-          where order_id = #{orderUuid}
-          order by amount
+          select a.user_uuid as userUuid,a.order_id as orderUuid,a.amount,a.id,b.nickname,b.tel
+          from t_order_fleet a,t_user b
+          where a.user_uuid = b.uuid and  a.order_id = #{orderUuid}
+          order by a.amount
     </select>
     <select id="selectFleetByOrderUuidAndUserUuid" parameterType="com.platform.commons.utils.PageData"
             resultType="com.platform.commons.utils.PageData">
-        select user_uuid as userUuid,order_id as orderUuid,amount
-        from t_order_fleet
-        where user_uuid = #{userUuid} and order_id = #{orderUuid}
+        select a.user_uuid as userUuid,a.order_id as orderUuid,a.amount,b.nickname,b.tel
+        from t_order_fleet a,t_user b
+        where a.user_uuid = b.uuid and  a.user_uuid = #{userUuid} and a.order_id = #{orderUuid}
     </select>
 
 </mapper>

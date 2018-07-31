@@ -25,11 +25,12 @@ public interface OrderMapper {
 
     PageData countOrder(PageData pd);
     PageData countOrderForFleet(PageData pd);
+    PageData countOrderForFleet2345(PageData pd);
 
     List<PageData> selectByStatus(PageData pd);
     List<PageData> selectByUuidAndStatus(PageData pd);
     List<PageData> selectByUuidAndStatusFleet(PageData pd);
-    List<PageData> selectByUuidAndStatusFleet234(PageData pd);
+    List<PageData> selectByUuidAndStatusFleet2345(PageData pd);
     List<PageData> selectAllFleetByOrderUuid(PageData pd);
     PageData selectFleetByOrderUuidAndUserUuid(PageData pd);
 
@@ -43,5 +44,6 @@ public interface OrderMapper {
     int updateFleetAmount(PageData pd);
     @Update("update t_orders set order_fleet_id = #{orderFleetId},status = 3 where order_uuid = #{orderUuid}")
     int updateOrderForFleet(@Param("orderUuid") String orderUuid, @Param("orderFleetId") String orderFleetId);
-
+    @Update("update t_orders set  status = #{status} where order_uuid = #{orderUuid}")
+    int updateOrderForStatus(@Param("orderUuid") String orderUuid, @Param("status") String status);
 }

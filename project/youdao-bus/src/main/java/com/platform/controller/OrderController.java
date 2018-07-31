@@ -1,6 +1,7 @@
 package com.platform.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.platform.commons.utils.*;
@@ -89,6 +90,23 @@ public class OrderController extends BaseController {
             PageData pd = this.getPageData();
             int n = orderMapper.updateByOrderUuid(pd);
             if (n == 0) return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价失败"));
+
+            String fleetUserUuid = pd.getString("fleetUserUuid");
+            String amount = pd.getString("amount");
+            String status = pd.getString("status");
+            List<PageData> orderFleetList = orderMapper.selectAllFleetByOrderUuid(pd);
+            if(status.equals("2") && orderFleetList.size() == 0){
+                if(Strings.isNullOrEmpty(fleetUserUuid)){
+                    return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价车队不能为空"));
+                }
+                if(Strings.isNullOrEmpty(amount)){
+                    return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价金额不能为空"));
+                }
+                pd.put("userUuid", pd.getString("fleetUserUuid"));
+                pd.put("amount", amount);
+                int nfleet = orderMapper.insertFleetAmount(pd);
+                if(nfleet == 0)  return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价失败"));
+            }
             PageData userPd = userMapper.selectByUuid(pd.getString("uuid"));
             String tel = userPd.getString("tel");
             String msg = msgHeader + "平台已对订单号【" + pd.getString("orderUuid") +"】进行报价，报价金额为" + pd.getString("auditMoney") + ",请前往网站进行查看。";

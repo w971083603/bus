@@ -31,6 +31,8 @@ public class OrderService implements IOrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private AddressMapper addressMapper;
@@ -45,13 +47,19 @@ public class OrderService implements IOrderService {
             List<PageData> addressList = addressMapper.selectByOrderUuid(orderUuid);
             String address = "";
             for (PageData addressPd : addressList) {
-                if(address.equals("")){
+                if (address.equals("")) {
                     address = addressPd.getString("address");
-                }else {
+                } else {
                     address += "," + addressPd.getString("address");
                 }
             }
-            pd.put("address",address);
+            pd.put("address", address);
+            List<PageData> orderFleetList = orderMapper.selectAllFleetByOrderUuid(pd);
+            pd.put("orderFleetList", orderFleetList);
+            Map<String, String> map = new HashMap<>();
+            map.put("type", "2");
+            List<PageData> allFleetList = userMapper.selectListBus(map);
+            pd.put("allFleetList", allFleetList);
         }
         PageInfo<PageData> pageInfo = new PageInfo<>(list);
         DatatablesResult pageResult = new DatatablesResult<PageData>();
@@ -61,7 +69,6 @@ public class OrderService implements IOrderService {
         pageResult.setRecordsFiltered(pageResult.getRecordsTotal());
         return pageResult;
     }
-
 
 
 }

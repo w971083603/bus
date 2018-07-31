@@ -894,21 +894,16 @@ public class ApiController extends BaseController {
         try {
             PageData pd = this.getPageData();
             String uuid = (String) session.getAttribute("uuid");
-            String type = (String) session.getAttribute("type");
             int createOrder = 0;
             int bjOrder = 0;
             int txOrder = 0;
             int finishOrder = 0;
             int xszOrder = 0;
             int qrOrder = 0;
+            int wcxOrder = 0;
             pd.put("uuid", uuid);
             PageData orderList = new PageData();
-            PageData countOrderPd = orderMapper.countOrder(pd);
-            if(type.equals("2")){
-                countOrderPd = orderMapper.countOrderForFleet(pd);
-            }else{
-                countOrderPd = orderMapper.countOrder(pd);
-            }
+            PageData  countOrderPd = orderMapper.countOrder(pd);
             if (countOrderPd != null) {
                 createOrder = countOrderPd.getBigDecimal("createOrder").intValue();
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
@@ -916,27 +911,20 @@ public class ApiController extends BaseController {
                 xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
                 qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
                 txOrder = countOrderPd.getBigDecimal("txOrder").intValue();
+                wcxOrder = countOrderPd.getBigDecimal("wcxOrder").intValue();
             }
             orderList.put("createOrder", createOrder);
             orderList.put("bjOrder", bjOrder);
             orderList.put("finishOrder", finishOrder);
             orderList.put("xszOrder", xszOrder);
             orderList.put("qrOrder", qrOrder);
+            orderList.put("wcxOrder", wcxOrder);
             orderList.put("txOrder", txOrder);
-            List<PageData> list ;
-            if(type.equals("2")){
-                if(pd.getString("status").equals("1")){
-                    list = orderMapper.selectByUuidAndStatusFleet(pd);
-                }else{
-                    list = orderMapper.selectByUuidAndStatusFleet234(pd);
-                }
-            }else{
-                list = orderMapper.selectByUuidAndStatus(pd);
-                if (pd.getString("status").equals("1")) {
-                    for (PageData orderpd : list) {
-                        List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
-                        orderpd.put("fleetList", fleetList);
-                    }
+            List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
+            if (pd.getString("status").equals("2")) {
+                for (PageData orderpd : list) {
+                    List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                    orderpd.put("fleetList", fleetList);
                 }
             }
             orderList.put("list", list);
@@ -947,6 +935,58 @@ public class ApiController extends BaseController {
         }
         return ResponseEntity.ok(result);
     }
+
+
+
+    /**
+     * 车队查询订单,根据状态status
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/orderListForFleet", method = RequestMethod.POST)
+    public ResponseEntity orderListForFleet(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            String uuid = (String) session.getAttribute("uuid");
+            int bjOrder = 0;
+            int qrOrder = 0;
+            int wcxOrder = 0;
+            int xszOrder = 0;
+            int finishOrder = 0;
+            pd.put("uuid", uuid);
+            PageData orderList = new PageData();
+            List<PageData> list ;
+            PageData countOrderPd;
+            if(pd.getString("status").equals("1")){
+                list = orderMapper.selectByUuidAndStatusFleet(pd);
+                countOrderPd = orderMapper.countOrderForFleet(pd);
+            }else{
+                list = orderMapper.selectByUuidAndStatusFleet2345(pd);
+                countOrderPd = orderMapper.countOrderForFleet2345(pd);
+            }
+            if (countOrderPd != null) {
+                bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
+                finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
+                xszOrder = countOrderPd.getBigDecimal("xszOrder").intValue();
+                qrOrder = countOrderPd.getBigDecimal("qrOrder").intValue();
+                wcxOrder = countOrderPd.getBigDecimal("wcxOrder").intValue();
+            }
+            orderList.put("bjOrder", bjOrder);
+            orderList.put("finishOrder", finishOrder);
+            orderList.put("xszOrder", xszOrder);
+            orderList.put("qrOrder", qrOrder);
+            orderList.put("wcxOrder", wcxOrder);
+            orderList.put("list", list);
+            result = ResponseWrapper.succeed(orderList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(ResponseWrapper.failed(-1, "查询订单失败"));
+        }
+        return ResponseEntity.ok(result);
+    }
+
 
     /**
      * 注册
@@ -1111,6 +1151,30 @@ public class ApiController extends BaseController {
         try {
             PageData pd = this.getPageData();
             int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
+            if (n == 0) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
+            }
+            result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
+    /**
+     * 修改状态
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/userChangeStatus", method = RequestMethod.POST)
+    public ResponseEntity userChangeStatus(HttpSession session) {
+        ResponseWrapper result;
+        try {
+            PageData pd = this.getPageData();
+            int n = orderMapper.updateOrderForStatus(pd.getString("orderUuid"), pd.getString("status"));
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
             }
