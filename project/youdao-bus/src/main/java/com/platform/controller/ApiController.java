@@ -11,6 +11,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -1078,6 +1079,7 @@ public class ApiController extends BaseController {
      * @throws IOException
      */
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @Transactional
     public ResponseEntity updateUser(HttpSession session) {
         ResponseWrapper result = ResponseWrapper.succeed(true);
         try {
@@ -1113,6 +1115,7 @@ public class ApiController extends BaseController {
      * @throws IOException
      */
     @RequestMapping(value = "/addorderFleetAmount", method = RequestMethod.POST)
+    @Transactional
     public ResponseEntity addorderFleetAmount(HttpSession session) {
         ResponseWrapper result;
         try {
@@ -1143,6 +1146,7 @@ public class ApiController extends BaseController {
      * @throws IOException
      */
     @RequestMapping(value = "/userChangeFleet", method = RequestMethod.POST)
+    @Transactional
     public ResponseEntity userChangeFleet(HttpSession session) {
         ResponseWrapper result;
         try {
