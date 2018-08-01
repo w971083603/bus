@@ -53,7 +53,7 @@ public class OrderController extends BaseController {
     @Resource
     private MessageMapper messageMapper;
 
-    private String msgHeader = "【道巴士】";
+    private String msgHeader = "【就道巴士】";
 
     /**
      * 订单列表：type，status

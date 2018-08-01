@@ -58,7 +58,7 @@ public class ApiController extends BaseController {
     @Resource
     private UserMapper userMapper;
 
-    private String msgHeader = "【道巴士】";
+    private String msgHeader = "【就道巴士】";
 
     /**
      * 发送验证码
@@ -453,21 +453,21 @@ public class ApiController extends BaseController {
             // TODO 添加短信发送，添加websocket推送后台
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append(msgHeader);
-            stringBuffer.append("出发时间：" + fromTime + ",");
-            stringBuffer.append("出发地址：" + fromAddress + ",");
-            stringBuffer.append("目的地地址：" + toAddress + ",");
+            stringBuffer.append("出发时间：" + fromTime + ", ");
+            stringBuffer.append("出发地址：" + fromAddress + ", ");
+            stringBuffer.append("目的地地址：" + toAddress + ", ");
             //1-包车，2-单接送
             //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
             //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
             if (type.equals("1")) {
-                stringBuffer.append("结束时间：" + toTime + ",");
-                stringBuffer.append("途径地址：" + road + ",");
+                stringBuffer.append("结束时间：" + toTime + ", ");
+                stringBuffer.append("途径地址：" + road + ", ");
             }
-            stringBuffer.append("联系人：" + contactName + ",");
-            stringBuffer.append("联系方式：" + contactTel + ",");
-            stringBuffer.append("用车人数：" + useNumber + ",");
-            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
-            String message = "【道巴士】" + stringBuffer.toString();
+            stringBuffer.append("联系人：" + contactName + ", ");
+            stringBuffer.append("联系方式：" + contactTel + ", ");
+            stringBuffer.append("用车人数：" + useNumber + ", ");
+            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ", ");
+            String message = "【就道巴士】" + stringBuffer.toString();
 
             Map<String, String> map = new HashMap<>();
             map.put("type", "2");
