@@ -467,7 +467,7 @@ public class ApiController extends BaseController {
             stringBuffer.append("联系方式：" + contactTel + ",");
             stringBuffer.append("用车人数：" + useNumber + ",");
             stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
-            String message = stringBuffer.toString();
+            String message = "【有道巴士】" + stringBuffer.toString();
 
             Map<String, String> map = new HashMap<>();
             map.put("type", "2");
