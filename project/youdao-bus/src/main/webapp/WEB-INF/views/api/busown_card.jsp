@@ -82,6 +82,7 @@
                 <table class="tableOrder">
                     <thead>
                     <tr>
+                        <td class="wddd_div_tableInvoice">订单号</td>
                         <td class="wddd_div_tableInvoice">服务</td>
                         <td class="wddd_div_tableCfd">出发地</td>
                         <td class="wddd_div_tableCfd">目的地</td>
@@ -151,13 +152,14 @@
                                     "</td>";
                             }
                             var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber + "辆";
-                            var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toAddress + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>\n" +
-                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>\n" +
+                            var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].orderUuid + "</td>" +
+                                " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                 caozuo +
