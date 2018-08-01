@@ -3,8 +3,8 @@
 <html lang="en">
 <%@ include file="../../../apiCurrency/top.jsp" %>
 <body>
-<div style="width: 100%;position: absolute;top:13%;left: 36%;" id="qrcode">
-    <img src="../../../api/img/mrqycode.jpg" style="width: 200px;height: 200px;">
+<div class="ewmxs" id="qrcode">
+    <img src="../../../api/img/mrqycode.jpg" style="width: 100%;height: 100%;">
 </div>
 </body>
 </html>
