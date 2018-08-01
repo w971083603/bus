@@ -256,6 +256,7 @@ public class ViewController extends BaseController {
     @RequestMapping(value = "/api/loginout", method = {RequestMethod.GET})
     public String loginout(HttpSession httpSession) {
         httpSession.removeAttribute("uuid");
+        httpSession.removeAttribute("type");
         httpSession.removeAttribute("tel");
         httpSession.removeAttribute("nickname");
         httpSession.removeAttribute("headerUrl");

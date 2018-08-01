@@ -28,7 +28,7 @@ public interface OrderMapper {
 
     List<PageData> selectByStatus(PageData pd);
     List<PageData> selectByUuidAndStatus(PageData pd);
-    List<PageData> selectByUuidAndStatusFleet(PageData pd);
+    List<PageData> selectByUserUuidFleet12(PageData pd);
     List<PageData> selectByUuidAndStatusFleet2345(PageData pd);
     List<PageData> selectAllFleetByOrderUuid(PageData pd);
     PageData selectFleetByOrderUuidAndUserUuid(PageData pd);

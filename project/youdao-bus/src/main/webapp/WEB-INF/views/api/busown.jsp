@@ -11,8 +11,12 @@
             </div>
             <div class="index_title_two">
                 <a onclick="tzUrl('/api/busindex')" class="apiTitle">首页</a>
-                <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
-                <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队登录</a>
+                <c:if test="${empty sessionScope.uuid || sessionScope.type == 1 }">
+                    <a onclick="tzUrl('/api/fbxc')" class="apiTitle">发布行程</a>
+                </c:if>
+                <c:if test="${empty sessionScope.uuid}">
+                    <a onclick="tzUrl('/api/cdrz')" class="apiTitle">车队登录</a>
+                </c:if>
                 <a onclick="tzUrl('/api/gywm')" class="apiTitle">关于我们</a>
                 <a onclick="tzUrl('/api/zxkf')" class="apiTitle">在线客服</a>
             </div>

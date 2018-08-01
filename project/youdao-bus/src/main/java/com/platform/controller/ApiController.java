@@ -472,7 +472,7 @@ public class ApiController extends BaseController {
             Map<String, String> map = new HashMap<>();
             map.put("type", "2");
             List<PageData> listFleet =  userMapper.selectListBus(map);
-            for (PageData fleetPd : list) {
+            for (PageData fleetPd : listFleet) {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
                 if (sms.getString("code").equals("0")) {
@@ -959,8 +959,8 @@ public class ApiController extends BaseController {
             List<PageData> list ;
             PageData countOrderPd = orderMapper.countOrderForFleet(pd);
             if(pd.getString("status").equals("1")){
-                //获取所有已经竞猜的
-                list = orderMapper.selectByUuidAndStatusFleet(pd);
+                //获取所有自己未报价的订单
+                list = orderMapper.selectByUserUuidFleet12(pd);
             }else{
                 list = orderMapper.selectByUuidAndStatusFleet2345(pd);
              }
