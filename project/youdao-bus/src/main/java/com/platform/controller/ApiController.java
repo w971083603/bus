@@ -58,7 +58,7 @@ public class ApiController extends BaseController {
     @Resource
     private UserMapper userMapper;
 
-    private String msgHeader = "【有道巴士】";
+    private String msgHeader = "【道巴士】";
 
     /**
      * 发送验证码
@@ -467,7 +467,7 @@ public class ApiController extends BaseController {
             stringBuffer.append("联系方式：" + contactTel + ",");
             stringBuffer.append("用车人数：" + useNumber + ",");
             stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ",");
-            String message = "【有道巴士】" + stringBuffer.toString();
+            String message = "【道巴士】" + stringBuffer.toString();
 
             Map<String, String> map = new HashMap<>();
             map.put("type", "2");

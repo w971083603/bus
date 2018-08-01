@@ -242,12 +242,13 @@
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
         ifnull(a.license_plate,'') as licensePate,
-        ifnull(a.bus_phone,'') as busPhone
+        ifnull(a.bus_phone,'') as busPhone,
+        "-" as amount
         FROM
         t_orders a
         WHERE
         a.status in (1,2)
-        and a.order_uuid not in (select order_id from t_order_fleet where a.user_uuid = #{uuidFleet})
+        and a.order_uuid not in (select order_id from t_order_fleet where user_uuid = #{uuidFleet})
         order by a.id desc
     </select>
     <select id="selectByUuidAndStatusFleet2345" parameterType="com.platform.commons.utils.PageData"
