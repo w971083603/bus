@@ -147,7 +147,7 @@
                         </li>
                         <li style="">
                             <div>
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">用车人数</span></span>
+                                <span><span class="fbxcSpanRed"></span><span class="fbxcSpanName">乘客总数</span></span>
                                 <input type="number" name="useNumber" class="fbxcYcrs"/>
                                 <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">用车数量</span></span>
                                 <select name="busNumber" class="fbxcSelect" id="busNumber">
@@ -163,7 +163,7 @@
                         <li style="">
 
                             <div>
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">车辆座位</span></span>
+                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">乘客座位</span></span>
                                 <select name="busNumber1" class="fbxcSelect" >
                                     <option value="">座</option>
                                     <option value="4">4座</option>
@@ -232,25 +232,27 @@
                         </li>
                         <div id="invoice" style="display: none">
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">发票抬头</span></span>
+                                <span style="display: inline-block;width:30%;text-align: right;"><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">用车单位名称</span></span>
                                 <input type="text" class="fbxcInputTime" id="invoiceHeader" name="invoiceHeader"/>
                             </li>
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">收&nbsp;&nbsp;&nbsp;&nbsp;件人</span></span>
-                                <input type="text" class="fbxcInputTime" id="invoiceContact" name="invoiceContact" />
+                                <span style="display: inline-block;width:30%;text-align: right;"><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">用车单位纳税人识别号</span></span>
+                                <input type="text" class="fbxcInputTime" id="invoiceDuty" name="invoiceDuty" />
                             </li>
                             <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">联系方式</span></span>
-                                <input type="text" class="fbxcInputTime" id="invoicePhone" name="invoicePhone"/>
-                            </li>
-                            <li style="">
-                                <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">收件地址</span></span>
+                                <span style="display: inline-block;width:30%;text-align: right;"><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">用车单位地址,电话 </span></span>
                                 <input type="text" class="fbxcInputTime" id="invoiceAddress" name="invoiceAddress" />
                             </li>
                             <li style="">
-                                <span class="fbxcSpanName">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</span>
-                                <input type="text" class="fbxcInputTime" id="invoiceDuty" name="invoiceDuty" />
+                                <span style="display: inline-block;width:30%;text-align: right;"><span class="fbxcSpanName">用车单位开户行及账号</span></span>
+                                <input type="text" class="fbxcInputTime" id="invoiceContact" name="invoiceContact" />
                             </li>
+                            <li style="">
+                                <span style="display: inline-block;width:30%;text-align: right;"><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">收票人手机号</span></span>
+                                <input type="text" class="fbxcInputTime" id="invoicePhone" name="invoicePhone"/>
+                            </li>
+
+
                         </div>
                     </ul>
                 </div>
@@ -309,31 +311,31 @@
                             手机号码：<span class="contactTel"></span>
                         </li>
                         <li style="padding-left: 20px;">
-                            用车人数：<span class="useNumber"></span>
+                            乘客总数：<span class="useNumber"></span>
                         </li>
                         <li style="padding-left: 20px;">
                             用车数量：<span class="busNumber"></span>
                         </li>
                         <div class="invoiceTitel">
                             <li style="padding-left: 20px;">
-                                发票抬头：<span class="invoiceHeader"></span>
+                                用车单位名称：<span class="invoiceHeader"></span>
                             </li>
                             <li style="padding-left: 20px;">
-                                收件人：<span class="invoiceContact"></span>
+                                用车单位纳税人识别号：<span class="invoiceDuty"></span>
                             </li>
                             <li style="padding-left: 20px;">
-                                收件人联系方式：<span class="invoicePhone"></span>
+                                用车单位开户行及账号：<span class="invoiceContact"></span>
                             </li>
                             <li style="padding-left: 20px;">
-                                收件人地址：<span class="invoiceAddress"></span>
+                                用车单位地址、电话：<span class="invoiceAddress"></span>
                             </li>
                             <li style="padding-left: 20px;">
-                                税号：<span class="invoiceDuty"></span>
+                                收票人手机号：<span class="invoicePhone"></span>
                             </li>
                         </div>
 
                         <li style="">
-                            <input type="checkbox"> 我已同意<a  href="#" style="color: red;">《就道巴士服务协议》</a>
+                            <input type="checkbox" class="isty"> 我已同意<a  href="#" style="color: red;">《就道巴士服务协议》</a>
                         </li>
 
                     </ul>
@@ -419,6 +421,11 @@
             $("[name='toProvince']").append(option);
         });
         $("#isOk").click(function () {
+            //判断是否选中
+            if(!$(".isty").is(":checked")){
+                layer.msg("请勾选合同同意条款", {icon: 2});
+                return;
+            }
             $("#saveForm").ajaxSubmit({
                 url: platform.CONSTS.URL_BASE_CMS + 'api/updateOrder',
                 type: "POST",//提交类型
@@ -464,7 +471,9 @@
                         $(".invoiceAddress").html(result.invoiceAddress);
                         $(".invoiceDuty").html(result.invoiceDuty);
                         $(".useNumber").html(result.useNumber);
-                        var busNumber = Number(result.busNumber1) + Number(result.busNumber2) + Number(result.busNumber3) + '座*' + result.busNumber  + "辆";
+                        var busNumber =  "1*" + Number(result.busNumber1)+ '座  '
+                            + result.busNumber2 == 0?"":"1*" + (Number(result.busNumber2)+ '座  ')
+                            + result.busNumber3 == 0?"":"1*" + (Number(result.busNumber3)+ '座  ');
                         $(".busNumber").html(busNumber);
                         var typeName = result.typeName;
                         if(typeName == '包车服务') {
@@ -545,6 +554,7 @@
         });
     }
 
+
     function getToCity(pro){
         var province = $(pro).val();
         var city = $("[name='toCity']");
@@ -558,6 +568,12 @@
             city.append("<option value='"+item+"'>" + item + "</option>");
         });
     }
+//    $("[name='fromCity']").click();
+//    $("[name='fromCity']").val("浙江");
+//    $("[name='fromCity']").click();
+//    $("[name='toCity']").val("杭州");
+//    $("[name='toCity']").click();
+
 
     /**
      * 开启下一步

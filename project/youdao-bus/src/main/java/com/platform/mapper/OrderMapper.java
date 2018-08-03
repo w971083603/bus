@@ -20,7 +20,7 @@ public interface OrderMapper {
 
     PageData selectByOrderUuid(PageData pd);
 
-    @Update("update t_orders set status = #{status} where user_uuid = #{uuid} and order_uuid = #{orderUuid}")
+    @Update("update t_orders set status = #{status},write_time = now()  where user_uuid = #{uuid} and order_uuid = #{orderUuid}")
     int update(@Param("status") String status, @Param("uuid") String uuid, @Param("orderUuid") String orderUuid);
 
     PageData countOrder(PageData pd);
@@ -41,10 +41,10 @@ public interface OrderMapper {
     int insertFleetAmount(PageData pd);
     //修改报价信息
     int updateFleetAmount(PageData pd);
-    @Update("update t_orders set order_fleet_id = #{orderFleetId},status = 5 where order_uuid = #{orderUuid}")
+    @Update("update t_orders set order_fleet_id = #{orderFleetId},status = 5,write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForFleet(@Param("orderUuid") String orderUuid, @Param("orderFleetId") String orderFleetId);
-    @Update("update t_orders set  status = #{status} where order_uuid = #{orderUuid}")
+    @Update("update t_orders set  status = #{status},write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForStatus(@Param("orderUuid") String orderUuid, @Param("status") String status);
-    @Update("update t_orders set  contract_over = #{contractOver} where order_uuid = #{orderUuid}")
+    @Update("update t_orders set  contract_over = #{contractOver},write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForContractOver(@Param("orderUuid") String orderUuid, @Param("contractOver") String contractOver);
 }

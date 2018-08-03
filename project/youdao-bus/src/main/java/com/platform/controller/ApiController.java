@@ -395,9 +395,9 @@ public class ApiController extends BaseController {
             }
 
             String useNumber = pd.getString("useNumber");
-            if (Strings.isNullOrEmpty(useNumber) || Integer.valueOf(useNumber) == 0) {
-                return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车人数不能为空"));
-            }
+//            if (Strings.isNullOrEmpty(useNumber) || Integer.valueOf(useNumber) == 0) {
+//                return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车人数不能为空"));
+//            }
             String busNumber = pd.getString("busNumber");
             if (Strings.isNullOrEmpty(busNumber) || Integer.valueOf(busNumber) == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "用车数量不能为空"));
@@ -465,8 +465,7 @@ public class ApiController extends BaseController {
             }
             stringBuffer.append("联系人：" + contactName + ", ");
             stringBuffer.append("联系方式：" + contactTel + ", ");
-            stringBuffer.append("用车人数：" + useNumber + ", ");
-            stringBuffer.append("用车数量：" + Integer.parseInt(useNumber) * Integer.parseInt(busNumber) + ", ");
+            stringBuffer.append("用车数量：" +( busNumber1==0?"":(busNumber1 + "座,")) + ( busNumber2==0?"":(busNumber2 + "座")) + ( busNumber3==0?"":(busNumber3 + "座")));
             String message = "【就道巴士】" + stringBuffer.toString();
 
             Map<String, String> map = new HashMap<>();
