@@ -168,7 +168,7 @@
                                 var optionStr = " <option value='''>请选择</option>";
                                 var fleetList = result.list[i].fleetList;
                                 for (var j = 0; j < fleetList.length; j++) {
-                                    optionStr += "<option value='" + fleetList[j].id + "''>" + fleetList[j].amount + "元</option>"
+                                    optionStr += "<option value='" + fleetList[j].id + "''>"+  fleetList[j].fleetName + " "  + fleetList[j].amount + "元</option>"
                                 }
                                 changeFleet = " <td class=\"wddd_div_tableTime\"><select style='width: 88px;height: 32px;'>" + optionStr + "</select>" +
                                     "<button type=\"button\" onclick=\"sureOrder(this,'" + result.list[i].orderUuid + "')\">确认</button>" +
@@ -226,7 +226,7 @@
             async: false,
             success: function (data) {
                 if (data.success == true) {
-                    getMessage("1");
+                    getMessage("2");
                 } else {
                     layer.msg(data.message, {icon: 2});
                     return;

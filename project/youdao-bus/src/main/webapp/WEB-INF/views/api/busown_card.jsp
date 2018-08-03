@@ -151,9 +151,9 @@
                                     "<button  style='margin-left: 1%;' type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
                             }else if (status == "3") {
-                                changeFleet = " <td class=\"wddd_div_tableTime\">" +
-                                    "<button type=\"button\" onclick=\"sureOrderGo('4','" + result.list[i].orderUuid + "')\">已完成行程</button>" +
-                                    "</td></tr>";
+                                caozuo = " <td class=\"wddd_div_tableTime\">" +
+                                    "<button type=\"button\" onclick=\"sureOrderGo('3','" + result.list[i].orderUuid + "')\">已完成行程</button>" +
+                                    "</td>";
                             }
                             var busNumber =    Number(result.list[i].busNumber1)+ '座  '
                                 + (result.list[i].busNumber2 == 0?"":"/" + (Number(result.list[i].busNumber2)+ '座  '))

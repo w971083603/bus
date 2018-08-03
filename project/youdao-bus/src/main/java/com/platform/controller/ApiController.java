@@ -927,6 +927,10 @@ public class ApiController extends BaseController {
             if (pd.getString("status").equals("2")) {
                 for (PageData orderpd : list) {
                     List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                    for (int i = 0; i < fleetList.size(); i++) {
+                        PageData fleetPd = fleetList.get(i);
+                        fleetPd.put("fleetName", "车队" +  NumberChangeToChinese.numberToChinese(i+1));
+                    }
                     orderpd.put("fleetList", fleetList);
                 }
             }

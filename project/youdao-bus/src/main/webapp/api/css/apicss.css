@@ -719,6 +719,9 @@ a:hover {
 .wddd_div_table table{
     width: 1200px;
 }
+.wddd_div_table table tr td{
+    padding: 15px 0px 0px 0px;
+}
 
 /*.wddd_div_table td{
     width: 10%;
@@ -726,28 +729,23 @@ a:hover {
 }*/
 
 .wddd_div_tableCfd {
-    width: 10%;
     text-align: center;
 }
 
 .wddd_div_tableTime {
-    width: 10%;
     text-align: center;
 }
 
 
 .wddd_div_tableTime2 {
-    width: 15%;
     text-align: center;
 }
 
 .wddd_div_tableInvoice {
-    width: 10%;
     text-align: center;
 }
 
 .wddd_div_tableInvoice2 {
-    width: 5%;
     text-align: center;
 }
 
