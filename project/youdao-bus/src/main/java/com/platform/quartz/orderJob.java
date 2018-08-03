@@ -47,12 +47,12 @@ public class orderJob {
         map.put("type", "2");
         for (PageData orderpd : list) {
             String orderUuid = orderpd.getString("orderUuid");
-            String createTimeStr = orderpd.get("createTime").toString();
-            long createTime = DateUtil.fomatDate2(createTimeStr).getTime();
+            String writeTimeStr = orderpd.get("writeTime").toString();
+            long writeTime = DateUtil.fomatDate2(writeTimeStr).getTime();
 
-            System.out.println("订单号：" + orderUuid + "**创建时间" + createTime + "》》》》》现在时间" + nowTime);
+            System.out.println("订单号：" + orderUuid + "**创建时间" + writeTime + "》》》》》现在时间" + nowTime);
 
-            if (nowTime - createTime > 5 * 60 * 1000) {
+            if (nowTime - writeTime > 5 * 60 * 1000) {
                 //修改状态对超过5分钟未报价的订单系统提示后台管理介入人工处理
                 String message = "【就道巴士】" + "订单号：" + orderUuid + "无人报价中,请前往处理";
                 List<PageData> listSystem = userMapper.selectList(map);
@@ -64,7 +64,7 @@ public class orderJob {
                     }
                 }
                 orderMapper.update("2", orderpd.getString("uuid"), orderUuid);
-            } else if (nowTime - createTime > 4 * 60 * 1000) {
+            } else if (nowTime - writeTime > 4 * 60 * 1000) {
                 //修改状态对超过4分钟未报价的订单平台对车队管理人员手机发短信提示
                 String message = "【就道巴士】" + "订单号：" + orderUuid + "正在报价中,请前往参加";
                 List<PageData> listFleet = userMapper.selectListBus(map);

@@ -612,7 +612,8 @@ a:hover {
 }
 
 .fbxc_div_content{
-    border: 1px solid #f0f6e4;width: 100%;
+    /*border: 1px solid #f0f6e4;*/
+    width: 100%;
 }
 .fbxc_div_content_content{
     width: 100%;padding-top: 8%;padding-left: 10%;
@@ -713,7 +714,7 @@ a:hover {
     margin-top: 100px;
     width: 931px;
     height: 450px;
-    overflow-y: scroll;
+    overflow-x: scroll;
 }
 .wddd_div_table table{
     width: 1200px;
@@ -730,21 +731,40 @@ a:hover {
 }
 
 .wddd_div_tableTime {
-    width: 6%;
+    width: 10%;
     text-align: center;
 }
 
 
 .wddd_div_tableTime2 {
-    width: 10%;
+    width: 15%;
     text-align: center;
 }
 
 .wddd_div_tableInvoice {
-    width: 6%;
+    width: 10%;
+    text-align: center;
+}
+
+.wddd_div_tableInvoice2 {
+    width: 5%;
     text-align: center;
 }
 
 .ewmxs{
    position: absolute;top: 20%;left: 36%;width: 300px;height: 300px;
+}
+.detailorder{
+    width: 62%;height: 500px;background-color: rgb(214, 214, 214);position: absolute;top: 0;left: 18%;overflow-y: scroll;
+    display: none;
+}
+.detailorder ul li{
+    padding-left: 20px;    line-height: 28px;
+}
+
+.fbxcBtnclose{
+    width: 188px;
+    height: 45px;
+    background-color: #80c269;
+    border-radius: 5px;
 }

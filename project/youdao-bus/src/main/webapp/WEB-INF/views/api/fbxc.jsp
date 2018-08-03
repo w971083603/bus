@@ -471,9 +471,9 @@
                         $(".invoiceAddress").html(result.invoiceAddress);
                         $(".invoiceDuty").html(result.invoiceDuty);
                         $(".useNumber").html(result.useNumber);
-                        var busNumber =  "1*" + Number(result.busNumber1)+ '座  '
-                            + result.busNumber2 == 0?"":"1*" + (Number(result.busNumber2)+ '座  ')
-                            + result.busNumber3 == 0?"":"1*" + (Number(result.busNumber3)+ '座  ');
+                        var busNumber =    Number(result.busNumber1)+ '座  '
+                            + (result.busNumber2 == 0?"": (Number(result.busNumber2)+ '座  '))
+                            + (result.busNumber3 == 0?"": (Number(result.busNumber3)+ '座  '));
                         $(".busNumber").html(busNumber);
                         var typeName = result.typeName;
                         if(typeName == '包车服务') {

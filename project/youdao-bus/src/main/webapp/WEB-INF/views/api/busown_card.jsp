@@ -150,8 +150,14 @@
                                     "<input placeholder='请输入报价金额' value='' style='font-size: 11px;width: 50%;'>" +
                                     "<button  style='margin-left: 1%;' type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
+                            }else if (status == "3") {
+                                changeFleet = " <td class=\"wddd_div_tableTime\">" +
+                                    "<button type=\"button\" onclick=\"sureOrderGo('4','" + result.list[i].orderUuid + "')\">已完成行程</button>" +
+                                    "</td></tr>";
                             }
-                            var busNumber = Number(result.list[i].busNumber1) + Number(result.list[i].busNumber2) + Number(result.list[i].busNumber3) + '座*' + result.list[i].busNumber + "辆";
+                            var busNumber =    Number(result.list[i].busNumber1)+ '座  '
+                                + (result.list[i].busNumber2 == 0?"":"/" + (Number(result.list[i].busNumber2)+ '座  '))
+                                + (result.list[i].busNumber3 == 0?"":"/" +  (Number(result.list[i].busNumber3)+ '座  '));
                             var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].orderUuid + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>" +
@@ -197,6 +203,27 @@
             success: function (data) {
                 if (data.success == true) {
                     getMessage("1");
+                } else {
+                    layer.msg(data.message, {icon: 2});
+                    return;
+                }
+            }
+        });
+    }
+
+    //确认出行
+    function sureOrderGo(value,orderUuid) {
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/userChangeStatus",
+            data: {
+                orderUuid: orderUuid,
+                status: value
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    getMessage(value);
                 } else {
                     layer.msg(data.message, {icon: 2});
                     return;

@@ -64,8 +64,10 @@
         FROM
         t_orders a
         WHERE
-          a.user_uuid = #{uuid}
-          and a.order_uuid = #{orderUuid}
+          a.order_uuid = #{orderUuid}
+          <if test="uuid != null and uuid != ''">
+              and a.user_uuid = #{uuid}
+          </if>
     </select>
 
     <select id="countOrder" parameterType="com.platform.commons.utils.PageData"
@@ -179,6 +181,7 @@
                 ifnull(a.bus_number3,'') AS busNumber3,
                 ifnull(a.remarks,'') as remarks,
                 a.create_time AS createTime,
+                a.write_time AS writeTime,
                 a.status,
                 a.finish_time AS finishTime,
                 ifnull(a.feet_by,'') AS feetBy,
@@ -196,7 +199,6 @@
         t_orders a
         WHERE
           a.status = #{status}
-
         order by a.id desc
     </select>
 

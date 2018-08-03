@@ -450,45 +450,6 @@ public class ApiController extends BaseController {
             List<PageData> list = addressMapper.selectByOrderUuid(orderUuid);
             orderPd.put("roadList", list);
             result = ResponseWrapper.succeed(orderPd);
-            // TODO 添加短信发送，添加websocket推送后台
-            StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append(msgHeader);
-            stringBuffer.append("出发时间：" + fromTime + ", ");
-            stringBuffer.append("出发地址：" + fromAddress + ", ");
-            stringBuffer.append("目的地地址：" + toAddress + ", ");
-            //1-包车，2-单接送
-            //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
-            //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
-            if (type.equals("1")) {
-                stringBuffer.append("结束时间：" + toTime + ", ");
-                stringBuffer.append("途径地址：" + road + ", ");
-            }
-            stringBuffer.append("联系人：" + contactName + ", ");
-            stringBuffer.append("联系方式：" + contactTel + ", ");
-            stringBuffer.append("用车数量：" +( busNumber1==0?"":(busNumber1 + "座,")) + ( busNumber2==0?"":(busNumber2 + "座")) + ( busNumber3==0?"":(busNumber3 + "座")));
-            String message = "【就道巴士】" + stringBuffer.toString();
-
-            Map<String, String> map = new HashMap<>();
-            map.put("type", "2");
-            List<PageData> listFleet =  userMapper.selectListBus(map);
-            for (PageData fleetPd : listFleet) {
-                String tel = fleetPd.getString("tel");
-                JSONObject sms = SendSmsUtil.sendSms(message, tel);
-                if (sms.getString("code").equals("0")) {
-                    pd.put("message", message);
-                    messageMapper.save(pd);
-                }
-            }
-//            //获取审核通过车队的
-//            List<PageData> fleetList = fleetMapper.selectAllPassFleet();
-//            for (PageData fleetPd : fleetList) {
-//                String tel = fleetPd.getString("tel");
-//                JSONObject sms = SendSmsUtil.sendSms(message, tel);
-//                if (sms.getString("code").equals("0")) {
-//                    pd.put("message", message);
-//                    messageMapper.save(pd);
-//                }
-//            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(ResponseWrapper.failed(-1, "创建订单失败"));
@@ -841,23 +802,68 @@ public class ApiController extends BaseController {
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "确认发布失败"));
             }
-//            PageData userPd = userMapper.selectByUuid(pd.getString("uuid"));
-//            String tel = userPd.getString("tel");
-//            String msg = msgHeader + "平台已对订单号【" + pd.getString("orderUuid") +"】进行报价，报价金额为" + pd.getString("auditMoney") + ",请前往网站进行查看。";
-//            JSONObject sms = SendSmsUtil.sendSms(msg, tel);
-//            if (sms.getString("code").equals("0")) {
-//                pd.put("message",msg);
-//                messageMapper.save(pd);
-////                smsCodeMapper.insert(tel, messageCode, type);
-//            } else {
-//                return ResponseEntity.ok(ResponseWrapper.failed(-1, "短信发送失败"));
-//            }
+            // TODO 添加短信发送
+            PageData orderPd = orderMapper.selectByOrderUuid(pd);
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(msgHeader);
+            stringBuffer.append("出发时间：" + orderPd.getString("fromTime") + ", ");
+            stringBuffer.append("出发地址：" + orderPd.getString("fromAddress")+ ", ");
+            stringBuffer.append("目的地地址：" + orderPd.getString("toAddress") + ", ");
+            //1-包车，2-单接送
+            //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
+            if (orderPd.getInteger("type").equals("1")) {
+                stringBuffer.append("结束时间：" + orderPd.getString("toTime") + ", ");
+                stringBuffer.append("途径地址：" + orderPd.getString("road") + ", ");
+            }
+            stringBuffer.append("联系人：" + orderPd.getString("contactName") + ", ");
+            stringBuffer.append("用车数量：" +( orderPd.getInteger("busNumber1")==0?"":(orderPd.getInteger("busNumber1") + "座"))
+                    + ( orderPd.getInteger("busNumber2")==0?"":("/" + orderPd.getInteger("busNumber2") + "座"))
+                    + ( orderPd.getInteger("busNumber3")==0?"":("/" + orderPd.getInteger("busNumber3") + "座")));
+            String message = "【就道巴士】" + stringBuffer.toString();
+            Map<String, String> map = new HashMap<>();
+            map.put("type", "2");
+            List<PageData> listFleet =  userMapper.selectListBus(map);
+            for (PageData fleetPd : listFleet) {
+                String tel = fleetPd.getString("tel");
+                JSONObject sms = SendSmsUtil.sendSms(message, tel);
+                if (sms.getString("code").equals("0")) {
+                    pd.put("message", message);
+                    messageMapper.save(pd);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
         return ResponseEntity.ok(result);
     }
+
+
+    /**
+     * 查看订单详情
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/findByOrderUuid", method = RequestMethod.POST)
+    public ResponseEntity findByOrderUuid(HttpSession session) {
+        ResponseWrapper result ;
+        try {
+            PageData pd = this.getPageData();
+            if(session.getAttribute("uuid") == null) return ResponseEntity.ok(ResponseWrapper.failed(-1, "查看失败失败"));
+            PageData orderPd = orderMapper.selectByOrderUuid(pd);
+            List<PageData> list = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
+            orderPd.put("roadList", list);
+            result = ResponseWrapper.succeed(orderPd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+
 
     /**
      * 查看订单详情
