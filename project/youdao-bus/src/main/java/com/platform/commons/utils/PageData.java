@@ -68,20 +68,20 @@ public class PageData extends HashMap implements Map{
 	}
 	
 	public String getString(Object key) {
-		return get(key).toString();
+		return String.valueOf(get(key));
 	}
 
 	public Long getLong(Object key) {
-		return Long.parseLong(get(key).toString());
+		return Long.parseLong(String.valueOf(get(key)));
 	}
 
 	public Integer getInteger(Object key) {
-		return Integer.parseInt(get(key).toString());
+		return Integer.parseInt(String.valueOf(get(key)));
 	}
 	
 	//对应数据库的number类型
 	public BigDecimal getBigDecimal(Object key) {
-		return BigDecimal.valueOf(Double.parseDouble(get(key).toString()));
+		return BigDecimal.valueOf(Double.parseDouble(String.valueOf(get(key))));
 	}
 	
 	
