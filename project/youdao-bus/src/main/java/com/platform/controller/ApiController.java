@@ -805,10 +805,9 @@ public class ApiController extends BaseController {
             // TODO 添加短信发送
             PageData orderPd = orderMapper.selectByOrderUuid(pd);
             StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append(msgHeader);
             stringBuffer.append("出发时间：" + orderPd.getString("fromTime") + ", ");
-            stringBuffer.append("出发地址：" + orderPd.getString("fromAddress")+ ", ");
-            stringBuffer.append("目的地地址：" + orderPd.getString("toAddress") + ", ");
+            stringBuffer.append("出发地址：" +  orderPd.getString("from_province") +  orderPd.getString("from_city") + orderPd.getString("fromAddress") + ", ");
+            stringBuffer.append("目的地地址："+  orderPd.getString("to_province") +  orderPd.getString("to_city")  + orderPd.getString("toAddress") + ", ");
             //1-包车，2-单接送
             //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
             //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
@@ -816,21 +815,20 @@ public class ApiController extends BaseController {
                 stringBuffer.append("结束时间：" + orderPd.getString("toTime") + ", ");
                 stringBuffer.append("途径地址：" + orderPd.getString("road") + ", ");
             }
-            stringBuffer.append("联系人：" + orderPd.getString("contactName") + ", ");
-            stringBuffer.append("用车数量：" +( orderPd.getInteger("busNumber1")==0?"":(orderPd.getInteger("busNumber1") + "座"))
-                    + ( orderPd.getInteger("busNumber2")==0?"":("/" + orderPd.getInteger("busNumber2") + "座"))
-                    + ( orderPd.getInteger("busNumber3")==0?"":("/" + orderPd.getInteger("busNumber3") + "座")));
+            stringBuffer.append("用车数量：" + (orderPd.getInteger("busNumber1") == 0 ? "" : (orderPd.getInteger("busNumber1") + "座"))
+                    + (orderPd.getInteger("busNumber2") == 0 ? "" : ("/" + orderPd.getInteger("busNumber2") + "座"))
+                    + (orderPd.getInteger("busNumber3") == 0 ? "" : ("/" + orderPd.getInteger("busNumber3") + "座")));
             String message = "【就道巴士】" + stringBuffer.toString();
             Map<String, String> map = new HashMap<>();
             map.put("type", "2");
-            List<PageData> listFleet =  userMapper.selectListBus(map);
+            List<PageData> listFleet = userMapper.selectListBus(map);
             for (PageData fleetPd : listFleet) {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
-                if (sms.getString("code").equals("0")) {
-                    pd.put("message", message);
-                    messageMapper.save(pd);
-                }
+                PageData messagePd = new PageData();
+                messagePd.put("message", message);
+                messagePd.put("uuid", orderPd.getString("userUuid"));
+                messageMapper.save(messagePd);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -848,10 +846,10 @@ public class ApiController extends BaseController {
      */
     @RequestMapping(value = "/findByOrderUuid", method = RequestMethod.POST)
     public ResponseEntity findByOrderUuid(HttpSession session) {
-        ResponseWrapper result ;
+        ResponseWrapper result;
         try {
             PageData pd = this.getPageData();
-            if(session.getAttribute("uuid") == null) return ResponseEntity.ok(ResponseWrapper.failed(-1, "查看失败失败"));
+            if (session.getAttribute("uuid") == null) return ResponseEntity.ok(ResponseWrapper.failed(-1, "查看失败失败"));
             PageData orderPd = orderMapper.selectByOrderUuid(pd);
             List<PageData> list = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
             orderPd.put("roadList", list);
@@ -862,7 +860,6 @@ public class ApiController extends BaseController {
         }
         return ResponseEntity.ok(result);
     }
-
 
 
     /**
@@ -908,7 +905,7 @@ public class ApiController extends BaseController {
             int wcxOrder = 0;
             pd.put("uuid", uuid);
             PageData orderList = new PageData();
-            PageData  countOrderPd = orderMapper.countOrder(pd);
+            PageData countOrderPd = orderMapper.countOrder(pd);
             if (countOrderPd != null) {
                 createOrder = countOrderPd.getBigDecimal("createOrder").intValue();
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
@@ -929,7 +926,7 @@ public class ApiController extends BaseController {
                     List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
                     for (int i = 0; i < fleetList.size(); i++) {
                         PageData fleetPd = fleetList.get(i);
-                        fleetPd.put("fleetName", "车队" +  NumberChangeToChinese.numberToChinese(i+1));
+                        fleetPd.put("fleetName", "车队" + NumberChangeToChinese.numberToChinese(i + 1));
                     }
                     orderpd.put("fleetList", fleetList);
                 }
@@ -942,7 +939,6 @@ public class ApiController extends BaseController {
         }
         return ResponseEntity.ok(result);
     }
-
 
 
     /**
@@ -965,14 +961,14 @@ public class ApiController extends BaseController {
             pd.put("uuid", uuid);
             pd.put("uuidFleet", uuid);
             PageData orderList = new PageData();
-            List<PageData> list ;
+            List<PageData> list;
             PageData countOrderPd = orderMapper.countOrderForFleet(pd);
-            if(pd.getString("status").equals("1")){
+            if (pd.getString("status").equals("1")) {
                 //获取所有自己未报价的订单
                 list = orderMapper.selectByUserUuidFleet12(pd);
-            }else{
+            } else {
                 list = orderMapper.selectByUuidAndStatusFleet2345(pd);
-             }
+            }
             if (countOrderPd != null) {
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
                 finishOrder = countOrderPd.getBigDecimal("finishOrder").intValue();
@@ -1115,8 +1111,6 @@ public class ApiController extends BaseController {
     }
 
 
-
-
     /**
      * 新增/修改报价信息
      *
@@ -1132,9 +1126,9 @@ public class ApiController extends BaseController {
             String userUuid = (String) session.getAttribute("uuid");
             pd.put("userUuid", userUuid);
             int n = 1;
-            if(orderMapper.selectFleetByOrderUuidAndUserUuid(pd) != null){
+            if (orderMapper.selectFleetByOrderUuidAndUserUuid(pd) != null) {
                 n = orderMapper.updateFleetAmount(pd);
-            }else{
+            } else {
                 n = orderMapper.insertFleetAmount(pd);
             }
             if (n == 0) {
@@ -1167,16 +1161,26 @@ public class ApiController extends BaseController {
             }
             //确认合同状态
             orderMapper.updateOrderForContractOver(pd.getString("orderUuid"), "1");
+            PageData orderPd = orderMapper.getUserPhoneForOrder(pd);
+            //发送短信
+            String msg = msgHeader + "订单【" + pd.getString("orderUuid") + "】订车成功。";
+            SendSmsUtil.sendSms(msg, orderPd.getString("contactTel"));
+            PageData messagePd = new PageData();
+            messagePd.put("message", msg);
+            messagePd.put("uuid", orderPd.getString("userUuid"));
+            messageMapper.save(messagePd);
             //获取车队详情
             PageData fleetPd = orderMapper.selectFleetByOrderUuidAndUserUuid(pd);
             PageData userFleetPd = userMapper.selectByUuid(fleetPd.getString("userUuid"));
             String fleetPhone = userFleetPd.getString("tel");
             //发送短信
-            String msg = msgHeader + "订单【" + pd.getString("orderUuid") +"】订车成功。";
-            SendSmsUtil.sendSms(msg, tel);
-            //发送短信
-            String fleetSms = msgHeader + "订单【" + pd.getString("orderUuid") +"】订车成功。";
+            String fleetSms = msgHeader + "订单【" + pd.getString("orderUuid") + "】订车成功，联系电话：" + orderPd.getString("contactTel")
+                    + "，联系人："+ orderPd.getString("contactName")+"。";
             SendSmsUtil.sendSms(fleetSms, fleetPhone);
+            PageData messagePd2 = new PageData();
+            messagePd2.put("message", fleetSms);
+            messagePd2.put("uuid", fleetPd.getString("userUuid"));
+            messageMapper.save(messagePd2);
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1202,6 +1206,36 @@ public class ApiController extends BaseController {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
             }
             result = ResponseWrapper.succeed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 新增联系电话等等信息
+     *
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/addLicensePlate", method = RequestMethod.POST)
+    public ResponseEntity addLicensePlate() throws IOException {
+        ResponseWrapper result = ResponseWrapper.succeed(true);
+        try {
+            PageData pd = this.getPageData();
+            int n = orderMapper.addLicensePlate(pd.getString("orderUuid"), pd.getString("licensePlate"), pd.getString("busPhone"));
+            if (n == 0) return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价失败"));
+            //订单详情
+            PageData orderPd = orderMapper.getUserPhoneForOrder(pd);
+            String contactTel = orderPd.getString("contactTel");
+            String msg = msgHeader + "你的订单【" + pd.getString("orderUuid") + "】的车辆车牌号：" +
+                    pd.getString("licensePlate") + "，司机联系电话：" + pd.getString("busPhone");
+            SendSmsUtil.sendSms(msg, contactTel);
+            PageData messagePd = new PageData();
+            messagePd.put("message", msg);
+            messagePd.put("uuid", orderPd.getString("userUuid"));
+            messageMapper.save(messagePd);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

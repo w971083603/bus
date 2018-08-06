@@ -64,10 +64,10 @@
                                                                                            id="bj">0</span>)
                     </li>
                     <li class="wddd_div_li one" onclick="orderstatus('2',this)">等待客户选择(<span style="color: red;"
-                                                                                           id="qr">0</span>)
+                                                                                             id="qr">0</span>)
                     </li>
                     <li class="wddd_div_li" onclick="orderstatus('5',this)">未出行(<span style="color: red;"
-                                                                                       id="wcx">0</span>)
+                                                                                      id="wcx">0</span>)
                     </li>
                     <li class="wddd_div_li" onclick="orderstatus('3',this)">行驶中(<span style="color: red;"
                                                                                       id="xs">0</span>)
@@ -88,11 +88,11 @@
                         <td class="wddd_div_tableCfd">目的地</td>
                         <td class="wddd_div_tableInvoice">用车人数</td>
                         <td class="wddd_div_tableInvoice">用车数量</td>
+                        <td class="wddd_div_tableTime2">操作</td>
                         <td class="wddd_div_tableInvoice">发票</td>
                         <td class="wddd_div_tableTime">出发时间</td>
                         <td class="wddd_div_tableTime">结束时间</td>
                         <td class="wddd_div_tableTime">报价金额</td>
-                        <td class="wddd_div_tableTime2">操作</td>
                     </tr>
                     </thead>
                     <tbody class="orderlist">
@@ -101,7 +101,25 @@
                 </table>
             </div>
         </div>
+
+        <div class="addSomeInfor" style="display: none;width: 30%;height: 303px;position: absolute;top: 50%;left: 37%;background-color: #cfcdcd;">
+            <input type="hidden" class="orderUuid">
+            <input type="hidden" class="status">
+            <div style="  height: 60px;  margin-top: 25px;   margin-left: 26px; ">
+                车牌&nbsp;&nbsp;&nbsp;号： <input type="text" class="licensePlate">
+            </div>
+            <div style="  height: 60px;  margin-top: 25px;   margin-left: 26px; ">
+                联系电话： <input type="text" class="busPhone">
+            </div>
+            <div align="center">
+                <button type="button" class="fbxcBtnclose" onclick="addOrderInfor()">确认</button>
+                <button type="button" class="fbxcBtncloseRed" onclick="closeNow()">关闭</button>
+            </div>
+        </div>
+
+
     </div>
+
 </div>
 
 </body>
@@ -140,35 +158,52 @@
                     $("#xs").html(result.xszOrder);
                     $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {
+                        $(".fbxcBtnclose").hide();
+                        $(".addSomeInfor").hide();
                         $(".tableOrder").show();
                         $(".orderlist").empty();
                         $(".noList").hide();
                         for (var i = 0; i < result.list.length; i++) {
+                            console.log(result.list[i]);
                             var caozuo = "<td class=\"wddd_div_tableTime2\">-</td>";
                             if (status == "1") {
                                 caozuo = "<td class=\"wddd_div_tableTime\">" +
                                     "<input placeholder='请输入报价金额' value='' style='font-size: 11px;width: 50%;'>" +
                                     "<button  style='margin-left: 1%;' type=\"button\" onclick=\"sureOrder('" + result.list[i].orderUuid + "',this)\">确认</button>" +
                                     "</td>";
-                            }else if (status == "3") {
+                            } else if (status == "3") {
                                 caozuo = " <td class=\"wddd_div_tableTime\">" +
-                                    "<button type=\"button\" onclick=\"sureOrderGo('3','" + result.list[i].orderUuid + "')\">已完成行程</button>" +
+                                    "<button type=\"button\" onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成行程</button>" +
+                                    "</td>";
+                            } else if (status == "5") {
+                                if(result.list[i].licensePlate == ""){
+                                    $(".fbxcBtnclose").show();
+                                }
+                                caozuo = " <td class=\"wddd_div_tableTime\">" +
+                                    "<button type=\"button\" onclick=\"addPhone('5','" + result.list[i].orderUuid + "','" + result.list[i].licensePlate + "','" + result.list[i].busPhone + "')\">操作联系方式</button>" +
+                                    "</td>";
+                            } else if (status == "5") {
+                                if(result.list[i].licensePlate == ""){
+                                    $(".fbxcBtnclose").show();
+                                }
+                                caozuo = " <td class=\"wddd_div_tableTime\">" +
+                                    "<button type=\"button\" onclick=\"addPhone('5','" + result.list[i].orderUuid + "','" + result.list[i].licensePlate + "','" + result.list[i].busPhone + "')\">操作联系方式</button>" +
                                     "</td>";
                             }
-                            var busNumber =    Number(result.list[i].busNumber1)+ '座  '
-                                + (result.list[i].busNumber2 == 0?"":"/" + (Number(result.list[i].busNumber2)+ '座  '))
-                                + (result.list[i].busNumber3 == 0?"":"/" +  (Number(result.list[i].busNumber3)+ '座  '));
+                            var busNumber = Number(result.list[i].busNumber1) + '座  '
+                                + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
+                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '));
                             var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].orderUuid + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>" +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>" +
+                                caozuo +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
-                                caozuo +
                                 "</tr>";
                             $(".orderlist").append(str);
                         }
@@ -202,6 +237,7 @@
             async: false,
             success: function (data) {
                 if (data.success == true) {
+                    layer.msg("报价成功！");
                     getMessage("1");
                 } else {
                     layer.msg(data.message, {icon: 2});
@@ -211,19 +247,20 @@
         });
     }
 
-    //确认出行
-    function sureOrderGo(value,orderUuid) {
+    //已完成
+    function sureOrderGo(orderUuid) {
         $.ajax({
             type: "POST",
             url: platform.CONSTS.URL_BASE_CMS + "api/userChangeStatus",
             data: {
                 orderUuid: orderUuid,
-                status: value
+                status: "4"
             },
             async: false,
             success: function (data) {
                 if (data.success == true) {
-                    getMessage(value);
+                    layer.msg("确认成功！");
+                    getMessage("3");
                 } else {
                     layer.msg(data.message, {icon: 2});
                     return;
@@ -231,6 +268,55 @@
             }
         });
     }
+
+    /**
+     * 新增订单信息
+     * @param orderUuid
+     */
+    function addOrderInfor() {
+        var licensePlate = $(".licensePlate").val();
+        var busPhone = $(".busPhone").val();
+        if (licensePlate == null || licensePlate == '') {
+            layer.msg("车牌号不能为空", {icon: 2});
+            return;
+        }
+        if (busPhone == null || busPhone == '') {
+            layer.msg("联系电话不能为空", {icon: 2});
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/addLicensePlate",
+            data: {
+                "orderUuid": $(".orderUuid").val(),
+                "licensePlate": $(".licensePlate").val(),
+                "busPhone": $(".busPhone").val()
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    layer.msg("新增成功！");
+                    getMessage("5");
+                } else {
+                    layer.msg(data.message, {icon: 2});
+                    return;
+                }
+            }
+        });
+        $(".addSomeInfor").hide();
+    }
+
+    function addPhone(value, orderUuid,licensePlate,busPhone) {
+        $(".status").val(value);
+        $(".orderUuid").val(orderUuid);
+        $(".licensePlate").val(licensePlate);
+        $(".busPhone").val(busPhone);
+        $(".addSomeInfor").show();
+    }
+    function closeNow() {
+        $(".addSomeInfor").hide();
+    }
+
 
 </script>
 </html>

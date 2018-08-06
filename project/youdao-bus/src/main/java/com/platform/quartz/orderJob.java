@@ -59,9 +59,6 @@ public class orderJob {
                 for (PageData sysPd : listSystem) {
                     String phone = sysPd.getString("phone");
                     JSONObject sms = SendSmsUtil.sendSms(message, phone);
-                    if (sms.getString("code").equals("0")) {
-                        continue;
-                    }
                 }
                 orderMapper.update("2", orderpd.getString("uuid"), orderUuid);
             } else if (nowTime - writeTime > 4 * 60 * 1000) {
@@ -71,11 +68,10 @@ public class orderJob {
                 for (PageData fleetPd : listFleet) {
                     String tel = fleetPd.getString("tel");
                     JSONObject sms = SendSmsUtil.sendSms(message, tel);
-                    if (sms.getString("code").equals("0")) {
-                        pd.put("message", message);
-                        pd.put("uuid", fleetPd.getString("userUuid"));
-                        messageMapper.save(pd);
-                    }
+                    PageData messagePd = new PageData();
+                    messagePd.put("message", message);
+                    messagePd.put("uuid", fleetPd.getString("userUuid"));
+                    messageMapper.save(messagePd);
                 }
             } else {
                 continue;

@@ -59,7 +59,7 @@
                 ifnull(a.audit_money,'') AS auditMoney,
                 ifnull(a.audit_by,'') AS auditBy,
                 ifnull(a.audit_time,'') AS auditTime,
-                ifnull(a.license_plate,'') as licensePate,
+                ifnull(a.license_plate,'') as licensePlate,
                 ifnull(a.bus_phone,'') as busPhone
         FROM
         t_orders a
@@ -140,7 +140,7 @@
                 ifnull(a.audit_money,'') AS auditMoney,
                 ifnull(a.audit_by,'') AS auditBy,
                 ifnull(a.audit_time,'') AS auditTime,
-                ifnull(a.license_plate,'') as licensePate,
+                ifnull(a.license_plate,'') as licensePlate,
                 ifnull(a.bus_phone,'') as busPhone,
                 ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
         FROM
@@ -192,7 +192,7 @@
                 ifnull(a.audit_money,'') AS auditMoney,
                 ifnull(a.audit_by,'') AS auditBy,
                 ifnull(a.audit_time,'') AS auditTime,
-                ifnull(a.license_plate,'') as licensePate,
+                ifnull(a.license_plate,'') as licensePlate,
                 ifnull(a.bus_phone,'') as busPhone,
                 ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
         FROM
@@ -243,7 +243,7 @@
         ifnull(a.audit_money,'') AS auditMoney,
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
-        ifnull(a.license_plate,'') as licensePate,
+        ifnull(a.license_plate,'') as licensePlate,
         ifnull(a.bus_phone,'') as busPhone,
         "-" as amount
         FROM
@@ -293,7 +293,7 @@
         ifnull(a.audit_money,'') AS auditMoney,
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
-        ifnull(a.license_plate,'') as licensePate,
+        ifnull(a.license_plate,'') as licensePlate,
         ifnull(a.bus_phone,'') as busPhone,
         b.amount
         FROM
@@ -410,6 +410,13 @@
             <when test="orderFleetId != null and orderFleetId != ''">and a.id = #{orderFleetId}</when>
             <otherwise>and a.user_uuid = #{userUuid} and a.order_id = #{orderUuid}</otherwise>
         </choose>
+    </select>
+
+    <select id="getUserPhoneForOrder" parameterType="com.platform.commons.utils.PageData"
+            resultType="com.platform.commons.utils.PageData">
+        select a.user_uuid as userUuid,a.contact_name as contactName,a.contact_tel as contactTel,  b.nickname,b.tel
+        from t_orders a,t_user b
+        where a.user_uuid = b.uuid and  a.order_uuid = #{orderUuid}
     </select>
 
 </mapper>

@@ -24,13 +24,19 @@ public interface OrderMapper {
     int update(@Param("status") String status, @Param("uuid") String uuid, @Param("orderUuid") String orderUuid);
 
     PageData countOrder(PageData pd);
+
     PageData countOrderForFleet(PageData pd);
 
     List<PageData> selectByStatus(PageData pd);
+
     List<PageData> selectByUuidAndStatus(PageData pd);
+
     List<PageData> selectByUserUuidFleet12(PageData pd);
+
     List<PageData> selectByUuidAndStatusFleet2345(PageData pd);
+
     List<PageData> selectAllFleetByOrderUuid(PageData pd);
+
     PageData selectFleetByOrderUuidAndUserUuid(PageData pd);
 
     List<PageData> selectList(Map<String, String> para);
@@ -39,12 +45,21 @@ public interface OrderMapper {
 
     //新增报价信息
     int insertFleetAmount(PageData pd);
+
     //修改报价信息
     int updateFleetAmount(PageData pd);
+
     @Update("update t_orders set order_fleet_id = #{orderFleetId},status = 5,write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForFleet(@Param("orderUuid") String orderUuid, @Param("orderFleetId") String orderFleetId);
+
     @Update("update t_orders set  status = #{status},write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForStatus(@Param("orderUuid") String orderUuid, @Param("status") String status);
+
     @Update("update t_orders set  contract_over = #{contractOver},write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForContractOver(@Param("orderUuid") String orderUuid, @Param("contractOver") String contractOver);
+
+    @Update("update t_orders set  bus_phone = #{busPhone},license_plate = #{licensePlate},write_time = now()  where order_uuid = #{orderUuid}")
+    int addLicensePlate(@Param("orderUuid") String orderUuid, @Param("licensePlate") String licensePlate, @Param("busPhone") String busPhone);
+
+    PageData getUserPhoneForOrder(PageData pd);
 }
