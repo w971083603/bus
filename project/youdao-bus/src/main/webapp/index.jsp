@@ -15,4 +15,4 @@
   limitations under the License.
 --%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
-<% response.sendRedirect(request.getContextPath() + "/lot/login"); %>
+<% response.sendRedirect(request.getContextPath() + "/cms/api/busindex"); %>

@@ -12,11 +12,11 @@
 		<!-- shiro 的核心安全接口 -->
 		<property name="securityManager" ref="securityManager" />
 		<!-- 要求登录时的链接 -->
-		<property name="loginUrl" value="/cms/login" />
+		<property name="loginUrl" value="/cms/api/busindex" />
 		<!-- 登陆成功后要跳转的连接 -->
 		<property name="successUrl" value="/cms/index" />
 		<!-- 权限不足，跳转路径  -->
-		<property name="unauthorizedUrl" value="/cms/login" />
+		<property name="unauthorizedUrl" value="/" />
 		<!-- shiro 连接约束配置 -->
 		<!-- URL控制规则  路径=规则 -->
 		<property name="filterChainDefinitions">
