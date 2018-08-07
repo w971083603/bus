@@ -41,6 +41,7 @@
 				/cms/captcha-image = anon
 				<!-- 上传图片 -->
 				/cms/order/saveImage = anon
+				/cms_images/** = anon
 				<!-- API接口 -->
 				/cms/api/** = anon
                 <!-- 其他资源需要认证 -->
