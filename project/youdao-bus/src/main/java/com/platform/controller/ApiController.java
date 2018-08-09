@@ -806,8 +806,8 @@ public class ApiController extends BaseController {
             PageData orderPd = orderMapper.selectByOrderUuid(pd);
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append("出发时间：" + orderPd.getString("fromTime") + ", ");
-            stringBuffer.append("出发地址：" +  orderPd.getString("from_province") +  orderPd.getString("from_city") + orderPd.getString("fromAddress") + ", ");
-            stringBuffer.append("目的地地址："+  orderPd.getString("to_province") +  orderPd.getString("to_city")  + orderPd.getString("toAddress") + ", ");
+            stringBuffer.append("出发地址：" +  orderPd.getString("fromProvince") +  orderPd.getString("fromCity") + orderPd.getString("fromAddress") + ", ");
+            stringBuffer.append("目的地地址："+  orderPd.getString("toProvince") +  orderPd.getString("toCity")  + orderPd.getString("toAddress") + ", ");
             //1-包车，2-单接送
             //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
             //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
@@ -825,9 +825,10 @@ public class ApiController extends BaseController {
             for (PageData fleetPd : listFleet) {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
+                System.out.println(sms + "发送短信========" + sms.toJSONString());
                 PageData messagePd = new PageData();
                 messagePd.put("message", message);
-                messagePd.put("uuid", orderPd.getString("userUuid"));
+                messagePd.put("uuid", fleetPd.getString("userUuid"));
                 messageMapper.save(messagePd);
             }
         } catch (Exception e) {
