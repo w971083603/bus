@@ -69,7 +69,7 @@ public class orderJob {
                 for (PageData fleetPd : listFleet) {
                     String tel = fleetPd.getString("tel");
                     JSONObject sms = SendSmsUtil.sendSms(message, tel);
-                    System.out.println(sms + "发送短信========" + sms.toJSONString());
+                    System.out.println(tel + "发送短信========" + sms.toJSONString());
                     PageData messagePd = new PageData();
                     messagePd.put("message", message);
                     messagePd.put("uuid", fleetPd.getString("userUuid"));
