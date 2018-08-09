@@ -825,7 +825,7 @@ public class ApiController extends BaseController {
             for (PageData fleetPd : listFleet) {
                 String tel = fleetPd.getString("tel");
                 JSONObject sms = SendSmsUtil.sendSms(message, tel);
-                System.out.println(sms + "发送短信========" + sms.toJSONString());
+                System.out.println(tel + "发送短信========" + sms.toJSONString());
                 PageData messagePd = new PageData();
                 messagePd.put("message", message);
                 messagePd.put("uuid", fleetPd.getString("userUuid"));
@@ -1155,7 +1155,7 @@ public class ApiController extends BaseController {
         ResponseWrapper result;
         try {
             PageData pd = this.getPageData();
-            String tel = (String) session.getAttribute("tel");
+//            String tel = (String) session.getAttribute("tel");
             int n = orderMapper.updateOrderForFleet(pd.getString("orderUuid"), pd.getString("orderFleetId"));
             if (n == 0) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "选择车队失败"));
@@ -1165,7 +1165,8 @@ public class ApiController extends BaseController {
             PageData orderPd = orderMapper.getUserPhoneForOrder(pd);
             //发送短信
             String msg = msgHeader + "订单【" + pd.getString("orderUuid") + "】订车成功。";
-            SendSmsUtil.sendSms(msg, orderPd.getString("contactTel"));
+            JSONObject sms2 = SendSmsUtil.sendSms(msg, orderPd.getString("contactTel"));
+            System.out.println(orderPd.getString("contactTel" + "发送短信========" + sms2.toJSONString()));
             PageData messagePd = new PageData();
             messagePd.put("message", msg);
             messagePd.put("uuid", orderPd.getString("userUuid"));
@@ -1177,7 +1178,8 @@ public class ApiController extends BaseController {
             //发送短信
             String fleetSms = msgHeader + "订单【" + pd.getString("orderUuid") + "】订车成功，联系电话：" + orderPd.getString("contactTel")
                     + "，联系人："+ orderPd.getString("contactName")+"。";
-            SendSmsUtil.sendSms(fleetSms, fleetPhone);
+            JSONObject sms = SendSmsUtil.sendSms(fleetSms, fleetPhone);
+            System.out.println(fleetPhone + "发送短信========" + sms.toJSONString());
             PageData messagePd2 = new PageData();
             messagePd2.put("message", fleetSms);
             messagePd2.put("uuid", fleetPd.getString("userUuid"));
