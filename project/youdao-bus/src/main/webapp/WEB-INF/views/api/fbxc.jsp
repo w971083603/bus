@@ -111,9 +111,12 @@
                         <li style="">
                             <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">出&nbsp;&nbsp;&nbsp;发地</span></span>
                                 <select name="fromProvince" class="fbxcSelect" onchange="getFromCity(this)">
-                                    <option selected="selected" value="">请选择</option>
+                                    <option value="">请选择</option>
                                 </select>
-                                <select name="fromCity" class="fbxcSelect">
+                                <select name="fromCity" class="fbxcSelect" onchange="getFromDistrict(this)">
+                                    <option value="">请选择</option>
+                                </select>
+                                <select name="fromArea" class="fbxcSelect">
                                     <option selected="selected" value="">请选择</option>
                                 </select>
                             <input type="text" name="fromAddress" class="fbxcInputTime"/>
@@ -124,6 +127,9 @@
                                 <option selected="selected" value="">请选择</option>
                             </select>
                             <select name="toCity" class="fbxcSelect">
+                                <option selected="selected" value="">请选择</option>
+                            </select>
+                            <select name="toArea" class="fbxcSelect">
                                 <option selected="selected" value="">请选择</option>
                             </select>
                             <input type="text" name="toAddress" class="fbxcInputTime"/>
@@ -396,8 +402,12 @@
             // startView:2,
             // minView: 1,
             todayBtn : true,
+            startDate : new Date(),
             autoclose: true //是否开启自动关闭
+        }).on("click",function(ev){
+            $("#fromTime").datetimepicker("setEndDate", $("#toTime").val());
         });
+        ;
         $('#toTime').datetimepicker({
             language: "zh-CN", //语言
             todayHighlight: true, //是否今日高亮
@@ -405,20 +415,30 @@
             // startView:2,
             // keyboardNavigation:true,
             todayBtn : true,
+            startDate : new Date(),
             // minView: 1,
             autoclose: true //是否开启自动关闭
+        }).on("click",function(ev){
+            $("#toTime").datetimepicker("setStartDate", $("#fromTime").val());
         });
 
         $.each(citydata, function (key, value) {
             //根据数据创建option并追加到select上
             var option = "<option value=" + key + ">" + key + "</option>";
             $("[name='fromProvince']").append(option);
+            $("select option[value='浙江']").attr("selected", "selected");
+            getFromCity($("[name='fromProvince']"));
+            $("[name='fromCity']  option[value='温州'] ").attr("selected","selected");
+            getFromDistrict($("[name='fromCity']"));
         });
-
         $.each(citydata, function (key, value) {
             //根据数据创建option并追加到select上
             var option = "<option value=" + key + ">" + key + "</option>";
             $("[name='toProvince']").append(option);
+            $("select option[value='浙江']").attr("selected", "selected");
+            getToCity($("[name='toProvince']"));
+            $("[name='toCity']  option[value='温州'] ").attr("selected","selected");
+            getToDistrict($("[name='toCity']"));
         });
         $("#isOk").click(function () {
             //判断是否选中
@@ -510,7 +530,6 @@
                 }
             });
         });
-
         $("#busNumber").change(function () {
             var busNumber = $(this).children('option:selected').val();
             if (busNumber == "1") {
@@ -553,7 +572,19 @@
             city.append("<option value='"+item+"'>" + item + "</option>");
         });
     }
-
+    function getFromDistrict(pro){
+        var province = $(pro).val();
+        var area = $("[name='fromArea']");
+        //找到市的信息
+        var areas = areadata[province];
+        //删除原来市的信息
+        area.empty();
+        area.append("<option value=''>请选择</option>");
+        //添加option
+        $.each(areas, function (index, item) {
+            area.append("<option value='"+item+"'>" + item + "</option>");
+        });
+    }
 
     function getToCity(pro){
         var province = $(pro).val();
@@ -566,6 +597,20 @@
         //添加option
         $.each(citys, function (index, item) {
             city.append("<option value='"+item+"'>" + item + "</option>");
+        });
+    }
+
+    function getToDistrict(pro){
+        var province = $(pro).val();
+        var area = $("[name='toArea']");
+        //找到市的信息
+        var areas = areadata[province];
+        //删除原来市的信息
+        area.empty();
+        area.append("<option value=''>请选择</option>");
+        //添加option
+        $.each(areas, function (index, item) {
+            area.append("<option value='"+item+"'>" + item + "</option>");
         });
     }
 //    $("[name='fromCity']").click();

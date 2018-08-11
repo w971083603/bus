@@ -21,6 +21,7 @@
 <script src="../../../apiresources/js/platform.all.js"></script>
 <script src="../../../apiresources/js/jquery.form.js"></script>
 <script src="../../../api/cityjson.js"></script>
+<script src="../../../api/areajson.js"></script>
 <script type="text/javascript">
     platform.CONSTS.URL_BASE_IMG = "<%=SystemConfig.getInstance().getURL_BASE_IMG()%>";
     platform.CONSTS.URL_BASE_API = "<%=SystemConfig.getInstance().getURL_BASE_API()%>";

@@ -340,6 +340,10 @@ public class ApiController extends BaseController {
             if (Strings.isNullOrEmpty(fromCity)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "出发城市不能为空"));
             }
+            String fromArea = pd.getString("fromArea");
+            if (Strings.isNullOrEmpty(fromArea)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "出发区县不能为空"));
+            }
             String fromAddress = pd.getString("fromAddress");
             if (Strings.isNullOrEmpty(fromAddress)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "出发详细地址不能为空"));
@@ -351,6 +355,10 @@ public class ApiController extends BaseController {
             String toCity = pd.getString("toCity");
             if (Strings.isNullOrEmpty(toCity)) {
                 return ResponseEntity.ok(ResponseWrapper.failed(-1, "目的地城市不能为空"));
+            }
+            String toArea = pd.getString("toArea");
+            if (Strings.isNullOrEmpty(toArea)) {
+                return ResponseEntity.ok(ResponseWrapper.failed(-1, "目的地区县不能为空"));
             }
             String toAddress = pd.getString("toAddress");
             if (Strings.isNullOrEmpty(toAddress)) {

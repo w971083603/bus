@@ -203,8 +203,8 @@
                                 + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '));
                             var str = "<tr><td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 "                       <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
-                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>" +
-                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
                                 changeFleet +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].contactName + "</td>" +
                                 //                                "                         <td class=\"wddd_div_tableTime\">" + result.list[i].contactTel + "</td>" +
@@ -301,8 +301,8 @@
                     $("#orderUuid").val(result.orderUuid);
                     $(".fromTime").html(result.fromTime);
                     $(".toTime").html(result.toTime);
-                    $(".fromAddress").html(result.fromProvince + result.fromCity + result.fromAddress);
-                    $(".toAddress").html(result.toProvince + result.toCity + result.toAddress);
+                    $(".fromAddress").html(result.fromProvince + result.fromCity + result.fromArea + result.fromAddress);
+                    $(".toAddress").html(result.toProvince + result.toCity + result.toArea + result.toAddress);
                     $(".contactTel").html(result.contactTel);
                     $(".contactName").html(result.contactName);
                     $(".invoiceHeader").html(result.invoiceHeader);
