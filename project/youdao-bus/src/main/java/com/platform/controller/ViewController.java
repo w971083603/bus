@@ -61,6 +61,17 @@ public class ViewController extends BaseController {
         return "user/buslist";
     }
 
+
+    /**
+     * 注册用户
+     *
+     * @return
+     */
+    @RequestMapping("/user/userlist")
+    public String userlist() {
+        return "user/userlist";
+    }
+
     /**
      * 客服列表
      *

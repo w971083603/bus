@@ -90,6 +90,9 @@
           a.id as userId,
           a.uuid as userUuid,
           a.nickname,
+          ifnull(a.birthday,'') as birthday,
+        ifnull(a.email,'') as email,
+        ifnull(a.sex,'') as  sex,
           a.tel
         FROM
           t_user a
