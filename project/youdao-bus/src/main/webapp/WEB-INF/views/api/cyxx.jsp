@@ -169,7 +169,6 @@
 
     function listContract() {
         platform.post('api/listContract', {}, function (result) {
-            console.log(result);
             var list = result;
             $(".cyxxList").empty();
             for (var i = 0; i < list.length; i++) {

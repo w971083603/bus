@@ -122,6 +122,68 @@
 
 </div>
 
+<%--订单详情--%>
+<div class="detailorder">
+    <div class="fbxc_div_content">
+        <div class="fbxc_div_content_content">
+            <ul>
+                <li>
+                    你的用车类型：<span class="type"></span>
+                </li>
+                <li>
+                    出发时间：<span class="fromTime"></span>
+                </li>
+                <li class="toTimeTitel">
+                    结束时间：<span class="toTime"></span>
+                </li>
+                <li>
+                    出发地：<span class="fromAddress"></span>
+                </li>
+                <li>
+                    目的地：<span class="toAddress"></span>
+                </li>
+                <li class="roadTitel">
+                    途径地：<span class="road"></span>
+                </li>
+                <li>
+                    联系人：<span class="contactName"></span>
+                </li>
+                <li>
+                    手机号码：<span class="contactTel"></span>
+                </li>
+                <li>
+                    乘客总数：<span class="useNumber"></span>
+                </li>
+                <li>
+                    用车数量：<span class="busNumber"></span>
+                </li>
+                <li>
+                    <ul class="invoiceTitel" style="display: block">
+                        <li>
+                            用车单位名称：<span class="invoiceHeader"></span>
+                        </li>
+                        <li>
+                            用车单位纳税人识别号：<span class="invoiceDuty"></span>
+                        </li>
+                        <li>
+                            用车单位开户行及账号：<span class="invoiceContact"></span>
+                        </li>
+                        <li>
+                            用车单位地址、电话：<span class="invoiceAddress"></span>
+                        </li>
+                        <li>
+                            收票人手机号：<span class="invoicePhone"></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div align="center">
+                <button type="button" class="busBtnclose" onclick="closeDetailOrder()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <%@ include file="../../../apiCurrency/js.jsp" %>
 <script>
@@ -164,7 +226,6 @@
                         $(".orderlist").empty();
                         $(".noList").hide();
                         for (var i = 0; i < result.list.length; i++) {
-                            console.log(result.list[i]);
                             var caozuo = "<td class=\"wddd_div_tableTime2\">-</td>";
                             if (status == "1") {
                                 caozuo = "<td class=\"wddd_div_tableTime\">" +
@@ -193,7 +254,7 @@
                             var busNumber = Number(result.list[i].busNumber1) + '座  '
                                 + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
                                 + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '));
-                            var str = "<tr><td class=\"wddd_div_tableInvoice\">" + result.list[i].orderUuid + "</td>" +
+                            var str = "<tr><td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toAddress + "</td>" +
@@ -315,6 +376,78 @@
     }
     function closeNow() {
         $(".addSomeInfor").hide();
+    }
+
+    //详情
+    function detailorderAjax(orderUuid) {
+        $.ajax({
+            type: "POST",
+            url: platform.CONSTS.URL_BASE_CMS + "api/findByOrderUuid",
+            data: {
+                orderUuid: orderUuid
+            },
+            async: false,
+            success: function (data) {
+                if (data.success == true) {
+                    var result = data.data;
+                    $("#orderUuid").val(result.orderUuid);
+                    $(".fromTime").html(result.fromTime);
+                    $(".toTime").html(result.toTime);
+                    $(".fromAddress").html(result.fromProvince + result.fromCity + result.fromArea + result.fromAddress);
+                    $(".toAddress").html(result.toProvince + result.toCity + result.toArea + result.toAddress);
+                    $(".contactTel").html(result.contactTel);
+                    $(".contactName").html(result.contactName);
+                    $(".invoiceHeader").html(result.invoiceHeader);
+                    $(".invoiceContact").html(result.invoiceContact);
+                    $(".invoicePhone").html(result.invoicePhone);
+                    $(".invoiceAddress").html(result.invoiceAddress);
+                    $(".invoiceDuty").html(result.invoiceDuty);
+                    $(".useNumber").html(result.useNumber);
+                    var busNumber = Number(result.busNumber1) + '座  '
+                        + (result.busNumber2 == 0 ? "" : (Number(result.busNumber2) + '座  '))
+                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '));
+                    $(".busNumber").html(busNumber);
+                    var typeName = result.typeName;
+                    $(".type").html(typeName);
+                    if (typeName == '包车服务') {
+                        $(".toTimeTitel").show();
+                        var roadList = result.roadList;
+                        if (roadList != '' && roadList.length > 0) {
+                            var road = "";
+                            for (var i = 0; i < roadList.length; i++) {
+                                if (road == '') {
+                                    road = roadList[i].address;
+                                } else {
+                                    road += "，" + roadList[i].address;
+                                }
+                            }
+                            $(".road").html(road);
+                            $(".roadTitel").show();
+                        } else {
+                            $(".roadTitel").hide();
+                        }
+                    } else {
+                        $(".toTimeTitel").hide();
+                        $(".roadTitel").hide();
+                    }
+                    var isInvoice = result.isInvoice;
+                    if (isInvoice == '是') {
+                        $(".invoiceTitel").show();
+                    } else {
+                        $(".invoiceTitel").hide();
+                    }
+                } else {
+                    layer.msg(data.message, {icon: 2});
+                    return;
+                }
+            }
+        });
+        $(".detailorder").show();
+    }
+
+    //关闭
+    function closeDetailOrder() {
+        $(".detailorder").hide();
     }
 
 

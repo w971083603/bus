@@ -194,7 +194,6 @@
         ///查看详情
         $("#dataTable tbody").on("click", ".audit", function () {
             var data = tables.api().row($(this).parents("tr")).data();
-            console.log(data);
             $(".id").val(data.id);
             $(".tel").val(data.tel);
             $(".name").val(data.name);
