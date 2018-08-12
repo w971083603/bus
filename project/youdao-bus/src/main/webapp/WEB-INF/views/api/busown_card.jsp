@@ -90,7 +90,6 @@
                         <td class="wddd_div_tableInvoice">用车人数</td>
                         <td class="wddd_div_tableInvoice">用车数量</td>
                         <td class="wddd_div_tableTime2">操作</td>
-                        <td class="wddd_div_tableInvoice">发票</td>
                         <td class="wddd_div_tableTime">出发时间</td>
                         <td class="wddd_div_tableTime">结束时间</td>
                         <td class="wddd_div_tableTime">报价金额</td>
@@ -241,7 +240,7 @@
                                     "</td>";
 
                                   djs = "<td class=\"wddd_div_tableTime2\">" +
-                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)'>" + result.list[i].time + "</span></td>";
+                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)' class = 'timeSpanRed'>" + result.list[i].time + "秒</span></td>";
                             } else if (status == "3") {
                                 caozuo = " <td class=\"wddd_div_tableTime\">" +
                                     "<button type=\"button\" onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成行程</button>" +
@@ -263,7 +262,8 @@
                             }
                             var busNumber = Number(result.list[i].busNumber1) + '座  '
                                 + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
-                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '));
+                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
+                                + "*" + result.list[i].busNumber + '辆  ';
                             var str = "<tr>" + djs +
                                 "<td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
@@ -272,7 +272,6 @@
                                 "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>" +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>" +
                                 caozuo +
-                                "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].isInvoice + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
                                 "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
@@ -467,12 +466,13 @@
 
 
     function settime(obj) {
+
         var time = parseInt($(obj).html() == null ? "0" : $(obj).html());
         if (time == 0) {
             $(obj).html("0");
         } else {
             time--;
-            $(obj).html(time);
+            $(obj).html(time+'秒');
             setTimeout(function () {
                 settime(obj)
             }, 1000)

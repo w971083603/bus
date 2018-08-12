@@ -535,6 +535,18 @@ a:hover {
     letter-spacing: 0px;
     color: #fe0000;
 }
+
+.timeSpanRed{
+    width: 10px;
+    height: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    /*line-height: 87px;*/
+    letter-spacing: 0px;
+    color: #fe0000;
+}
+
 .fbxcSpanName {
     font-size: 18px;
     font-weight: normal;
@@ -753,7 +765,7 @@ a:hover {
    position: absolute;top: 20%;left: 36%;width: 300px;height: 300px;
 }
 .detailorder{
-    width: 62%;height: 500px;background-color: rgb(214, 214, 214);position: absolute;top: 0;left: 18%;overflow-y: scroll;
+    width: 62%;height: 400px;background-color: rgb(214, 214, 214);position: absolute;top: 0;left: 18%;overflow-y: scroll;
     display: none;
 }
 .detailorder ul li{

@@ -202,14 +202,15 @@
                                 $(".lianxxx").show();
                             }else if(status == "1"){
                                 djs = "<td class=\"wddd_div_tableTime2\">" +
-                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)'>" + result.list[i].time + "</span></td>";
+                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)' class = 'timeSpanRed'>" + result.list[i].time + "</span></td>";
                             }
 
 
                             var busNumber = Number(result.list[i].busNumber1) + '座  '
                                 + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
                                 + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
-                            var str = "<tr>" + djs +
+                                + '*' + (Number(result.list[i].busNumber) + '辆');
+                            var str = "<tr>"  + djs +
                                 "<td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 "                       <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
@@ -323,7 +324,8 @@
                     $(".useNumber").html(result.useNumber);
                     var busNumber = Number(result.busNumber1) + '座  '
                         + (result.busNumber2 == 0 ? "" : (Number(result.busNumber2) + '座  '))
-                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '));
+                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '))
+                        + '*' + (Number(result.busNumber) + '辆');
                     $(".busNumber").html(busNumber);
                     var typeName = result.typeName;
                     $(".type").html(typeName);
@@ -363,19 +365,18 @@
         $(".detailorder").show();
     }
 
-
     function settime(obj) {
+
         var time = parseInt($(obj).html() == null ? "0" : $(obj).html());
         if (time == 0) {
             $(obj).html("0");
         } else {
             time--;
-            $(obj).html(time);
+            $(obj).html(time+'秒');
             setTimeout(function () {
                 settime(obj)
             }, 1000)
         }
     }
-
 
 </script>

@@ -173,43 +173,41 @@
                                 <select name="busNumber1" class="fbxcSelect" >
                                     <option value="">座</option>
                                     <option value="18">18座</option>
-                                    <option value="21">21座</option>
-                                    <option value="24">24座</option>
-                                    <option value="28">28座</option>
-                                    <option value="34">34座</option>
-                                    <option value="38">38座</option>
-                                    <option value="46">46座</option>
-                                    <option value="50">50座</option>
-                                    <option value="54">54座</option>
+                                    <option value="29">29座</option>
+                                    <option value="35">35座</option>
+                                    <option value="37">37座</option>
+                                    <option value="45">45座</option>
+                                    <option value="48">48座</option>
+                                    <option value="49">49座</option>
+                                    <option value="53">53座</option>
+                                    <option value="59">59座</option>
+                                    <option value="63">63座</option>
                                 </select>
                                 <select name="busNumber2" class="fbxcSelect" id="busNumber2">
                                     <option value="">座</option>
                                     <option value="18">18座</option>
-                                    <option value="21">21座</option>
-                                    <option value="24">24座</option>
-                                    <option value="28">28座</option>
-                                    <option value="34">34座</option>
-                                    <option value="38">38座</option>
-                                    <option value="46">46座</option>
-                                    <option value="50">50座</option>
-                                    <option value="54">54座</option>
+                                    <option value="29">29座</option>
+                                    <option value="35">35座</option>
+                                    <option value="37">37座</option>
+                                    <option value="45">45座</option>
+                                    <option value="48">48座</option>
+                                    <option value="49">49座</option>
+                                    <option value="53">53座</option>
+                                    <option value="59">59座</option>
+                                    <option value="63">63座</option>
                                 </select>
                                 <select name="busNumber3" class="fbxcSelect" id="busNumber3">
                                     <option value="">座</option>
-                                    <option value="4">4座</option>
-                                    <option value="6">6座</option>
-                                    <option value="9">9座</option>
-                                    <option value="12">12座</option>
-                                    <option value="15">15座</option>
                                     <option value="18">18座</option>
-                                    <option value="21">21座</option>
-                                    <option value="24">24座</option>
-                                    <option value="28">28座</option>
-                                    <option value="34">34座</option>
-                                    <option value="38">38座</option>
-                                    <option value="46">46座</option>
-                                    <option value="50">50座</option>
-                                    <option value="54">54座</option>
+                                    <option value="29">29座</option>
+                                    <option value="35">35座</option>
+                                    <option value="37">37座</option>
+                                    <option value="45">45座</option>
+                                    <option value="48">48座</option>
+                                    <option value="49">49座</option>
+                                    <option value="53">53座</option>
+                                    <option value="59">59座</option>
+                                    <option value="63">63座</option>
                                 </select>
                             </div>
 
