@@ -469,8 +469,8 @@
                         $("#orderUuid").val(result.orderUuid);
                         $(".fromTime").html(result.fromTime);
                         $(".toTime").html(result.toTime);
-                        $(".fromAddress").html(result.fromProvince +result.fromCity + result.fromAddress);
-                        $(".toAddress").html(result.toProvince +result.toCity + result.toAddress);
+                        $(".fromAddress").html(result.fromProvince +result.fromCity + result.fromArea + result.fromAddress);
+                        $(".toAddress").html(result.toProvince +result.toCity + result.toArea  + result.toAddress);
                         $(".contactTel").html(result.contactTel);
                         $(".contactName").html(result.contactName);
                         $(".invoiceHeader").html(result.invoiceHeader);

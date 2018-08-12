@@ -84,6 +84,7 @@
                     <tr>
                         <td class="wddd_div_tableInvoice djs" style="display: none;">倒计时</td>
                         <td class="wddd_div_tableInvoice">订单号</td>
+                        <td class="wddd_div_tableInvoice">报价金额</td>
                         <td class="wddd_div_tableInvoice">操作</td>
                     </tr>
                     </thead>
@@ -234,6 +235,7 @@
                             }
                             var str = "<tr>" + djs +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].orderUuid + "</td>" +
+                                "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].amount + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" +
                                 "   <button type=\"button\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
                                 wcdd + " </td>" +
