@@ -46,25 +46,21 @@
         function select(){
             $.ajax({
                 type: "POST",
-                url: platform.CONSTS.URL_BASE_CMS + "config/system/dataGrid",
-                data: {
-
-                },
+                url: platform.CONSTS.URL_BASE_CMS + "config/system/getFleetTime",
+                data: {},
                 async: false,
                 success: function (data) {
                     console.log(data);
-                    return;
-                    if (data.success == true) {
-                        window.location.reload();
-                    } else {
-                        layer.msg(data.message, {icon: 2});
-                        return;
-                    }
+                    $(".minute").val(data.minute);
                 }
             });
         }
 
         function changeTradeHecStatus() {
+            if($(".minute").val() == ""){
+                layer.msg("时间不能为空", {icon: 2});
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: platform.CONSTS.URL_BASE_CMS + "config/system/insert",
@@ -73,10 +69,12 @@
                 },
                 async: false,
                 success: function (data) {
-                    if (data.success == true) {
+                    console.log(data);
+                    if (data == true) {
+                        layer.msg("修改成功");
                         window.location.reload();
                     } else {
-                        layer.msg(data.message, {icon: 2});
+                        layer.msg("修改失败", {icon: 2});
                         return;
                     }
                 }

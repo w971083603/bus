@@ -36,44 +36,29 @@ public class ConfigController extends BaseController {
     private ConfigMapper configMapper;
 
     /**
-     * 订单列表：type，status
+     * 获取车队更新时间
      *
-     * @param params
      * @return
      */
-    @RequestMapping(value = "/system/dataGrid", method = RequestMethod.POST)
-    public ResponseEntity zhdataGrid(@RequestBody JSONObject params) {
-        ResponseWrapper result;
-        try {
-            //将角色集合存到session
-            PageData configPd = configMapper.select();
-            result = ResponseWrapper.succeed(configPd);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-        return ResponseEntity.ok(result);
+    @RequestMapping(value = "/system/getFleetTime", method = RequestMethod.POST)
+    public Object getFleetTime() {
+        PageData configPd = configMapper.select();
+        return configPd;
     }
 
     @RequestMapping(value = "/system/insert", method = RequestMethod.POST)
-    public ResponseEntity addRole() {
-        ResponseWrapper result;
-        try {
-            PageData pd = this.getPageData();
-            Integer minute = pd.getInteger("minute");
-            PageData configPd = configMapper.select();
-            Integer id;
-            if (configPd != null) {
-                id = configPd.getInteger("id");
-                configMapper.update(minute, id);
-            } else {
-                configMapper.insert(minute);
-            }
-            result = ResponseWrapper.succeed(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    public Object insert() {
+        PageData pd = this.getPageData();
+        Integer minute = pd.getInteger("minute");
+        PageData configPd = configMapper.select();
+        Integer id;
+        if (configPd != null) {
+            id = configPd.getInteger("id");
+            configMapper.update(minute, id);
+        } else {
+            configMapper.insert(minute);
         }
-        return ResponseEntity.ok(result);
+        return true;
     }
 
 
