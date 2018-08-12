@@ -73,6 +73,16 @@ public class ViewController extends BaseController {
     }
 
     /**
+     * config
+     *
+     * @return
+     */
+    @RequestMapping("/config/config")
+    public String config() {
+        return "config/config";
+    }
+
+    /**
      * 客服列表
      *
      * @return
