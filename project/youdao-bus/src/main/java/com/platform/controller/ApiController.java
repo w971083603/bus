@@ -814,8 +814,8 @@ public class ApiController extends BaseController {
             PageData orderPd = orderMapper.selectByOrderUuid(pd);
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append("出发时间：" + orderPd.getString("fromTime") + ", ");
-            stringBuffer.append("出发地址：" +  orderPd.getString("fromProvince") +  orderPd.getString("fromCity") + orderPd.getString("fromAddress") + ", ");
-            stringBuffer.append("目的地地址："+  orderPd.getString("toProvince") +  orderPd.getString("toCity")  + orderPd.getString("toAddress") + ", ");
+            stringBuffer.append("出发地址：" + orderPd.getString("fromProvince") + orderPd.getString("fromCity") + orderPd.getString("fromAddress") + ", ");
+            stringBuffer.append("目的地地址：" + orderPd.getString("toProvince") + orderPd.getString("toCity") + orderPd.getString("toAddress") + ", ");
             //1-包车，2-单接送
             //1-出发时间、结束时间，出发地址、目的地地址，途径地址、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
             //2-出发时间           出发地址、目的地地址，   、联系，联系方式，用车人数，用车数量，用车数量是所有用车座位相加乘以用车数量
@@ -930,15 +930,17 @@ public class ApiController extends BaseController {
             orderList.put("qrOrder", qrOrder);
             orderList.put("wcxOrder", wcxOrder);
             List<PageData> list = orderMapper.selectByUuidAndStatus(pd);
-            if (pd.getString("status").equals("2")) {
-                for (PageData orderpd : list) {
-                    List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
-                    for (int i = 0; i < fleetList.size(); i++) {
-                        PageData fleetPd = fleetList.get(i);
-                        fleetPd.put("fleetName", "车队" + NumberChangeToChinese.numberToChinese(i + 1));
-                    }
-                    orderpd.put("fleetList", fleetList);
+            for (PageData orderpd : list) {
+                List<PageData> fleetList = orderMapper.selectAllFleetByOrderUuid(orderpd);
+                for (int i = 0; i < fleetList.size(); i++) {
+                    PageData fleetPd = fleetList.get(i);
+                    fleetPd.put("fleetName", "车队" + NumberChangeToChinese.numberToChinese(i + 1));
                 }
+                orderpd.put("fleetList", fleetList);
+                long createTime = DateUtil.fomatDate2(orderpd.get("createTime").toString()).getTime() / 1000;
+                long nowTime = new Date().getTime() / 1000;
+                long lessTime = 5 * 60 - (nowTime - createTime);
+                orderpd.put("time", lessTime < 0 ? 0 : lessTime);
             }
             orderList.put("list", list);
             result = ResponseWrapper.succeed(orderList);
@@ -949,6 +951,9 @@ public class ApiController extends BaseController {
         return ResponseEntity.ok(result);
     }
 
+
+    @Resource
+    private ConfigMapper configMapper;
 
     /**
      * 车队查询订单,根据状态status
@@ -977,6 +982,14 @@ public class ApiController extends BaseController {
                 list = orderMapper.selectByUserUuidFleet12(pd);
             } else {
                 list = orderMapper.selectByUuidAndStatusFleet2345(pd);
+            }
+            PageData configpd = configMapper.select();
+            int minute = configpd.getInteger("minute");
+            for (PageData orderpd : list) {
+                long createTime = DateUtil.fomatDate2(orderpd.get("createTime").toString()).getTime() / 1000;
+                long nowTime = new Date().getTime() / 1000;
+                long lessTime = minute * 60 - (nowTime - createTime);
+                orderpd.put("time", lessTime < 0 ? 0 : lessTime);
             }
             if (countOrderPd != null) {
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();
@@ -1185,7 +1198,7 @@ public class ApiController extends BaseController {
             String fleetPhone = userFleetPd.getString("tel");
             //发送短信
             String fleetSms = msgHeader + "订单【" + pd.getString("orderUuid") + "】订车成功，联系电话：" + orderPd.getString("contactTel")
-                    + "，联系人："+ orderPd.getString("contactName")+"。";
+                    + "，联系人：" + orderPd.getString("contactName") + "。";
             JSONObject sms = SendSmsUtil.sendSms(fleetSms, fleetPhone);
             System.out.println(fleetPhone + "发送短信========" + sms.toJSONString());
             PageData messagePd2 = new PageData();

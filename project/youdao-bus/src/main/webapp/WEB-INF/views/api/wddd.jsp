@@ -25,6 +25,7 @@
         <table class="tableOrder">
             <thead>
             <tr>
+                <td class="wddd_div_tableInvoice djs" style="display: none;">倒计时</td>
                 <td class="wddd_div_tableInvoice">订单号</td>
                 <td class="wddd_div_tableInvoice">服务</td>
                 <td class="wddd_div_tableCfd">出发地</td>
@@ -156,15 +157,19 @@
                     $("#wc").html(result.finishOrder);
                     if (result.list.length > 0) {
                         $(".lianxxx").hide();
+                        $(".djs").hide();
                         $(".tableOrder").show();
                         $(".orderlist").empty();
                         $(".noList").hide();
                         $(".cztd").html("-");
                         if (status == "2") {
                             $(".cztd").html("车队选择");
+                        } else if (status == "1") {
+                            $(".djs").show();
                         }
                         for (var i = 0; i < result.list.length; i++) {
                             var changeFleet = " <td class=\"wddd_div_tableTime2\">-</td>";
+                            var djs =" <td class=\"wddd_div_tableTime2\" style='display:none;'></td>";
                             var lianxxx = "";
                             if (status == "2") {
                                 $(".cztd").html("车队选择");
@@ -195,14 +200,17 @@
                                     "                         <td class=\"wddd_div_tableTime\">" + result.list[i].licensePlate + "</td>" +
                                     "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>";
                                 $(".lianxxx").show();
+                            }else if(status == "1"){
+                                djs = "<td class=\"wddd_div_tableTime2\">" +
+                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)'>" + result.list[i].time + "</span></td>";
                             }
 
 
                             var busNumber = Number(result.list[i].busNumber1) + '座  '
                                 + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
                                 + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
-                                + '*' + (Number(result.list[i].busNumber) + '辆');
-                            var str = "<tr><td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
+                            var str = "<tr>" + djs +
+                                "<td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 "                       <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
@@ -217,6 +225,7 @@
                                 lianxxx +
                                 "</tr>";
                             $(".orderlist").append(str);
+                            $("#" + result.list[i].orderUuid ).click();
                         }
                     } else {
                         $(".tableOrder").hide();
@@ -314,8 +323,7 @@
                     $(".useNumber").html(result.useNumber);
                     var busNumber = Number(result.busNumber1) + '座  '
                         + (result.busNumber2 == 0 ? "" : (Number(result.busNumber2) + '座  '))
-                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '))
-                        + '*' + (Number(result.busNumber) + '辆');
+                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '));
                     $(".busNumber").html(busNumber);
                     var typeName = result.typeName;
                     $(".type").html(typeName);
@@ -354,5 +362,20 @@
         });
         $(".detailorder").show();
     }
+
+
+    function settime(obj) {
+        var time = parseInt($(obj).html() == null ? "0" : $(obj).html());
+        if (time == 0) {
+            $(obj).html("0");
+        } else {
+            time--;
+            $(obj).html(time);
+            setTimeout(function () {
+                settime(obj)
+            }, 1000)
+        }
+    }
+
 
 </script>
