@@ -68,10 +68,6 @@
             <th style="width: 10%;">目的地地址</th>
             <th style="width: 6%;">用车人数</th>
             <th style="width: 7%;">用车数量</th>
-            <th style="width: 6%;">需要发票</th>
-            <th style="width: 10%;">备注</th>
-            <th style="width: 6%;">创建人</th>
-            <th style="width: 6%;">创建时间</th>
             <th style="width: 10%;">操作</th>
         </tr>
         </thead>
@@ -105,11 +101,13 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">出发地址</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-9">
                             <input type="text" class="form-control fromAddress" readonly>
                         </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">目的地地址</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-9">
                             <input type="text" class="form-control toAddress" readonly>
                         </div>
                     </div>
@@ -319,29 +317,28 @@
                     {
                         "data": 'fromProvince',
                         "render": function (data, type, full, callback) {
-                            return full.fromProvince + full.fromCity + full.fromAddress;
+                            return full.fromProvince + full.fromCity + full.fromArea + full.fromAddress;
                         }
                     },
                     {
                         "data": 'toProvince',
                         "render": function (data, type, full, callback) {
-                            return full.toProvince + full.toCity + full.toAddress;
+                            return full.toProvince + full.toCity + full.toArea + full.toAddress;
                         }
                     },
                     {"data": "useNumber"},
                     {
                         "data": 'busNumber',
                         "render": function (data, type, full, callback) {
-                            return (Number(full.busNumber1) + Number(full.busNumber2) + Number(full.busNumber3)) + '座*' + data + "辆";
-                        }
-                    },
-                    {"data": "isInvoice"},
-                    {"data": "remarks"},
-                    {"data": "nickname"},
-                    {
-                        "data": 'createTime',
-                        "render": function (data, type, full, callback) {
-                            return platform.timeStamp2String(data)
+                            var busNumber = full.busNumber1 + '座';
+                            if (full.busNumber2 != '0') {
+                                busNumber += ',' + full.busNumber2 + '座';
+                            }
+                            if (full.busNumber3 != '0') {
+                                busNumber += ',' + full.busNumber3 + '座';
+                            }
+                            busNumber += '*' + data + '辆';
+                            return busNumber;
                         }
                     },
                     {"data": 'columnDefs'}
@@ -396,8 +393,8 @@
             $(".uuid").val(data.uuid);
             $(".fromTime").val(data.fromTime);
             $(".toTime").val(data.toTime);
-            $(".fromAddress").val(data.fromProvince + data.fromCity + data.fromAddress);
-            $(".toAddress").val(data.toProvince + data.toCity + data.toAddress);
+            $(".fromAddress").val(data.fromProvince + data.fromCity + data.fromArea + data.fromAddress);
+            $(".toAddress").val(data.toProvince + data.toCity + data.toArea + data.toAddress);
             $(".address").val(data.address);
             $(".contactName").val(data.contactName);
             $(".contactTel").val(data.contactTel);
@@ -411,7 +408,14 @@
             }
             $(".isInvoice").val(data.isInvoice);
             $(".useNumber").val(data.useNumber);
-            var busNumber = Number(data.busNumber1) + Number(data.busNumber2) + Number(data.busNumber3) + '座*' + data.busNumber + "辆";
+            var busNumber = data.busNumber1 + '座';
+            if (data.busNumber2 != '0') {
+                busNumber += ',' + data.busNumber2 + '座';
+            }
+            if (data.busNumber3 != '0') {
+                busNumber += ',' + data.busNumber3 + '座';
+            }
+            busNumber += '*' + data.busNumber + '辆';
             $(".busNumber").val(busNumber);
             $(".feetMoney").val(data.feetMoney);
             $(".feetTime").val(data.feetTime);

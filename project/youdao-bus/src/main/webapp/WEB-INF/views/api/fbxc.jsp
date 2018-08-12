@@ -172,11 +172,6 @@
                                 <span><span class="fbxcSpanRed">*</span><span class="fbxcSpanName">乘客座位</span></span>
                                 <select name="busNumber1" class="fbxcSelect" >
                                     <option value="">座</option>
-                                    <option value="4">4座</option>
-                                    <option value="6">6座</option>
-                                    <option value="9">9座</option>
-                                    <option value="12">12座</option>
-                                    <option value="15">15座</option>
                                     <option value="18">18座</option>
                                     <option value="21">21座</option>
                                     <option value="24">24座</option>
@@ -189,11 +184,6 @@
                                 </select>
                                 <select name="busNumber2" class="fbxcSelect" id="busNumber2">
                                     <option value="">座</option>
-                                    <option value="4">4座</option>
-                                    <option value="6">6座</option>
-                                    <option value="9">9座</option>
-                                    <option value="12">12座</option>
-                                    <option value="15">15座</option>
                                     <option value="18">18座</option>
                                     <option value="21">21座</option>
                                     <option value="24">24座</option>

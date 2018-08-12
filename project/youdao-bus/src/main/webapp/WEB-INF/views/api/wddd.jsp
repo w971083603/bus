@@ -200,7 +200,8 @@
 
                             var busNumber = Number(result.list[i].busNumber1) + '座  '
                                 + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
-                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '));
+                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
+                                + '*' + (Number(result.list[i].busNumber) + '辆');
                             var str = "<tr><td class=\"wddd_div_tableInvoice\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "')\"><a>" + result.list[i].orderUuid + "</a></td>" +
                                 "                       <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
@@ -313,7 +314,8 @@
                     $(".useNumber").html(result.useNumber);
                     var busNumber = Number(result.busNumber1) + '座  '
                         + (result.busNumber2 == 0 ? "" : (Number(result.busNumber2) + '座  '))
-                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '));
+                        + (result.busNumber3 == 0 ? "" : (Number(result.busNumber3) + '座  '))
+                        + '*' + (Number(result.busNumber) + '辆');
                     $(".busNumber").html(busNumber);
                     var typeName = result.typeName;
                     $(".type").html(typeName);
