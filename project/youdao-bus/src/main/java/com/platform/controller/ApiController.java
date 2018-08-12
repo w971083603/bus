@@ -1248,7 +1248,8 @@ public class ApiController extends BaseController {
         ResponseWrapper result = ResponseWrapper.succeed(true);
         try {
             PageData pd = this.getPageData();
-            int n = orderMapper.addLicensePlate(pd.getString("orderUuid"), pd.getString("licensePlate"), pd.getString("busPhone"));
+            int n = orderMapper.addLicensePlate(pd.getString("orderUuid"), pd.getString("licensePlate"), pd.getString("busPhone")
+                    , pd.getString("busName"));
             if (n == 0) return ResponseEntity.ok(ResponseWrapper.failed(-1, "订单报价失败"));
             //订单详情
             PageData orderPd = orderMapper.getUserPhoneForOrder(pd);

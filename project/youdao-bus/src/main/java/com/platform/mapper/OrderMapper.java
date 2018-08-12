@@ -58,8 +58,8 @@ public interface OrderMapper {
     @Update("update t_orders set  contract_over = #{contractOver},write_time = now()  where order_uuid = #{orderUuid}")
     int updateOrderForContractOver(@Param("orderUuid") String orderUuid, @Param("contractOver") String contractOver);
 
-    @Update("update t_orders set  bus_phone = #{busPhone},license_plate = #{licensePlate},write_time = now()  where order_uuid = #{orderUuid}")
-    int addLicensePlate(@Param("orderUuid") String orderUuid, @Param("licensePlate") String licensePlate, @Param("busPhone") String busPhone);
+    @Update("update t_orders set  bus_phone = #{busPhone},license_plate = #{licensePlate},bus_name = #{busName},write_time = now()  where order_uuid = #{orderUuid}")
+    int addLicensePlate(@Param("orderUuid") String orderUuid, @Param("licensePlate") String licensePlate, @Param("busPhone") String busPhone, @Param("busName") String busName);
 
     PageData getUserPhoneForOrder(PageData pd);
 }

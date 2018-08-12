@@ -21,55 +21,56 @@
 
     <select id="selectByOrderUuid" parameterType="com.platform.commons.utils.PageData"
             resultType="com.platform.commons.utils.PageData">
-        	select
-                a.type,
-                CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
-                order_uuid AS orderUuid,
-                user_uuid AS uuid,
-                ifnull(a.from_time,'') AS fromTime,
-                ifnull(a.to_time,'') AS toTime,
-                ifnull(a.from_province,'') AS fromProvince,
-                ifnull(a.from_city,'') AS fromCity,
-                ifnull(a.from_area,'') AS fromArea,
-                ifnull(a.from_address,'') AS fromAddress,
-                ifnull(a.to_province,'') AS toProvince,
-                ifnull(a.to_city,'') AS toCity,
-                ifnull(a.to_area,'') AS toArea,
-                ifnull(a.to_address,'') AS toAddress,
-                ifnull(a.contact_tel,'') AS contactTel,
-                ifnull(a.contact_name,'') AS contactName,
-                ifnull(a.is_invoice,'') AS isInvoice,
-                ifnull(a.invoice_header,'') AS invoiceHeader,
-                ifnull(a.invoice_contact,'') AS invoiceContact,
-                ifnull(a.invoice_phone,'') AS invoicePhone,
-                ifnull(a.invoice_address,'') AS invoiceAddress,
-                ifnull(a.invoice_duty,'') AS invoiceDuty,
-                ifnull(a.use_number,'') AS useNumber,
-                ifnull(a.bus_number,'') AS busNumber,
-                ifnull(a.bus_number1,'') AS busNumber1,
-                ifnull(a.bus_number2,'') AS busNumber2,
-                ifnull(a.bus_number3,'') AS busNumber3,
-                ifnull(a.remarks,'') as remarks,
-                a.create_time AS createTime,
-                a.status,
-                a.finish_time AS finishTime,
-                ifnull(a.feet_by,'') AS feetBy,
-                ifnull(a.feet_money,'') AS feetMoney,
-                ifnull(a.feet_time,'') AS feetTime,
-                ifnull(a.feet_remarks,'') AS feetRemarks,
-                ifnull(a.audit_remarks,'') AS auditRemarks,
-                ifnull(a.audit_money,'') AS auditMoney,
-                ifnull(a.audit_by,'') AS auditBy,
-                ifnull(a.audit_time,'') AS auditTime,
-                ifnull(a.license_plate,'') as licensePlate,
-                ifnull(a.bus_phone,'') as busPhone
+        select
+        a.type,
+        CASE WHEN a.type = 1 THEN '包车服务' ELSE '单接送服务' END AS typeName,
+        order_uuid AS orderUuid,
+        user_uuid AS uuid,
+        ifnull(a.from_time,'') AS fromTime,
+        ifnull(a.to_time,'') AS toTime,
+        ifnull(a.from_province,'') AS fromProvince,
+        ifnull(a.from_city,'') AS fromCity,
+        ifnull(a.from_area,'') AS fromArea,
+        ifnull(a.from_address,'') AS fromAddress,
+        ifnull(a.to_province,'') AS toProvince,
+        ifnull(a.to_city,'') AS toCity,
+        ifnull(a.to_area,'') AS toArea,
+        ifnull(a.to_address,'') AS toAddress,
+        ifnull(a.contact_tel,'') AS contactTel,
+        ifnull(a.contact_name,'') AS contactName,
+        ifnull(a.is_invoice,'') AS isInvoice,
+        ifnull(a.invoice_header,'') AS invoiceHeader,
+        ifnull(a.invoice_contact,'') AS invoiceContact,
+        ifnull(a.invoice_phone,'') AS invoicePhone,
+        ifnull(a.invoice_address,'') AS invoiceAddress,
+        ifnull(a.invoice_duty,'') AS invoiceDuty,
+        ifnull(a.use_number,'') AS useNumber,
+        ifnull(a.bus_number,'') AS busNumber,
+        ifnull(a.bus_number1,'') AS busNumber1,
+        ifnull(a.bus_number2,'') AS busNumber2,
+        ifnull(a.bus_number3,'') AS busNumber3,
+        ifnull(a.remarks,'') as remarks,
+        a.create_time AS createTime,
+        a.status,
+        a.finish_time AS finishTime,
+        ifnull(a.feet_by,'') AS feetBy,
+        ifnull(a.feet_money,'') AS feetMoney,
+        ifnull(a.feet_time,'') AS feetTime,
+        ifnull(a.feet_remarks,'') AS feetRemarks,
+        ifnull(a.audit_remarks,'') AS auditRemarks,
+        ifnull(a.audit_money,'') AS auditMoney,
+        ifnull(a.audit_by,'') AS auditBy,
+        ifnull(a.audit_time,'') AS auditTime,
+        ifnull(a.license_plate,'') as licensePlate,
+        ifnull(a.bus_phone,'') as busPhone,
+        ifnull(a.bus_name,'') as busName
         FROM
         t_orders a
         WHERE
-          a.order_uuid = #{orderUuid}
-          <if test="uuid != null and uuid != ''">
-              and a.user_uuid = #{uuid}
-          </if>
+        a.order_uuid = #{orderUuid}
+        <if test="uuid != null and uuid != ''">
+            and a.user_uuid = #{uuid}
+        </if>
     </select>
 
     <select id="countOrder" parameterType="com.platform.commons.utils.PageData"
@@ -146,6 +147,7 @@
                 ifnull(a.audit_by,'') AS auditBy,
                 ifnull(a.audit_time,'') AS auditTime,
                 ifnull(a.license_plate,'') as licensePlate,
+                ifnull(a.bus_name,'') as busName,
                 ifnull(a.bus_phone,'') as busPhone,
                 ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
         FROM
@@ -200,6 +202,7 @@
                 ifnull(a.audit_by,'') AS auditBy,
                 ifnull(a.audit_time,'') AS auditTime,
                 ifnull(a.license_plate,'') as licensePlate,
+                 ifnull(a.bus_name,'') as busName,
                 ifnull(a.bus_phone,'') as busPhone,
                 ifnull((select b.amount from t_order_fleet b where a.order_fleet_id = b.id),'') as amount
         FROM
@@ -255,7 +258,8 @@
         ifnull(a.audit_time,'') AS auditTime,
         ifnull(a.license_plate,'') as licensePlate,
         ifnull(a.bus_phone,'') as busPhone,
-        "-" as amount
+        ifnull(a.bus_name,'') as busName,
+        "0" as amount
         FROM
         t_orders a
         WHERE
@@ -307,6 +311,7 @@
         ifnull(a.audit_by,'') AS auditBy,
         ifnull(a.audit_time,'') AS auditTime,
         ifnull(a.license_plate,'') as licensePlate,
+        ifnull(a.bus_name,'') as busName,
         ifnull(a.bus_phone,'') as busPhone,
         b.amount
         FROM

@@ -766,10 +766,12 @@ a:hover {
 }
 .detailorder{
     width: 62%;height: 400px;background-color: rgb(214, 214, 214);position: absolute;top: 0;left: 18%;overflow-y: scroll;
-    display: none;
+    display: none;height: 530px;
 }
 .detailorder ul li{
-    padding-left: 20px;    line-height: 28px;
+    padding-left: 20px;
+    line-height: 20px;
+    margin-bottom: 5px;
 }
 
 .fbxcBtnclose{
@@ -782,8 +784,17 @@ a:hover {
 .busBtnclose{
     width: 188px;
     height: 45px;
+    background-color: #b8b9b8;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+.busBtnsure{
+    width: 188px;
+    height: 45px;
     background-color: #80c269;
     border-radius: 5px;
+    margin-top: 25px;
 }
 
 

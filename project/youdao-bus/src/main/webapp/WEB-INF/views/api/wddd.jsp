@@ -41,6 +41,7 @@
                 <td class="wddd_div_tableTime lianxxx" style="display: none">报价金额</td>
                 <td class="wddd_div_tableTime lianxxx" style="display: none">车牌号</td>
                 <td class="wddd_div_tableTime lianxxx" style="display: none">联系电话</td>
+                <td class="wddd_div_tableTime lianxxx" style="display: none">联系人</td>
             </tr>
             </thead>
             <tbody class="orderlist">
@@ -184,7 +185,8 @@
                             } else if (status == "5") {
                                 lianxxx = "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                     "                         <td class=\"wddd_div_tableTime\">" + result.list[i].licensePlate + "</td>" +
-                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>";
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>" +
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busName + "</td>";
                                 $(".lianxxx").show();
                                 $(".cztd").html("出行确认");
                                 changeFleet = " <td class='wddd_div_tableTime'>" +
@@ -193,12 +195,14 @@
                             } else if (status == "4") {
                                 lianxxx = "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                     "                         <td class=\"wddd_div_tableTime\">" + result.list[i].licensePlate + "</td>" +
-                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>";
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>" +
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busName + "</td>";
                                 $(".lianxxx").show();
                             } else if (status == "3") {
                                 lianxxx = "                         <td class=\"wddd_div_tableTime\">" + result.list[i].amount + "</td>" +
                                     "                         <td class=\"wddd_div_tableTime\">" + result.list[i].licensePlate + "</td>" +
-                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>";
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busPhone + "</td>" +
+                                    "                         <td class=\"wddd_div_tableTime\">" + result.list[i].busName + "</td>";
                                 $(".lianxxx").show();
                             }else if(status == "1"){
                                 djs = "<td class=\"wddd_div_tableTime2\">" +
