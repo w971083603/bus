@@ -126,7 +126,7 @@
                             <select name="toProvince" class="fbxcSelect" onchange="getToCity(this)">
                                 <option selected="selected" value="">请选择</option>
                             </select>
-                            <select name="toCity" class="fbxcSelect">
+                            <select name="toCity" class="fbxcSelect"  onchange="getToDistrict(this)">
                                 <option selected="selected" value="">请选择</option>
                             </select>
                             <select name="toArea" class="fbxcSelect">
