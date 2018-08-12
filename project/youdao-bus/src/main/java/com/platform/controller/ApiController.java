@@ -937,9 +937,9 @@ public class ApiController extends BaseController {
                     fleetPd.put("fleetName", "车队" + NumberChangeToChinese.numberToChinese(i + 1));
                 }
                 orderpd.put("fleetList", fleetList);
-                long createTime = DateUtil.fomatDate2(orderpd.get("createTime").toString()).getTime() / 1000;
+                long writeTime = DateUtil.fomatDate2(orderpd.get("writeTime").toString()).getTime() / 1000;
                 long nowTime = new Date().getTime() / 1000;
-                long lessTime = 5 * 60 - (nowTime - createTime);
+                long lessTime = 5 * 60 - (nowTime - writeTime);
                 orderpd.put("time", lessTime < 0 ? 0 : lessTime);
             }
             orderList.put("list", list);
@@ -986,9 +986,9 @@ public class ApiController extends BaseController {
             PageData configpd = configMapper.select();
             int minute = configpd.getInteger("minute");
             for (PageData orderpd : list) {
-                long createTime = DateUtil.fomatDate2(orderpd.get("createTime").toString()).getTime() / 1000;
+                long writeTime = DateUtil.fomatDate2(orderpd.get("writeTime").toString()).getTime() / 1000;
                 long nowTime = new Date().getTime() / 1000;
-                long lessTime = minute * 60 - (nowTime - createTime);
+                long lessTime = minute * 60 - (nowTime - writeTime);
                 orderpd.put("time", lessTime < 0 ? 0 : lessTime);
             }
             if (countOrderPd != null) {
