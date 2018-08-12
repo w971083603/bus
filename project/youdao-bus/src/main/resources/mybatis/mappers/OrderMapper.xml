@@ -261,7 +261,7 @@
         ifnull(a.bus_name,'') as busName,
         ifnull(b.amount,'') as amount
         FROM
-        t_orders a left  join  t_order_fleet b on a.order_uuid = b.order_id and b.user_uuid = #{uuidFleet} bu
+        t_orders a left  join  t_order_fleet b on a.order_uuid = b.order_id and b.user_uuid = #{uuidFleet}
         WHERE
         a.status in (1,2)
 

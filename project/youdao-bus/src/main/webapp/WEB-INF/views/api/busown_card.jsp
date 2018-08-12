@@ -231,13 +231,13 @@
                                 djs = "<td class=\"wddd_div_tableTime2\">" +
                                     "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)' class = 'timeSpanRed'>" + result.list[i].time + "</span></td>";
                             } else if (status == "3") {
-                                wcdd = "<button type=\"button\" onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成</button>";
+                                wcdd = "<button type=\"button\" class='busBtnYwc' onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成</button>";
                             }
                             var str = "<tr>" + djs +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].orderUuid + "</td>" +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].amount + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" +
-                                "   <button type=\"button\" onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
+                                "   <button type=\"button\" class='busBtnCkxq' onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
                                 wcdd + " </td>" +
                                 "</tr>";
                             $(".orderlist").append(str);
