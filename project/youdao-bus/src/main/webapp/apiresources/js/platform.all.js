@@ -96,6 +96,8 @@
      * @returns {string}
      */
     platform.timeStamp3String = function(time){
+        if(time == "" || time == null) return "";
+
         var datetime = new Date();
         datetime.setTime(time);
         var year = datetime.getFullYear();
