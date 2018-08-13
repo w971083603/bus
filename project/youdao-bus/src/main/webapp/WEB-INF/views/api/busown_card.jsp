@@ -86,6 +86,13 @@
                         <td class="wddd_div_tableInvoice">订单号</td>
                         <td class="wddd_div_tableInvoice">报价金额</td>
                         <td class="wddd_div_tableInvoice">操作</td>
+                        <%--<td class="wddd_div_tableInvoice">服务</td>--%>
+                        <%--<td class="wddd_div_tableCfd">出发地</td>--%>
+                        <%--<td class="wddd_div_tableCfd">目的地</td>--%>
+                        <%--<td class="wddd_div_tableInvoice">用车人数</td>--%>
+                        <%--<td class="wddd_div_tableInvoice">用车数量</td>--%>
+                        <%--<td class="wddd_div_tableTime">出发时间</td>--%>
+                        <%--<td class="wddd_div_tableTime">结束时间</td>--%>
                     </tr>
                     </thead>
                     <tbody class="orderlist">
@@ -124,10 +131,10 @@
                 <li class="roadTitel">
                     途径地：<span class="road"></span>
                 </li>
-                <li>
+                <li class="lxxli" style="display: none;">
                     联系人：<span class="contactName"></span>
                 </li>
-                <li>
+                <li class="lxxli" style="display: none;">
                     手机号码：<span class="contactTel"></span>
                 </li>
                 <li>
@@ -233,12 +240,23 @@
                             } else if (status == "3") {
                                 wcdd = "<button type=\"button\" class='busBtnYwc' onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成</button>";
                             }
+                            var busNumber = Number(result.list[i].busNumber1) + '座  '
+                                + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
+                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
+                                + "*" + result.list[i].busNumber + '辆  ';
                             var str = "<tr>" + djs +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].orderUuid + "</td>" +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].amount + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" +
                                 "   <button type=\"button\" class='busBtnCkxq' onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
                                 wcdd + " </td>" +
+                                // " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
+                                // "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
+                                // "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
+                                // "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>" +
+                                // "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>" +
+                                // "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>" +
+                                // "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
                                 "</tr>";
                             $(".orderlist").append(str);
                             $("#" + result.list[i].orderUuid).click();
@@ -415,7 +433,7 @@
                     } else {
                         $(".invoiceTitel").hide();
                     }
-
+                    $(".lxxli").hide();
                     $(".bjjeli").hide();
                     $(".addSomeInfor").hide();
                     $(".li").hide();
@@ -428,6 +446,7 @@
                             $(".amount").removeAttr("disabled");
                         }
                     } else if (status == "5") {
+                        $(".lxxli").show();
                         $(".addSomeInfor").show();
                         if (busPhone == "") {
                             $(".okxx").show();
@@ -436,11 +455,12 @@
                         $(".busPhone").removeAttr("disabled");
                         $(".licensePlate").removeAttr("disabled");
                     } else if (status == "3") {
+                        $(".lxxli").show();
                         $(".addSomeInfor").show();
                     } else if (status == "4") {
+                        $(".lxxli").show();
                         $(".addSomeInfor").show();
                     }
-
                 } else {
                     layer.msg(data.message, {icon: 2});
                     return;
