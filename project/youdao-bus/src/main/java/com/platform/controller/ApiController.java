@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -990,6 +987,16 @@ public class ApiController extends BaseController {
                 long nowTime = new Date().getTime() / 1000;
                 long lessTime = minute * 60 - (nowTime - writeTime);
                 orderpd.put("time", lessTime < 0 ? 0 : lessTime);
+                //出发时间（到天yyyy-MM-dd）、结束时间（到天yyyy-MM-dd）、出发地、目的地、途径地、天数（结束时间-出发时间）
+                String type = orderpd.getString("type");
+                orderpd.put("addressList", new ArrayList<>());
+                orderpd.put("godays", "");
+                if(type.equals("1")){
+                    List<PageData> addressList = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
+                    orderpd.put("addressList", addressList);
+                    int godays = DateUtil.getDayDiff(orderpd.get("fromTime").toString(), orderpd.get("toTime").toString());
+                    orderpd.put("godays", godays);
+                }
             }
             if (countOrderPd != null) {
                 bjOrder = countOrderPd.getBigDecimal("bjOrder").intValue();

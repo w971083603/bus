@@ -86,13 +86,12 @@
                         <td class="wddd_div_tableInvoice">订单号</td>
                         <td class="wddd_div_tableInvoice">报价金额</td>
                         <td class="wddd_div_tableInvoice">操作</td>
-                        <%--<td class="wddd_div_tableInvoice">服务</td>--%>
-                        <%--<td class="wddd_div_tableCfd">出发地</td>--%>
-                        <%--<td class="wddd_div_tableCfd">目的地</td>--%>
-                        <%--<td class="wddd_div_tableInvoice">用车人数</td>--%>
-                        <%--<td class="wddd_div_tableInvoice">用车数量</td>--%>
-                        <%--<td class="wddd_div_tableTime">出发时间</td>--%>
-                        <%--<td class="wddd_div_tableTime">结束时间</td>--%>
+                        <td class="wddd_div_tableTime">出发时间</td>
+                        <td class="wddd_div_tableTime">结束时间</td>
+                        <td class="wddd_div_tableCfd">出发地</td>
+                        <td class="wddd_div_tableCfd">目的地</td>
+                        <td class="wddd_div_tableInvoice">途径地</td>
+                        <td class="wddd_div_tableInvoice">天数</td>
                     </tr>
                     </thead>
                     <tbody class="orderlist">
@@ -233,6 +232,14 @@
                         for (var i = 0; i < result.list.length; i++) {
                             console.log(result.list[i]);
                             var wcdd = "";
+                            var road = "";
+                            for (var i = 0; i < roadList.length; i++) {
+                                if (road == '') {
+                                    road = roadList[i].address;
+                                } else {
+                                    road += "，" + roadList[i].address;
+                                }
+                            }
                             var djs = " <td class=\"wddd_div_tableTime2\" style='display:none;'></td>";
                             if (status == "1") {
                                 djs = "<td class=\"wddd_div_tableTime2\">" +
@@ -240,23 +247,19 @@
                             } else if (status == "3") {
                                 wcdd = "<button type=\"button\" class='busBtnYwc' onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成</button>";
                             }
-                            var busNumber = Number(result.list[i].busNumber1) + '座  '
-                                + (result.list[i].busNumber2 == 0 ? "" : "/" + (Number(result.list[i].busNumber2) + '座  '))
-                                + (result.list[i].busNumber3 == 0 ? "" : "/" + (Number(result.list[i].busNumber3) + '座  '))
-                                + "*" + result.list[i].busNumber + '辆  ';
                             var str = "<tr>" + djs +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].orderUuid + "</td>" +
                                 "<td class=\"wddd_div_tableInvoice\" >" + result.list[i].amount + "</td>" +
                                 " <td class=\"wddd_div_tableInvoice\">" +
                                 "   <button type=\"button\" class='busBtnCkxq' onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
                                 wcdd + " </td>" +
-                                // " <td class=\"wddd_div_tableInvoice\">" + result.list[i].typeName + "</td>" +
-                                // "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
-                                // "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
-                                // "                         <td class=\"wddd_div_tableInvoice\">" + result.list[i].useNumber + "</td>" +
-                                // "                         <td class=\"wddd_div_tableInvoice\">" + busNumber + "</td>" +
-                                // "                         <td class=\"wddd_div_tableTime\">" + result.list[i].fromTime + "</td>" +
-                                // "                         <td class=\"wddd_div_tableTime\">" + result.list[i].toTime + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + platform.timeStamp3String(result.list[i].fromTime) + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + platform.timeStamp3String(result.list[i].toTime) + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" + road + "</td>" +
+                                "                         <td class=\"wddd_div_tableInvoice\">" +  result.list[i].godays  + "</td>" +
+
                                 "</tr>";
                             $(".orderlist").append(str);
                             $("#" + result.list[i].orderUuid).click();

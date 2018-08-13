@@ -138,6 +138,29 @@ public class DateUtil {
     }
 
     /**
+     * 获取时间差值
+     * @param smdate
+     * @param bdate
+     * @return
+     */
+    public static Integer getDayDiff(String smdate,String bdate) {
+        long between_days = 0L;
+        try {
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(sdf.parse(smdate));
+            long time1 = cal.getTimeInMillis();
+            cal.setTime(sdf.parse(bdate));
+            long time2 = cal.getTimeInMillis();
+            between_days=(time2-time1)/(1000*3600*24);
+            System.out.println();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
+    /**
      * 取得指定日期所在周的第一天
      *
      * @param date
