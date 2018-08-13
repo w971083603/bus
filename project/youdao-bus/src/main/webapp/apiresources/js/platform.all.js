@@ -77,6 +77,25 @@
      * @param time
      * @returns {string}
      */
+    platform.StringDateString = function(time){
+        //创建时间格式化显示
+        var date = new Date(time);
+        var year = date.getFullYear(),
+            month = date.getMonth() + 1,//月份是从0开始的
+            day = date.getDate();
+        var newTime = year + '-' +
+            month + '-' +
+            day + ' ';
+        return newTime;
+    };
+
+
+
+    /**
+     * 时间转换（timeStamp转字符串）
+     * @param time
+     * @returns {string}
+     */
     platform.timeStamp2String = function(time){
         var datetime = new Date();
         datetime.setTime(time);

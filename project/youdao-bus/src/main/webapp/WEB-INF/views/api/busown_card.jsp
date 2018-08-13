@@ -78,8 +78,8 @@
                 </ul>
             </div>
 
-            <div class="wddd_div_table" style="overflow-y: scroll;overflow-x: hidden;">
-                <table class="tableOrder" style="width: 900px;">
+            <div class="wddd_div_table"  >
+                <table class="tableOrder" >
                     <thead>
                     <tr>
                         <td class="wddd_div_tableInvoice djs" style="display: none;">倒计时</td>
@@ -233,11 +233,12 @@
                             console.log(result.list[i]);
                             var wcdd = "";
                             var road = "";
-                            for (var i = 0; i < roadList.length; i++) {
+                            var roadList = result.list[i].roadList;
+                            for (var j = 0; j < roadList.length; j++) {
                                 if (road == '') {
-                                    road = roadList[i].address;
+                                    road = roadList[j].address;
                                 } else {
-                                    road += "，" + roadList[i].address;
+                                    road += "，" + roadList[j].address;
                                 }
                             }
                             var djs = " <td class=\"wddd_div_tableTime2\" style='display:none;'></td>";
@@ -253,8 +254,8 @@
                                 " <td class=\"wddd_div_tableInvoice\">" +
                                 "   <button type=\"button\" class='busBtnCkxq' onclick=\"detailorderAjax('" + result.list[i].orderUuid + "','" + result.list[i].amount + "')\">查看详情 </button> " +
                                 wcdd + " </td>" +
-                                "                         <td class=\"wddd_div_tableTime\">" + platform.timeStamp3String(result.list[i].fromTime) + "</td>" +
-                                "                         <td class=\"wddd_div_tableTime\">" + platform.timeStamp3String(result.list[i].toTime) + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + platform.StringDateString(result.list[i].fromTime) + "</td>" +
+                                "                         <td class=\"wddd_div_tableTime\">" + platform.StringDateString(result.list[i].toTime) + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].fromProvince + result.list[i].fromCity + result.list[i].fromArea + result.list[i].fromAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableCfd\">" + result.list[i].toProvince + result.list[i].toCity + result.list[i].toArea + result.list[i].toAddress + "</td>" +
                                 "                         <td class=\"wddd_div_tableInvoice\">" + road + "</td>" +

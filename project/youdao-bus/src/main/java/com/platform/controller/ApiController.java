@@ -989,11 +989,11 @@ public class ApiController extends BaseController {
                 orderpd.put("time", lessTime < 0 ? 0 : lessTime);
                 //出发时间（到天yyyy-MM-dd）、结束时间（到天yyyy-MM-dd）、出发地、目的地、途径地、天数（结束时间-出发时间）
                 String type = orderpd.getString("type");
-                orderpd.put("addressList", new ArrayList<>());
+                orderpd.put("roadList", new ArrayList<>());
                 orderpd.put("godays", "");
                 if(type.equals("1")){
                     List<PageData> addressList = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
-                    orderpd.put("addressList", addressList);
+                    orderpd.put("roadList", addressList);
                     int godays = DateUtil.getDayDiff(orderpd.get("fromTime").toString(), orderpd.get("toTime").toString());
                     orderpd.put("godays", godays);
                 }
