@@ -134,6 +134,7 @@ public class ApiController extends BaseController {
             session.setAttribute("type", userPd.get("type").toString());
             session.setAttribute("nickname", userPd.getString("nickname"));
             session.setAttribute("headerUrl", userPd.getString("headerUrl"));
+            session.setMaxInactiveInterval(-1);
             result = ResponseWrapper.succeed(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -859,6 +860,7 @@ public class ApiController extends BaseController {
             PageData orderPd = orderMapper.selectByOrderUuid(pd);
             List<PageData> list = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
             orderPd.put("roadList", list);
+            orderPd.put("godays", "");
             result = ResponseWrapper.succeed(orderPd);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1000,7 +1002,6 @@ public class ApiController extends BaseController {
                     if ((toTime - fromTime) % 24 > 0) {
                         lesstime = lesstime + 1;
                     }
-//                    double godays = DateUtil.getDayDiff(orderpd.get("fromTime").toString(), orderpd.get("toTime").toString());
                     orderpd.put("godays", lesstime);
                 }
             }
