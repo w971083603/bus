@@ -991,11 +991,17 @@ public class ApiController extends BaseController {
                 String type = orderpd.getString("type");
                 orderpd.put("roadList", new ArrayList<>());
                 orderpd.put("godays", "");
-                if(type.equals("1")){
+                if (type.equals("1")) {
                     List<PageData> addressList = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
                     orderpd.put("roadList", addressList);
-                    int godays = DateUtil.getDayDiff(orderpd.get("fromTime").toString(), orderpd.get("toTime").toString());
-                    orderpd.put("godays", godays);
+                    long fromTime = DateUtil.fomatDate2(orderpd.get("fromTime").toString()).getTime() / (1000 * 60 * 60);
+                    long toTime = DateUtil.fomatDate2(orderpd.get("toTime").toString()).getTime() / (1000 * 60 * 60);
+                    long lesstime = (toTime - fromTime) / 24; //小时单位
+                    if ((toTime - fromTime) % 24 > 0) {
+                        lesstime = lesstime + 1;
+                    }
+//                    double godays = DateUtil.getDayDiff(orderpd.get("fromTime").toString(), orderpd.get("toTime").toString());
+                    orderpd.put("godays", lesstime);
                 }
             }
             if (countOrderPd != null) {

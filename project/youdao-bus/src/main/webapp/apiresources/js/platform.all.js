@@ -73,20 +73,26 @@
 
 
     /**
-     * 时间转换（timeStamp转字符串）
+     * 时间转换（StringDateString）
      * @param time
      * @returns {string}
      */
     platform.StringDateString = function(time){
         //创建时间格式化显示
-        var date = new Date(time);
-        var year = date.getFullYear(),
-            month = date.getMonth() + 1,//月份是从0开始的
-            day = date.getDate();
-        var newTime = year + '-' +
-            month + '-' +
-            day + ' ';
-        return newTime;
+        // var date = new Date(time);
+        // var year = date.getFullYear(),
+        //     month = date.getMonth() + 1,//月份是从0开始的
+        //     day = date.getDate()
+        //     hour = date.getHours(),
+        //     min = date.getMinutes(),
+        //     sec = date.getSeconds();
+        // var newTime = year + '-' +
+        //     month + '-' +
+        //     day + ' ' +
+        //     hour + ':' +
+        //     min + ':' +
+        //     sec;
+        return time;
     };
 
 
