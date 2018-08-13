@@ -992,7 +992,7 @@ public class ApiController extends BaseController {
                 orderpd.put("roadList", new ArrayList<>());
                 orderpd.put("godays", "");
                 if (type.equals("1")) {
-                    List<PageData> addressList = addressMapper.selectByOrderUuid(pd.getString("orderUuid"));
+                    List<PageData> addressList = addressMapper.selectByOrderUuid(orderpd.getString("orderUuid"));
                     orderpd.put("roadList", addressList);
                     long fromTime = DateUtil.fomatDate2(orderpd.get("fromTime").toString()).getTime() / (1000 * 60 * 60);
                     long toTime = DateUtil.fomatDate2(orderpd.get("toTime").toString()).getTime() / (1000 * 60 * 60);
