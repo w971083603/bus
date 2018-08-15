@@ -231,6 +231,8 @@
                         }
                         for (var i = 0; i < result.list.length; i++) {
                             console.log(result.list[i]);
+                            var timeDjs =  result.list[i].time;
+                            if(result.list[i].status == "2") timeDjs = 0;
                             var wcdd = "";
                             var road = "";
                             var roadList = result.list[i].roadList;
@@ -244,7 +246,7 @@
                             var djs = " <td class=\"wddd_div_tableTime2\" style='display:none;'></td>";
                             if (status == "1") {
                                 djs = "<td class=\"wddd_div_tableTime2\">" +
-                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)' class = 'timeSpanRed'>" + result.list[i].time + "</span></td>";
+                                    "<span id='" + result.list[i].orderUuid + "' onclick='settime(this)' class = 'timeSpanRed'>" + timeDjs + "</span></td>";
                             } else if (status == "3") {
                                 wcdd = "<button type=\"button\" class='busBtnYwc' onclick=\"sureOrderGo('" + result.list[i].orderUuid + "')\">已完成</button>";
                             }
